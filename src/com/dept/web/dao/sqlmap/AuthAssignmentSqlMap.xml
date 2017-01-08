@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="AuthAssignment" >
+  <typeAlias alias="authAssignmentAlias" type="com.dept.web.dao.model.AuthAssignment"/>
+  <resultMap id="authAssignmentResult" class="authAssignmentAlias" >
+    <result column="id" property="id"  />
+    <result column="item_name" property="itemName"  />
+    <result column="user_id" property="userId"  />
+    <result column="created_at" property="createdAt"  />
+  </resultMap>
+</sqlMap>

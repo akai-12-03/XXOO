@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+		<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<title>钱功夫</title>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body class="mi">
+		<div class="title-top text-align-center">
+          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+          <span class="titleTitle">投资记录</span>
+          <span class="spanWhite"></span>
+     #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+     <script type="text/javascript">
+    	$(function(){
+    		var moreCellheiht=$(".more-cell").height();
+    		$(".more-cell").css("line-height",moreCellheiht+"px");
+    		var height=$(".labelHeight").height();
+    		$(".labelHeight").css("line-height",height+"px");
+    		var moreCellheiht2=$(".blackItem").height();
+    		$(".blackItem").css("line-height",moreCellheiht2+"px");
+    		$(".blackItem").each(function(){
+    			$(this).click(function(){
+    				var flag=$(this).hasClass("buleItem");
+    				if(flag==false){
+    					$(this).addClass("buleItem");
+    					$(this).siblings().removeClass("buleItem");
+    				}
+    			});
+    		});
+    	});
+    </script>
+    <div style="width: 100%;margin-top: 3%;height: 5%;">
+    	<div style="margin: 0 auto;width: 80%;height: 100%;">
+    		<div #if($mt==35) class="buleItem blackItem" #else class="blackItem" #end style="border-bottom-left-radius: 20px;border-top-left-radius: 20px;" onclick="window.location.href='${weburl}/webapp/myhome/toubiao.html'">
+    			全部项目
+    		</div><div #if($mt==36) class="buleItem blackItem" #else class="blackItem" #end class="blackItem" onclick="window.location.href='${weburl}/webapp/myhome/sklist.html?type=2'">
+    			完结项目
+    		</div><div #if($mt==37) class="buleItem blackItem" #else class="blackItem" #end class="blackItem" onclick="window.location.href='${weburl}/webapp/myhome/repaymentlist.html?status=0'">
+    			未收款明细
+    		</div><div #if($mt==38) class="buleItem blackItem" #else class="blackItem" #end class="blackItem" style="border-bottom-right-radius: 20px;border-top-right-radius: 20px;" onclick="window.location.href='${weburl}/webapp/myhome/repaymentlist.html?status=2'">
+    			已收款明细
+    		</div>
+    	</div>
+    </div>
+    <div class="list-item" style="margin-top: 3%;">
+    	<div>
+    		名称
+    	</div><div>
+    		预期收益率
+    	</div><div>
+    		购买金额
+    	</div><div>
+    		购买期限
+    	</div>
+    </div>
+    #foreach($item in ${borrowPage.result})
+	    <div class="list-item list-list">
+	    	<div>
+	    		<a href="$weburl/webapp/borrow/detail.html?id=$!item.borrowId">#if ($!item.borrow_name.length()>=10) #limit($!item.borrow_name 8)..  #else $!item.borrow_name  #end</a>
+	    	</div><div>
+	    		$item.apr%
+	    	</div><div>
+	    		#if ($item.account)$viewTool.format2JQStr($item.account)#else 0 #end
+	    	</div><div>
+	    		$!item.time_limit
+				#if($!item.isday ==1)
+					天
+				#else
+					个月
+				#end
+	    	</div>
+	    </div>
+    #end
+    
+    	<form id="borrowForm" name="borrowForm" action="$weburl/webapp/myhome/toubiao.html">
+			<input type="hidden" id="page" name="page"/>
+			#pagination($borrowPage 'borrowForm')
+		</form>
+	</body>
+</html>

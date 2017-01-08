@@ -1,0 +1,68 @@
+@charset: "utf-8";
+
+@import 'global.less';
+
+//form
+form{
+	.field{
+		@label-width: 75px;
+		display: block;
+		margin-bottom: 25px;
+		label{
+			display: inline-block;
+			width: @label-width;
+		}
+		~.tip{
+			display: block;
+			height: 1em;
+			margin-left: @label-width + 7px;
+			margin-top: -1.2em;
+		}
+		>.tip{
+			display: inline-block;
+			height: 1em;
+			text-align: left;
+			margin-left: 10px;
+			
+		}
+	}
+	.tip.correct{
+		color: #00A12D;
+		font-weight: bold;
+	}
+	.tip.error{
+		color: red;
+		font-weight: bold;
+	}
+}
+
+//input
+input:focus{
+	outline: none;
+}
+input[type=text],input[type=number],input[type=email],input[type=password]{
+	padding: 0 12/14em;
+	border: 1px solid rgb(154, 154, 154);
+	width: 10em;
+		transition: box-shadow .3s ease-in-out;
+	&:focus{
+		border-color: @lightblue;
+	}
+	&.error{
+		border-color: @red;
+		background-color: fadeout(@red, 90%);
+	}
+	&.warning{
+		border-color: @yellow-border;
+		background-color: fadeout(@yellow, 90%);
+	}
+}
+
+input[type=number]{
+	padding-right: 6/14em;
+}
+
+
+.input{
+	padding: .5em;
+}

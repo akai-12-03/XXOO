@@ -1,0 +1,143 @@
+#topbar('H')
+<div class="mid-width clearfix">
+    <div class="loan">
+        <div class="loan-main">
+            <h1>
+                债权转让：$!borrow.name
+                <!--<span class="union"><i class="icon user-union"></i> 知本担保战略合作&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon user-supervise"></i> 账户资金第三方监管</span>-->
+            </h1>
+            <div class="loan-content">
+                <div class="loan-detail-info">
+                    <label>转让金额:</label>
+                    <strong>
+                       $!marketmoney<span class="small">元</span>
+                    </strong>
+                </div>
+                <div class="loan-detail-info">
+                    <label>年利率:</label>
+                    <strong class="red" id="tender-apr" data-apr="$!borrow.apr">$!borrow.apr%<span class="small red"></span></strong>
+                </div>
+                <div class="loan-detail-info">
+                    <label>当前还款期:</label>
+                    <strong id="tender-time" data-num="$!borrow.timeLimit" data-unit="$!borrow.isDay">
+                              $!borrow.timeLimit</span><span class="small">#if($!borrow.isDay ==1)天#else个月#end</span>
+                          </strong>
+                </div>
+                <!--<div class="loan-detail-info ring">-->
+                <!--<span class="circle-progress">$borrow.scale</span>-->
+                <!--</div>-->
+                <div class="loan-detail-info">
+                    <label>剩余天数:</label>
+                    <strong class="red">$!{market.remainingDays}天<span class="small red"></span></strong>
+                </div>
+            </div>
+            <style type="text/css">
+            .pure-table td {
+                width: 200px;
+            }
+            
+            .pure-table .msg {
+                margin-left: 0!important;
+            }
+            </style>
+            <div class="loan-safe">
+                <table class="pure-table">
+                    <tbody>
+                        <tr>
+                            <td> <span class="title-gray">还款方式:</span>&nbsp;&nbsp;$statusTool.getBorrowRepaymentStyle($borrow.repaymentStyle)</td>
+                            <td><span class="title-gray">发布时间:</span>&nbsp;&nbsp;#limit($dateTool.getStr2($!borrow.verifyTime) 10)</td>
+                            <td style='width:285px;'><span class="title-gray">剩余待收金额:</span>&nbsp;&nbsp;$viewTool.format2JQStr($!market.collectionMoney)</td>
+                            <td style='width:165px;'><span class="msg"><a href=""> 由钱功夫提供</a> </span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="loan-opt">
+            <h1>
+                <br />
+                <span></span>
+            </h1>
+            <form class="pure-form" method="post" action="${weburl}/dept/acpmarket.html?marketId=$!marketId" style="position: relative;">
+                <input id="award" type="hidden" value="$!borrow.award" />
+                <input id="partAccount" type="hidden" value="$!borrow.partAccount" />
+                <input id="account" type="hidden" value="$!borrow.account" />
+                <input id="funds" type="hidden" value="$!borrow.funds" />
+                <div class="field">
+                    #if($!errormsg)
+                    <div id="tipBox" style="display:block;width:200%;left:-200%">
+                        <header class="clearfix"><a href="javascript:closewin()" class="close_btn">X</a></header>
+                        <div class="tip-content">
+                            <i class="icon icon-fail"></i> &nbsp;$!errormsg
+                        </div>
+                    </div>
+                    <div class="mask" style="display:block"></div>
+                    #end
+                    <div class="clearfix">
+                        <label class="float-left">
+                            账户余额 #if(!$!user)
+                            <span><a href="${weburl}/tologin.html">登录</a>后可查看余额</span> #else
+                            <span>$viewTool.format2JQStr($!ua.moneyUsable) 元 <input id="user_money" type="hidden" value="$!ua.moneyUsable"/></span> #end
+                        </label>
+                        <a class="pure-button float-right" href="${weburl}/myhome/charge.html" style="width:80px; background:#ad0000">充 值</a>
+                    </div>
+                    <div class="mt15 clearfix">
+                        <input type="tel" name="tendermoney" value="$!marketmoney" id="tendermoney" style="width:292px; box-shadow: none;" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" readonly="readonly" disabled="disabled">
+                    </div>
+                </div>
+                #if($borrow.borrowType == 5)
+                <i style="background-image: url('${weburl}/public/images/newperson.png');width: 64px;height: 64px;display: inline-block;background-repeat: no-repeat;position: absolute;right: 14px;top: -95px;"></i> #end #if($!market.status==0)
+                <button class="pure-button button-primary btn" id="marketButton">确认购买</button>
+                #else
+                <button class="pure-button" disabled="disabled">转让成功</button>
+                #end
+            </form>
+        </div>
+    </div>
+    <div class="loan-bottom">
+        <div class="tab">
+            <ul class="tab-header clearfix">
+                <li class="item active" data-tab="1">项目详情</li>
+                <li class="item" data-tab="2">风险控制</li>
+                <li class="item" data-tab="3">投资记录</li>
+            </ul>
+            <div class="tab-content active" data-tab="1">
+                <div class="detail-content-text data-tab1">
+                    <h3><span class="red">◆</span> 产品信息</h3> $!borrow.content
+                </div>
+            </div>
+            <div class="tab-content" data-tab="2">
+                <div class="detail-content-text data-tab2">
+                    <h3><span class="red">◆</span> 风险控制</h3> $!borrow.cpxq
+                </div>
+            </div>
+            <div class="tab-content" data-tab="3">
+                <div class="detail-content-text">
+                    <h3><span class="red">◆</span> 投资记录</h3>
+                    <table class="pure-table">
+                        <thead>
+                            <tr style="background:#eee;">
+                                <th>投资人</th>
+                                <th>投资金额(￥)</th>
+                                <th>投资时间</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            #foreach($tl in $tenderList)
+                            <tr>
+                                <td class="gray-bg">#if($!tl.username) $textTool.hideUsernameChar($!tl.username) #else -- #end</td>
+                                <td class="gray-bg">$tl.account</td>
+                                <td class="gray-bg">#limit($dateTool.getStr2($!tl.addtime) 10)</td>
+                            </tr>
+                            #end
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+#foot()
+<script>
+seajs.use('invest');
+</script>

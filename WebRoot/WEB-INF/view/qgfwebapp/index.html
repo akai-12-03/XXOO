@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+	<meta content="yes" name="apple-mobile-web-app-capable"/>
+	<meta content="yes" name="apple-touch-fullscreen"/>
+	<meta content="telephone=no" name="format-detection"/>
+	<meta content="black" name="apple-mobile-web-app-status-bar-style">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<meta name="MobileOptimized" content="320"/>
+    <script src="${weburl}/dist/libs/zepto.min.js"></script>
+    <script src="${weburl}/dist/libs/jquery.js"></script>
+    <script src="${weburl}/dist/libs/raphael-min.js"></script>
+    <script src="${weburl}/dist/libs/progre.js"></script>
+    <script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+	<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+    <title>钱功夫</title>
+</head>
+<body onload="crl()">
+	<div class="title-top">
+	#rightmenu()
+	<div class="glassMode" onclick="closeRight()"></div>
+		<img src="${weburl}/dist/images/logo.png" class="logo"/>
+		<span class="spanWhite"></span></div>	
+	<div>
+		<img src="${weburl}/dist/images/banner.jpg" width="100%" class="bannerImg"/>
+	</div>
+	#foreach($b in $!boList)
+	<div class="biaoTitle">$b.name</div>
+	<div class="glass"><div class="biaoIcon float-right">
+		项目金额：$viewTool.format1SD2($b.account)
+	</div></div><div class="glass"><div class="biaoIcon float-left">
+		期限：#if($!b.isDay=='1')
+                   $!b.timeLimit天
+             #else
+                   $!b.timeLimit个月
+             #end
+	</div></div>
+	<div class="proc">
+        <div class="bill-goods-list">
+            <div class="process-wrap">
+                <div class="process-con"></div>
+                <div class="process-num" style="display: none;"></div>
+                      <p style="display: none;" id="pasent">$b.scales</p>
+            </div>
+        </div>
+    </div>
+    <div class="biaoText">
+    	预期年化率<span>$viewTool.formatOneStr($!b.apr)
+    						%#if($!b.award == 0)
+			              	#elseif($!b.award == 2)
+			              		#if($!b.partAccount)
+			              			+$viewTool.formatOneStr(${b.partAccount})%
+			              		#else
+			              		#end
+			              	#else
+			              		#if($!b.funds)
+			              		+$viewTool.format1SD2(${b.funds})
+			              		#else
+			              		#end
+			            #end</span>
+    </div>
+    <div class="start">
+    	<div onclick="window.location.href='$weburl/webapp/borrow/detail.html?id=$!b.id'">
+    		开始赚钱
+    	</div>
+    </div>
+   	#end
+</body>
+</html>

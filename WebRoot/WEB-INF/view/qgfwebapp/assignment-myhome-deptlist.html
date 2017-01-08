@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="MobileOptimized" content="320" />
+    <link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css" />
+    <title>钱功夫</title>
+    <script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+    .list-item {
+        padding: 5px 0;
+        border-bottom: 1px solid #e1e1e1;
+    }
+    
+    .btn {
+        color: white;
+        background-color: #267dff;
+        padding: 8px 20px;
+        font-size: 12px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+        width: 20%;
+        text-align: center;
+        margin-top: 0 !important;
+        position: relative;
+        right: 7px;
+    }
+    
+    .tab-header > li {
+        float: left;
+        width: 33.33%;
+        text-align: center;
+        list-style: none;
+        background-color: #6B9CC6;
+        border-radius: 10px;
+    }
+    
+    .active {
+        background-color: orange!important;
+    }
+    
+    .tab-header > li > a {
+        color: white;
+        text-decoration: none;
+    }
+    
+    .list-item > div {
+        width: 20%!important;
+    }
+    </style>
+    <!--<script>-->
+    <!--$(function() {-->
+    <!--$(".list-onclick").on("click", function() {-->
+    <!--var a = $(this).siblings().filter(".list-onclick");-->
+    <!--a.css("backgroundColor", "#e1e1e1");-->
+    <!--a.next().css("display", "none");-->
+    <!--$(this).css("backgroundColor", "white");-->
+    <!--$(this).next().fadeIn();-->
+    <!--});-->
+    <!--});-->
+    <!--</script>-->
+</head>
+
+<body class="mi">
+    <div class="title-top text-align-center">
+        <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'" /> <span class="titleTitle">债权转让</span> <span class="spanWhite"></span> #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+    <div style="width: 100%; margin-top: 3%; height: 5%;">
+        <div style="margin: 0 auto; width: 100%; height: 100%;">
+            <ul class="user-nav-tabs-top tab-header clearfix">
+                <li #if($mt==31) class="item active" #else class="item" #end data-tab="1"><a href="${weburl}/webapp/myhome/tenderSearch.html">可转让债权</a>
+                </li>
+                <li #if($mt==32) class="item active" #else class="item" #end data-tab="2"><a href="${weburl}/webapp/myhome/marketsearch.html">已转让债权</a>
+                </li>
+                <li #if($mt==33) class="item active" #else class="item active" #end data-tab="3"><a href="${weburl}/webapp/myhome/debtTransferSearch.html">已承接债权</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div style='font-size: 12px;text-align: center;font-weight: bold;color:#999;'>1.逾期标不可转让<br>2.部分或全部本金已经还款的标不支持债权转让<br>3.部分标不属于可转让类型则不支持放入转让市场<br>
+        4.已承接的转让不得进行二次转让</div>
+    <div class="list-item" style="margin-top: 3%; font-size: 0;">
+        <!-- 		<div>债权ID</div>
+		<div>标编号</div> -->
+        <div>原债权人</div>
+        <div>转让价格</div>
+        <div>待收总额</div>
+        <div>剩余期数</div>
+        <div>受让时间</div>
+    </div>
+    #foreach($borrow in ${deptTransferPage.result})
+    <div class="list-item list-onclick" style="font-size: 0;">
+        <!-- 	<div>$!borrow.id</div>
+		<div>$!borrow.tenderId</div> -->
+        <div>$!borrow.username</div>
+        <div>$!borrow.transferPrice</div>
+        <div>$numberTool.format($!borrow.advanceInterest)</div>
+        <div>$!borrow.repayOrder</div>
+        <div>#limit($dateTool.getStr2($!borrow.createdAt) 10)</div>
+    </div>
+    #end
+    <!-- <div class="list-item list-onclick" style="font-size: 0;">
+    <div>
+        钱功夫01
+    </div>
+    <div>
+        6.5%
+    </div>
+    <div>
+        35.00
+    </div>
+    <div>
+        2015-6-30
+    </div>
+</div>
+<div class="list-item" style="font-size: 0;text-align: right;display: none;background-color: white;">
+    <a href="" class="btn">转让</a>
+</div> -->
+    <form id="borrowForm" name="borrowForm" action="${weburl}/webapp/myhome/debtTransferSearch.html">
+        <input type="hidden" id="page" name="page" /> #pagination($deptTransferPage 'borrowForm')
+    </form>
+</body>
+
+</html>

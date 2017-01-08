@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<title>钱功夫</title>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body class="mi">
+	<script type="text/javascript">
+    	$(function(){
+    		var moreCellheiht=$(".more-cell").height();
+    		$(".more-cell").css("line-height",moreCellheiht+"px");
+    		var height=$(".labelHeight").height();
+    		$(".labelHeight").css("line-height",height+"px");
+    		var moreCellheiht2=$(".blackItem").height();
+    		$(".blackItem").css("line-height",moreCellheiht2+"px");
+/*     		$(".information-title").each(function(){
+    			$(this).click(function(){
+    				var flag=$(this).hasClass("information-title-click");
+    				if(flag==false){
+    					$(this).addClass("information-title-click");
+    					$(this).siblings().removeClass("information-title-click");
+    				}
+    			});
+    		});
+    	}); */
+    </script>
+		<div class="title-top text-align-center">
+	          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+	          <span class="titleTitle">行业资讯</span>
+	          <span class="spanWhite"></span>
+	     #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+	 
+<!--	    #foreach($us in $sitelist)
+	<div style="width: 100%;margin-top: 3%;height: 5%;">
+    	<div style="margin: 0 auto;width: 50%;height: 100%;">
+    		<div onclick="window.location.href='${weburl}/webapp/about/hyzx.html?flag=$us.nid'" #if($flag==$us.nid) class=" blackItem buleItem" #else class="blackItem" #end style="border-bottom-left-radius: 20px;border-top-left-radius: 20px;">
+    			$us.name
+    		</div> <div  class=" blackItem" class="blackItem" style="border-bottom-right-radius: 20px;border-top-right-radius: 20px;">
+    			政策声音
+    		</div> 
+    	</div>
+    </div>
+    #end-->
+    #foreach($us in $sitelist)<span onclick="window.location.href='${weburl}/webapp/about/hyzx.html?flag=$us.nid'" #if($flag==$us.nid)  class="information-title information-title-click" #else class="information-title" #end>$us.name</span>#end<!-- <span class="information-title">
+    	政策声音
+    </span>
+	     -->
+		<form id="borrowForm" name="borrowForm" action="$weburl/webapp/about/hyzx.html?flag=$flag">
+		<input type="hidden" id="page" name="page" value="$!page"/>
+		<input type="hidden" id="flag" name="flag" value="$!flag"/>
+			#if($!{artpage.getResult().size()} >0 )
+				#foreach($art in $artpage.getResult())
+					<div class="more-cell" onclick="window.location.href='$weburl/webapp/about/hyzxdetail.html?id=$art.id&flag=$flag'">
+		    		<span class="moreTextdeliy">$art.name</span><img src="${weburl}/dist/images/go.png" class="go"/>
+		        	</div>
+				#end
+			#end
+			#pagination($artpage, 'borrowForm')
+		</form>
+	</body>
+</html>

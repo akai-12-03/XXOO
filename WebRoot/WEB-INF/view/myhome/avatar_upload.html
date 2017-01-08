@@ -1,0 +1,110 @@
+#topbar("G")
+#user_sidebar("14")
+			<div class="user-page">
+				<div class="user-profile">
+					<nav class="user-nav-tabs">
+						<a href="#" class="active">头像上传</a>
+					</nav>
+					<form class="avatar-form page-block clearfix" action="${weburl}/uploadPic.html" method="post" enctype="multipart/form-data">
+						<div class="avatar-img field" id="avatar-img">
+							<img class="avatar-preview" id="avatar-preview" #if($session.getAttribute('userInSession').bigPic == "" || !$session.getAttribute('userInSession').bigPic)  src="${weburl}/public/images/user-avatar.png"   #else src="${weburl}$session.getAttribute('userInSession').bigPic" #end width="143" height="143">
+							<br>
+							<br>
+							<a class="pure-button button-primary">选择照片</a>
+							<p class="upload-text"> &nbsp;选择本地照片，上传编辑自己的头像</p>
+						</div>
+						<div class="field">
+							<input class="hide" type="file" name="imgFile" onchange="previewImage(this)">
+							<div class="upload-action">
+								<button class="pure-button button-primary" type="submit">保存头像</button>
+							</div>
+							<input type="hidden" id="filevalue" name='filevalue' required>
+							<p class="upload-text">仅支持JPG、JPEG、PNG格式（2M以下）</p>
+						</div>
+					</form>
+				#if($!msg)
+				<div id="tipBox" style="display:block;">
+					<header class="clearfix"><a href="javascript:closewin()" class="close_btn">X</a></header>
+					<div class="tip-content">
+						<p>#if($!msg.indexOf("成功")>0) <i class="icon icon-success"></i> #else <i class="icon icon-fail"></i> #end &nbsp;$!msg</p>
+					</div>
+				</div>
+				<div class="mask" style="display:block"></div>
+				#end
+				</div>
+			</div>
+		</div>
+#foot()
+		<script>
+			seajs.use("myhome");
+			$(function() {
+				$('.avatar-img').click(function() {
+					$('.avatar-form input[type=file]').trigger('click');
+				})
+			})
+			//图片上传预览    IE是用了滤镜。
+			function previewImage(file) {
+				var MAXWIDTH = 260;
+				var MAXHEIGHT = 180;
+				var div = document.getElementById('avatar-img');
+				if (file.files && file.files[0]) {
+					document.getElementById('filevalue').value = file.value;
+					div.innerHTML = '<img id=avatar-preview>';
+					var img = document.getElementById('avatar-preview');
+					img.onload = function() {
+						var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT,
+								img.offsetWidth, img.offsetHeight);
+						img.width = 150;
+						img.height = 150;
+						//img.style.marginLeft = rect.left+'px';
+						img.style.marginTop = rect.top + 'px';
+					}
+					var reader = new FileReader();
+					reader.onload = function(evt) {
+						img.src = evt.target.result;
+					}
+					reader.readAsDataURL(file.files[0]);
+				} else //兼容IE
+				{
+					var sFilter = 'filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src="';
+					file.select();
+					var src = document.selection.createRange().text;
+					div.innerHTML = '<img id=avatar-preview>';
+					var img = document.getElementById('avatar-preview');
+					img.filters
+							.item('DXImageTransform.Microsoft.AlphaImageLoader').src = src;
+					var rect = clacImgZoomParam(MAXWIDTH, MAXHEIGHT,
+							img.offsetWidth, img.offsetHeight);
+					status = ('rect:' + rect.top + ',' + rect.left + ','
+							+ rect.width + ',' + rect.height);
+					div.innerHTML = "<div id=divhead style='width:"+rect.width+"px;height:"+rect.height+"px;margin-top:"+rect.top+"px;"+sFilter+src+"\"'></div>";
+				}
+			}
+			function clacImgZoomParam(maxWidth, maxHeight, width, height) {
+				var param = {
+					top : 0,
+					left : 0,
+					width : width,
+					height : height
+				};
+				if (width > maxWidth || height > maxHeight) {
+					rateWidth = width / maxWidth;
+					rateHeight = height / maxHeight;
+
+					if (rateWidth > rateHeight) {
+						param.width = maxWidth;
+						param.height = Math.round(height / rateWidth);
+					} else {
+						param.width = Math.round(width / rateHeight);
+						param.height = maxHeight;
+					}
+				}
+
+				param.left = Math.round((maxWidth - param.width) / 2);
+				param.top = Math.round((maxHeight - param.height) / 2);
+				return param;
+			}
+		</script>
+	</body>
+
+</html>

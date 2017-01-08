@@ -1,0 +1,54 @@
+<toolbox>
+<xhtml>true</xhtml>
+<tool>
+     <key>mathTool</key>
+     <scope>application</scope>
+     <class>org.apache.velocity.tools.generic.MathTool</class>
+</tool>
+<tool>
+     <key>dateTool</key>
+     <scope>application</scope>
+     <class>com.dept.web.general.util.TimeUtil</class>
+</tool>
+<tool>
+     <key>numberTool</key>
+     <scope>application</scope>
+     <class>com.dept.web.general.util.TextUtil</class>
+</tool>
+<tool>
+     <key>moneyTool</key>
+     <scope>application</scope>
+     <class>com.dept.web.general.util.MoneyToChinese</class>
+</tool>
+<tool>
+     <key>statusTool</key>
+     <scope>application</scope>
+     <class>com.dept.web.general.util.StatusUtils</class>
+</tool>
+<tool>
+     <key>jiaoyiType</key>
+     <scope>application</scope>
+     <class>com.dept.web.general.util.Jiaoyi</class>
+</tool>
+<tool>
+     <key>textTool</key>
+     <scope>application</scope>
+     <class>com.dept.web.general.util.TextUtil</class>
+</tool>
+
+<tool>
+     <key>viewTool</key>
+     <scope>application</scope>
+     <class>com.dept.web.general.util.NumberUtil</class>
+</tool>
+<tool>
+     <key>dateTools</key>
+     <scope>application</scope>
+     <class>com.dept.web.general.util.DateUtils</class>
+</tool>
+<tool>
+     <key>borrowtype</key>
+     <scope>application</scope>
+     <class>com.dept.web.general.util.BorrowType</class>
+</tool>
+</toolbox>

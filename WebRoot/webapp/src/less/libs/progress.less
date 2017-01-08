@@ -1,0 +1,123 @@
+@charset: 'utf-8';
+
+@progress-size: 12px*2;
+@mask-top: rgba(255, 255, 255, .35);
+@mask-bottom: rgba(255, 255, 255, .25);
+@color-default: rgb(255,165,75);
+@color-darken-default: #f78f28;
+@color-red: #f39617;
+@color-darken-red: #ec700d;
+@color-blue: #4f93ce;
+@color-darken-blue: hsl(208, 84%, 26%);
+@color-black: #333;
+@color-darken-black: #4D4D4D;
+@color-green: #78C478;
+@color-darken-green: #47a747;
+@color-orange: red;
+@color-darken-orange: #ea6a0b;
+
+
+@speed-1x: 2s;
+@speed-2x: 1s;
+@speed-3x: 0.5s;
+@speed-4x: 0.2s;
+.progress-maker(@height: 14px; @width: 150px; @color: @color-default; @color-darken: @color-darken-default){
+	height: @height;
+	width: @width;
+	border-radius: 50px;
+	overflow: hidden;
+	display: inline-block;
+	>.progress-value{
+		background-color: @color;
+		background-image: linear-gradient(to bottom, transparent, @mask-top 0%, @mask-bottom 25%, transparent 25%, transparent 100%),
+			linear-gradient(45deg, @color, @color 25%,
+			@color-darken 25%, @color-darken 50%,
+			@color 50%, @color 75%,
+			@color-darken 50%, @color-darken 100%
+		);
+		// filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=@color, endColorstr=@color-darken,GradientType=0);
+		background-size: @progress-size @progress-size;
+		box-shadow: inset 0 0 2px #6d6d6d;
+		border-radius: 50px;
+	}
+}
+.progress{
+	display: inline-block;
+	border-radius: 4px;
+	border: 1px solid #DDD;
+	background-color:#EEE;
+	>.progress-value{
+		border-radius: 3px;
+		height: 100%;
+		background-repeat: repeat-x;
+		background-position: 0 0;
+		transition: width 1.5s linear;
+		transition: background-position 1.5s linear;
+	}
+	&.animate>.progress-value{
+		animation: progress-gradient 2s linear infinite;
+		// animation-play-state: running;
+		// &:hover{
+		// 	animation-play-state: paused;
+		// }
+	}
+	&.speed-1x>.progress-value{
+		animation-duration: @speed-1x !important;
+	}
+	&.speed-2x>.progress-value{
+		animation-duration: @speed-2x !important;
+	}
+	&.speed-3x>.progress-value{
+		animation-duration: @speed-3x !important;
+	}
+	&.speed-4x>.progress-value{
+		animation-duration: @speed-4x !important;
+	}
+}
+
+.progress{
+	.progress-maker();
+}
+
+.progress.yellow{
+	.progress;
+}
+.progress.red{
+	.progress-maker(@color: @color-red; @color-darken: @color-darken-red);
+}
+
+.progress.blue{
+	.progress-maker(@color: @color-blue; @color-darken: @color-darken-blue);
+}
+
+.progress.black{
+	.progress-maker(@color: @color-black; @color-darken: @color-darken-black);
+}
+
+.progress.green{
+	.progress-maker(@color: @color-green; @color-darken: @color-darken-green);
+}
+
+
+.progress-ie{
+	background-image: url('../images/pbar-ani.gif');
+	background-size:24px 14px !important;
+}
+
+@keyframes progress-gradient{
+	0%{
+		background-position: 0 0;
+	}
+	100%{
+		background-position: @progress-size 0;
+	}
+}
+
+@-webkit-keyframes progress-gradient{
+	0%{
+		background-position: 0 0;
+	}
+	100%{
+		background-position: @progress-size 0;
+	}
+}

@@ -1,0 +1,56 @@
+#topbar("G");
+#user_sidebar("21")
+			<div class="user-page">
+				<div class="user-profile">
+					<nav class="user-nav-tabs">
+						<a href="#" class="active">充值</a>
+					</nav>
+					<form class="pure-form form  recharge" method="post" action="${weburl}/qddApi/toLoanRecharge.html">
+						 <input type="hidden" name="moneymoremoreId" value="$!user.moneymoremoreId">
+						<div class="field">
+							<label class="realname" style="margin-left:1px;">真实姓名：</label>
+							<span class="name">$!user.realname</span>
+						</div>
+						<div class="field">
+							<label class="realname" style="margin-left:1px;">可用余额：</label>
+							<span class="name">¥$!ua.moneyUsable</span>
+						</div>
+						<span class="field">
+                          <label><span class="red">*</span>充值金额：</label>
+						<input type="text" id="chargeMoney" name="chargeMoney" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+						</span>
+						<span class="field mt15" style="margin-left:-110px;">
+                          <button class="pure-button button-primary">提 &nbsp;交</button>
+                      </span>
+					</form>
+					<div class="instruction mt100">
+						<h2>温馨提示</h2>
+						<h4>1.怎么用银行卡充值？</h4>
+						<p>答：需用已开通网银的银行储蓄卡充值。（目前支持的银行包括：工商银行、农业银行、中国银行、建设银行、交通银行、平安银行、光大银行、招商银行、北京银行、中信银行、兴业银行、广发银行、邮储银行、民生银行、华夏银行、浦发银行、上海银行、宁波银行、温州银行、杭州银行、富滇银行、上海农村商业银行、北京农村商业银行。）</p>
+						<h4>2.为什么我要先充值？</h4>
+						<p>答：因为您的账户需要有足够的资金才能投资，所以建议您尽早充值，才能确保您可以及时进行投资，不会错失良机！ </p>
+						<h4>3.我充值后，何时可以在钱功夫的账户内看到资金？</h4>
+						<p>答：个人客户充值一般会在2小时内到账。公司客户充值受银行工作时间的影响，非银行交易时间充值的一般在次交易日到账。</p>
+						<h4>4.我账户里的资金安全吗？</h4>
+						<p>答：为保证投资人的资金安全，钱功夫采用多管齐下的资金管理制度:</p>
+						<p>1.您可以实时查询到资金账户的详情，且资金只能转出到您绑定过的银行账号;
+							<br /> 2.内部制定了严格的资金管理流程和完善安全的系统，网站采用国际领先的系统加密及保护技术，24小时监控。由第三方支付和银行为您的资金提供全流程托管服务。
+							<br /> 3.钱功夫是一个纯交易撮合平台，不设资金池，不触碰客户资金，并保持充分的独立性。
+						</p>
+					</div>
+				#if($!msg)
+				<div id="tipBox" style="display:block;">
+					<header class="clearfix"><a href="javascript:closewin()" class="close_btn">X</a></header>
+					<div class="tip-content">
+						<p>#if($!msg.indexOf("成功")>0) <i class="icon icon-success"></i> #else <i class="icon icon-fail"></i> #end &nbsp;$!msg</p>
+					</div>
+				</div>
+				<div class="mask" style="display:block"></div>
+				#end
+				</div>
+			</div>
+		</div>
+#foot()
+		<script>
+			seajs.use('myhome');
+		</script>

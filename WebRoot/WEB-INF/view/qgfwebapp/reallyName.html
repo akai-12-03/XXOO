@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<title>钱功夫</title>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body class="mi">
+	<div class="title-top text-align-center">
+          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+          <span class="titleTitle">实名认证</span>
+          <span class="spanWhite"></span>
+     #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+    #if($!user&&$!user.realVerifyStatus==1&&$!user.idCard)
+    	<form action="">
+			<div class="form" style="margin-top: 5%;">
+	    		<label for="chinese" class="labelHeight">姓名</label><div class="glass">$!user.realname</div>
+	    		<div class="tip"></div>
+	    	</div>
+	    	<div class="form">
+	    		<label for="shenfen" class="labelHeight">身份证号</label><div class="glass">$!user.idCard</div>
+	    		<div class="tip"></div>
+	    	</div>
+	    </form>
+    #else
+	    <form action="${weburl}/webapp/qddApi/toRegister.html" method="post">
+			<div class="form" style="margin-top: 5%;">
+	    		<label for="chinese" class="labelHeight">姓名</label><div class="glass"><input type="text" name="realname" id="chinese" placeholder="请输入真实姓名" class="inputText" required="required"/></div>
+	    		<div class="tip"></div>
+	    	</div>
+	    	<div class="form">
+	    		<label for="shenfen" class="labelHeight">身份证号</label><div class="glass"><input type="text" name="cardId" id="shenfen" placeholder="请输入身份证号码" class="inputText" required="required"/></div>
+	    		<div class="tip"></div>
+	    	</div>
+	    	<div class="btn">
+	    		<input type="submit" name="" id="" value="提交" />
+	    	</div>
+	    </form>
+	#end
+    	<script>
+    		$(function(){
+    			var flag1,flag2;
+    			$("#chinese").blur(function(){
+    				reg=/^([\u4e00-\u9fa5]){2,7}$/;
+    				var text=$(this).val();
+    				if(!text.match(reg)){
+    					$(this).parent().next(".tip").text("请输入正确的姓名");
+    					$("form").submit(false);
+    				}else{
+    					$(this).parent().next(".tip").text("");
+    					flag1=true;
+ 					    if(endFlag()==true){
+ 					    	$("form").off();
+ 					    }
+    				}
+    			});
+    			$("#shenfen").blur(function(){
+    				reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+    				var text=$(this).val();
+    				if(!text.match(reg)){
+    					$(this).parent().next(".tip").text("请输入正确的身份证号");
+    					$("form").submit(false);
+    				}else{
+    					$(this).parent().next(".tip").text("");
+    					flag2=true;
+ 					    if(endFlag()==true){
+ 					    	$("form").off();
+ 					    }
+    				}
+    			});
+                function endFlag(){
+	    			if(flag1==flag2==true){
+	    				return true;
+	    			}else{
+	    				return false;
+	    			}
+	    		}
+    		});
+    	</script>
+	</body>
+</html>

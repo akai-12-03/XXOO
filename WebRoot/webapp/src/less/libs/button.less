@@ -1,0 +1,20 @@
+@import "config.less";
+
+.pure-button{
+    background-color: @el-back-color;
+    color: @el-front-color;
+    border-radius: @el-border-radius;
+
+    &:hover{
+        color: @white;
+    }
+}
+
+.make-btn(@name, @color) when (isstring(@name)) and (iscolor(@color)){
+    @btn-name: e("button-@{name}");
+    &.@{btn-name}{
+        background-color: @color;
+    }
+}
+
+.make-btn("secondary", @orange);

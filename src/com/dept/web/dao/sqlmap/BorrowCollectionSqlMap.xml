@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BorrowCollection" >
+  <typeAlias alias="borrowCollectionAlias" type="com.dept.web.dao.model.BorrowCollection"/>
+  <resultMap id="BorrowCollectionResult" class="borrowCollectionAlias" >
+    <result column="id" property="id"  />
+    <result column="status" property="status"  />
+    <result column="col_order" property="colOrder"  />
+    <result column="tender_id" property="tenderId"  />
+    <result column="repay_time" property="repayTime"  />
+    <result column="repay_yestime" property="repayYestime"  />
+    <result column="repay_account" property="repayAccount"  />
+    <result column="repay_yesaccount" property="repayYesaccount"  />
+    <result column="interest" property="interest"  />
+    <result column="capital" property="capital"  />
+    <result column="late_days" property="lateDays"  />
+    <result column="late_interest" property="lateInterest"  />
+    <result column="addtime" property="addtime"  />
+    <result column="addip" property="addip"  />
+    <result column="updatetime" property="updatetime"  />
+    <result column="updateip" property="updateip"  />       
+  </resultMap>
+  <resultMap class="borrowCollectionAlias" extends="BorrowCollectionResult" id="BorrowCollectionBorrowResult">
+    <result column="borrow_limit" property="borrowLimit"  />       
+    <result column="borrow_isday" property="borrowIsDay"  />       
+    <result column="borrow_repayment_style" property="borrowRepayMentStyle"  />       
+    <result column="borrow_name" property="borrowName"  />       
+    <result column="borrow_no" property="borrowNo"  />       
+  </resultMap>
+  
+  <resultMap id="borrowCollectionOtherResult" class="borrowCollectionAlias">
+     <result column="id" property="id"  />
+    <result column="status" property="status"  />
+    <result column="col_order" property="colOrder"  />
+    <result column="tender_id" property="tenderId"  />
+    <result column="repay_time" property="repayTime" />
+    <result column="repay_yestime" property="repayYestime" />
+    <result column="repay_account" property="repayAccount" />
+    <result column="repay_yesaccount" property="repayYesaccount" />
+    <result column="interest" property="interest" />
+    <result column="capital" property="capital" />
+    <result column="late_days" property="lateDays"  />
+    <result column="late_interest" property="lateInterest" />
+    <result column="addtime" property="addtime" />
+    <result column="addip" property="addip" />
+     <result column="borrow_name" property="borrow_name"  />
+    <result column="borrow_id" property="borrow_id" />
+    <result column="time_limit" property="time_limit" />
+    <result column="borrow_style" property="borrow_style"/>
+     <result column="name" property="name"/>
+     <result column="mortgagor" property="mortgagor"/>
+  </resultMap>
+  
+  <sql id="SELECT_BORROW_COL">
+  	B.NAME AS BORROW_NAME, B.TIME_LIMIT AS BORROW_LIMIT, B.ISDAY AS BORROW_ISDAY, B.REPAYMENT_STYLE AS BORROW_REPAYMENT_STYLE, B.ID AS BORROW_NO
+  </sql>
+  <sql id="BORROWCOLLECTION_DYNAMIC_WHERE">
+  	<isNotEmpty prepend="AND" property="status">
+  		C.`STATUS` = #status#
+  	</isNotEmpty>
+  	<isNotEmpty prepend="AND" property="tenderId">
+  		C.`TENDER_ID` = #tenderId#
+  	</isNotEmpty>
+  </sql>
+  <sql id="BORROWCOLLECTION_BORROW_DYNAMIC_WHERE">
+  	<isNotEmpty prepend="AND" property="borrowNo">
+  		B.`ID` = #borrowNo#
+  	</isNotEmpty>
+  	<isNotEmpty prepend="AND" property="borrowIsDay">
+  		B.`ISDAY` = #borrowIsDay#
+  	</isNotEmpty>
+  	<isNotEmpty prepend="AND" property="borrowRepayMentStyle">
+  		B.`REPAYMENT_STYLE` = #borrowRepayMentStyle#
+  	</isNotEmpty>
+  </sql>
+  <sql id="BORROWCOLLECTION_TENDER_DYNAMIC_WHERE">
+  	<isNotEmpty prepend="AND" property="tenderUserId">
+  		T.`USER_ID` = #tenderUserId#
+  	</isNotEmpty>
+  	<isNotEmpty prepend="AND" property="tenderStatus">
+  		T.`STATUS` = #tenderStatus#
+  	</isNotEmpty>
+  </sql>
+  
+  <sql id="BORROWCOLLECTION_ORDER_BY">
+  	ORDER BY C.ID
+  </sql>
+  <!-- 分页语句 -->
+  <sql id="BORROWCOLLECTION_PAGE_LIMIT">
+	<isParameterPresent>
+		<isGreaterEqual compareValue="0" property="offset">
+			LIMIT
+			#offset# , #pageSize#
+		</isGreaterEqual>
+	</isParameterPresent>
+  </sql>
+  <sql id="BORROWCOLLECTION_BORROW_TABLE_SEARCH">
+  	FROM TB_BORROW_COLLECTION C, TB_BORROW_TENDER T, TB_BORROW B 
+  	WHERE C.TENDER_ID = T.ID AND T.BORROW_ID = B.ID
+  	<dynamic prepend="AND">
+  		<include refid="BORROWCOLLECTION_DYNAMIC_WHERE"/>
+  		<include refid="BORROWCOLLECTION_BORROW_DYNAMIC_WHERE"/>
+  		<include refid="BORROWCOLLECTION_TENDER_DYNAMIC_WHERE"/>
+  	</dynamic>
+  </sql>
+  
+  <select id="GET_LIST_BY_BORROWCOLLECTION_BORROW" parameterClass="map" resultMap="BorrowCollectionBorrowResult">
+  	SELECT  C.*, <include refid="SELECT_BORROW_COL"/>
+  	<include refid="BORROWCOLLECTION_BORROW_TABLE_SEARCH"/>
+  	<include refid="BORROWCOLLECTION_ORDER_BY"/>
+  	<include refid="BORROWCOLLECTION_PAGE_LIMIT"/>
+  </select>
+  <select id="GET_COUNT_BY_BORROWCOLLECTION_BORROW" parameterClass="map" resultClass="int">
+  	SELECT COUNT(*) <include refid="BORROWCOLLECTION_BORROW_TABLE_SEARCH"/>
+  </select>
+  
+  <select id="GET_LIST_BY_GET_COLLECTION_LIST_BY_BORROW" parameterClass="map" resultMap="BorrowCollectionResult">
+		select c.* from tb_borrow_collection c 
+			left join tb_borrow_tender t on t.id=c.tender_id 
+			left join tb_user as u on  u.id = t.user_id 
+			where t.borrow_id =#bid# and c.col_order =#order#
+</select>
+  
+  <select id="GET_COUNT_BY_SEARCH_COLLECTION_LIST" parameterClass="map" resultClass="int">
+    <![CDATA[
+	 select count(p1.id) from tb_borrow_collection as p1 
+				left join tb_borrow_tender as p2 on  p1.tender_id = p2.id 
+				left join tb_borrow as p3 on  p3.id = p2.borrow_id 
+				left join tb_user as p4 on  p4.id = p3.user_id 
+				where p2.user_id=#userId#
+				 and p1.status=#status#
+	    ]]>
+	    <isEqual property="status" compareValue="0" prepend="and">
+		     <![CDATA[
+		  			p3.status in (3,5,6,11)
+		  			  ]]>
+		  	</isEqual>
+		  	<isEqual property="status" compareValue="2" prepend="and">
+		  			p3.status in (3,5,6,11)
+		  	</isEqual>
+  </select>
+  <select id="GET_LIST_BY_SEARCH_COLLECTION_LIST" parameterClass="map" resultMap="borrowCollectionOtherResult">
+	 <![CDATA[
+	 select p1.*,p3.mortgagor,p3.name as borrow_name,p3.id as borrow_id,p3.time_limit,p3.repayment_style as borrow_style,p3.bo_order as 'order', p4.username as name 
+	 			 from tb_borrow_collection as p1 
+				 left join tb_borrow_tender as p2 on  p1.tender_id = p2.id 
+				 left join tb_borrow as p3 on  p3.id = p2.borrow_id 
+				 left join tb_user as p4 on  p4.id = p3.user_id 
+				 where p2.user_id=#userId#
+				 and p1.status=#status#
+		 ]]>
+		  <isEqual property="status" compareValue="0" prepend="and">
+		     <![CDATA[
+		  			p3.status in (3,5,6,11)
+		  			  ]]>
+		  	</isEqual>
+		  	<isEqual property="status" compareValue="2" prepend="and">
+		  			p3.status in (3,5,6,11)
+		  	</isEqual>
+		  	<![CDATA[
+	 ORDER by p1.repay_yestime asc,p1.repay_time asc
+	  ]]>
+  </select>
+  
+  
+  <insert id="SAVE_BORROWCOLLECTION" parameterClass="borrowCollectionAlias">
+  	INSERT INTO TB_BORROW_COLLECTION(`STATUS`, COL_ORDER, TENDER_ID, REPAY_TIME, REPAY_YESTIME, REPAY_ACCOUNT, REPAY_YESACCOUNT, 
+  		   INTEREST, CAPITAL, LATE_DAYS, LATE_INTEREST, ADDTIME, ADDIP, UPDATETIME, UPDATEIP)
+  	VALUES(#status#, #colOrder#,#tenderId#,#repayTime#,#repayYestime#,#repayAccount#,#repayYesaccount#,
+  			#interest#,#capital#,#lateDays#,#lateInterest#,#addtime#,#addip#, #updatetime#, #updateip#)
+ 		 <selectKey resultClass="long" >
+ 			SELECT LAST_INSERT_ID()
+  	     </selectKey>  
+  </insert>
+  
+  
+  
+  <select id="GET_BY_GETCOUNTZQMONEY" parameterClass="long"  resultClass="double">
+		select sum(a.interest) from (select p1.*,p3.name as borrow_name,p3.id as borrow_id,p3.time_limit,p3.repayment_style as borrow_style,p3.bo_order as 'order', p4.username as name 
+	 			 from tb_borrow_collection as p1 
+				 left join tb_borrow_tender as p2 on  p1.tender_id = p2.id 
+				 left join tb_borrow as p3 on  p3.id = p2.borrow_id 
+				 left join tb_user as p4 on  p4.id = p3.user_id 
+				 where p2.user_id=#userId#
+				 and p1.status=0 and p3.status in (3,5,6,11)) a
+	</select>
+	
+	<select id="GET_BY_GETCOUNTDSMONEY" parameterClass="long"  resultClass="double">
+		select sum(a.capital) from (select p1.*,p3.name as borrow_name,p3.id as borrow_id,p3.time_limit,p3.repayment_style as borrow_style,p3.bo_order as 'order', p4.username as name 
+	 			 from tb_borrow_collection as p1 
+				 left join tb_borrow_tender as p2 on  p1.tender_id = p2.id 
+				 left join tb_borrow as p3 on  p3.id = p2.borrow_id 
+				 left join tb_user as p4 on  p4.id = p3.user_id 
+				 where p2.user_id=#userId#
+				 and p1.status=0 and p3.status in (3,5,6,11)) a
+	</select>
+	
+  <resultMap class="borrowCollectionAlias" id="CollectionResultForAccount">
+  		<result column="repay_account" property="repayAccount"  />
+  		<result column="repay_time" property="repayTime"  />
+  </resultMap>
+  
+  <select id="GET_BY_GETCOLLECTIONFORACCOUNT" parameterClass="Long" resultMap="CollectionResultForAccount">
+	SELECT
+		c.repay_account,
+		c.repay_time
+	FROM
+		tb_borrow_collection c,
+		tb_borrow_tender t
+	WHERE
+		c.tender_id = t.id
+	AND t.user_id = #value#
+	AND t.`status` = 1
+	AND c.`status` = 0
+	ORDER BY
+		c.repay_time
+	LIMIT 1
+  </select>
+	<update id="UPDATE_QDD_MODIFY_BORROWCOLLECTION" parameterClass="borrowCollectionAlias">
+  			update tb_borrow_collection set loanNo=#loanNo# where id=#id#
+  </update>
+  
+   <select id="GET_LIST_BY_USERID_AND_TENDERID" parameterClass="long" resultMap="BorrowCollectionResult">
+      select * from TB_BORROW_COLLECTION where tender_id=#value# and status =2
+  </select>
+  
+   <select id="GET_LIST_BY_BORROW_FOR_PERIOD" parameterClass="Map" resultMap="BorrowCollectionResult">
+  	 SELECT * FROM TB_BORROW_COLLECTION WHERE tender_id = #bid# AND STATUS = #status# ORDER BY COL_ORDER ASC 
+  </select>
+</sqlMap>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Migration" >
+  <typeAlias alias="migrationAlias" type="com.dept.web.dao.model.Migration"/>
+  <resultMap id="migrationResult" class="migrationAlias" >
+    <result column="id" property="id"  />
+    <result column="version" property="version"  />
+    <result column="apply_time" property="applyTime"  />
+  </resultMap>
+</sqlMap>

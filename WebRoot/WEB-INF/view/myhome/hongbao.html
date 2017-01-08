@@ -1,0 +1,63 @@
+#topbar("G")
+#user_sidebar("23")
+			<div class="user-page">
+				<div class="user-profile">
+					<nav class="user-nav-tabs">
+						<a href="#" class="active">我的红包</a>
+					</nav>
+					<div class="tab">
+						<div class="tab-content active" data-tab="1">
+							<table class="pure-table   table-compact record">
+								<thead>
+									<tr>
+										<th>序号</th>
+										<th>红包金额</th>
+										<th>类型</th>
+										<th>记录时间</th>
+										<th>状态</th>
+									</tr>
+								</thead>
+								<tbody>
+									#foreach($hb in $borrowPage.getResult())
+										<tr>
+											<td>$!index</td>
+											<td>$viewTool.format2JQStr($!hb.money)</td>
+											<td>
+												#if($!hb.type==1)
+													注册送红包
+												#else
+												   推荐好友投资送红包
+												#end
+											</td>
+											<td>#limit($dateTool.getStr($!hb.addtime) 10)</td>
+											<td>
+												#if($!hb.status==0)
+													可用红包
+												#elseif($!hb.status==1)
+												   	已用红包
+												#elseif($!hb.status==2)
+												   	冻结红包
+												#elseif($!hb.status==3)
+												   	过期红包
+												#end
+											</td>
+										</tr>
+									#end
+								</tbody>
+							</table>
+							<form id="borrowForm" name="borrowForm"  action="${weburl}/myhome/hongbao.html">
+									<input type="hidden" id="page" name="page" #if($!page) value="$page" #else value="1" #end/>
+        							#pagination($borrowPage 'borrowForm')
+  							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+#foot()
+		<script>
+			seajs.use('myhome');
+		</script>
+	</body>
+
+</html>

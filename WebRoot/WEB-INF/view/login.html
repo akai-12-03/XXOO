@@ -1,0 +1,67 @@
+﻿#topbar("signup")
+	<body class="white">
+		<div class="common-topbar">
+			<div class="mid-width clearfix">
+				<a href="index.html"><img src="public/images/common-logo.png"></a>|<span>登录</span>
+			</div>
+		</div>
+		<div class="login-area mid-width">
+			<div class="login-body">
+				<form class="pure-form login-form" method="post" action="${weburl}/login.html" id="login-form">
+					<h4><span>登录</span><span class="login-account">未有帐户？<a class="red" href="${weburl}/signup.html">免费注册</a></span></h4>
+					<div class="login_field">
+						<label>*手&nbsp;机&nbsp; 号：</label>
+						<input name="telphone" type="text" class="login_input" placeholder="请输入输入手机号" id="telphone" data-validator="telphone" required />
+						<div class="tip"></div>
+					</div>
+					<div class="login_field">
+						<label>*密 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 码：</label>
+						<input name="password" type="password" class="login_input" placeholder="请输入密码" id="password" data-validator="password" required />
+						<div class="tip"></div>
+					</div>
+					<div class="login_field verifyimg-box clearfix">
+						<label>*验&nbsp; 证&nbsp; 码：</label>
+						<input type="text" name="imgCode" id="imgCode" placeholder="请输入图片验证码" data-validator="code" class="signup_input" style="width:182px; margin-right:10px;" required>
+						<img src="${weburl}/pcrimg.html" alt="验证码" title="点击刷新" width="85" height="38">
+						<div class="tip"></div>
+					</div>
+					<div class="login_field clearfix mt0"><a href="${weburl}/forgetpassword.html" class="float-right">忘记密码?</a></div>
+					<div class="login_field clearfix">
+						<button type="submit" id="send" class="pure-button button-primary">立即登录</button>
+						<br/>
+						<br/>
+						<br/>
+						<div style="position: relative;height: 30px"><a class="red" href="${weburl}/index.html" style="right:20px;position: absolute;right: -9px;top: -3px;">返回首页</a></div>
+					</div>
+				</form>
+				#if($!msg)
+				<div id="tipBox" style="display:block;">
+					<header class="clearfix"><a href="javascript:;" class="close_btn">X</a></header>
+					<div class="tip-content">
+						#if($!msg)
+						<i class="icon icon-fail"></i> &nbsp;$!msg
+						#end
+					</div>
+				</div>
+				<div class="mask" style="display:block"></div>
+				#end
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="w1200">
+				<!--<ul class="clearfix">
+					<li><a href="#"><i class="icon icon-logo1"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo2"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo3"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo4"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo5"></i></a></li>
+				</ul>
+				--><span style="display:block;">备案号：浙ICP备16004794号&nbsp;&nbsp;杭州钱坤互联网金融服务有限公司</span>
+			</div>
+		</div>
+		<script>
+			seajs.use('login');
+		</script>
+	</body>
+
+</html>

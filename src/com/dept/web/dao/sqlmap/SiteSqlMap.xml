@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Site">
+	<typeAlias alias="siteAlias" type="com.dept.web.dao.model.Site" />
+	<resultMap id="siteResult" class="siteAlias">
+		<result column="id" property="id" />
+		<result column="code" property="code" />
+		<result column="name" property="name" />
+		<result column="nid" property="nid" />
+		<result column="pid" property="pid" />
+		<result column="s_order" property="sOrder" />
+		<result column="status" property="status" />
+	</resultMap>
+
+	<select id="GET_LIST_BY_ABOUTUS" parameterClass="String"
+		resultMap="siteResult">
+		select * from tb_site where code= #value# and pid = (select id from tb_site where
+		code=#value# and pid = 0) order by `s_order` asc
+	</select>
+		<select id="GET_BY_SITE_BY_ID" parameterClass="long"
+		resultMap="siteResult">
+		select * from tb_site where id=#value#
+	</select>
+	
+	
+	
+</sqlMap>

@@ -1,0 +1,70 @@
+#topbar('F')
+		<div class="about-wrap">
+			<div class="aboutus-banner">
+				<div class="mid-width">
+					<div class="aboutus-banner-content">
+						<ul>
+							<li class="line"></li>
+							<li class="pie">
+								<a href="${weburl}/news/aboutus.html"><span class="gywm"></span><p>关于我们</p></a>
+							</li>
+						</ul>
+						<ul>
+							<li class="line cur"></li>
+							<li class="pie cur">
+								<a href="${weburl}/news/wzgz.html"><span class="ptgz"></span><p>平台规则</p></a>
+							</li>
+						</ul>
+						<ul>
+							<li class="line"></li>
+							<li class="pie">
+								<a href="${weburl}/about/ptgg.html?flag=wzgg"><span class="ptgg"></span><p>平台公告</p></a>
+							</li>
+						</ul>
+						<ul>
+							<li class="line"></li>
+							<li class="pie">
+								<a href="${weburl}/about/hyzx.html?flag=xwbd"><span class="hyzx"></span><p>行业资讯</p></a>
+							</li>
+						</ul>
+						<ul>
+							<li class="line"></li>
+							<li class="pie">
+								<a href="${weburl}/about/help.html"><span class="bzzx"></span><p>帮助中心</p></a>
+							</li>
+						</ul>
+					</div>
+					<div class="about-tab">
+						<a href="${weburl}/news/wzgz.html">网站规则</a>
+						<a href="${weburl}/news/ptgz.html?flag=xyfb" class="active">协议范本</a>
+					</div>
+				</div>
+			</div>
+			<div class="aboutus-content">
+				<div class="content-item">
+					<div class="mid-width">
+						<h3 class="help-title">$!siteName</h3>
+						<form id="borrowForm" name="borrowForm" action="$weburl/news/ptgz.html?flag=$flag">
+						<input type="hidden" id="page" name="page" value="$!page"/>
+						<input type="hidden" id="flag" name="flag" value="$!flag"/>
+							#if($!{artpage.getResult().size()} >0 )
+							#foreach($art in $artpage.getResult())	
+							<div class="question-list">
+								<p class="question clearfix">
+								<a href="$weburl/about/ptgzdetail.html?id=$art.id&flag=$flag"><span class="wen">Q</span>$art.name<span class="float-right">$!dateTools.dateStr($!art.createdAt,'yyyy-MM-dd HH:mm')</span></a>
+								</p>
+							</div>
+							#end
+							#end
+							#pagination($artpage, 'borrowForm')
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="${weburl}/public/js/jquery.carousel.js"></script>
+		<script>
+			Caroursel.init($('.caroursel'))
+			seajs.use('aboutus');
+		</script>
+#foot()	

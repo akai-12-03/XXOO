@@ -1,0 +1,575 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Borrow">
+	<typeAlias alias="borrowAlias" type="com.dept.web.dao.model.Borrow" />
+	<resultMap id="borrowResult" class="borrowAlias">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="name" property="name" />
+		<result column="status" property="status" />
+		<result column="bo_order" property="boOrder" />
+		<result column="hits" property="hits" />
+		<result column="litpic" property="litpic" />
+		<result column="borrow_type" property="borrowType" />
+		<result column="verify_user" property="verifyUser" />
+		<result column="verify_time" property="verifyTime" />
+		<result column="verify_remark" property="verifyRemark" />
+		<result column="repayment_account" property="repaymentAccount" />
+		<result column="repayment_yesaccount" property="repaymentYesAccount" />
+		<result column="repayment_yesinterest" property="repaymentYesInterest" />
+		<result column="borrow_use" property="borrowUse" />
+		<result column="time_limit" property="timeLimit" />
+		<result column="repayment_style" property="repaymentStyle" />
+		<result column="account" property="account" />
+		<result column="account_yes" property="accountYes" />
+		<result column="apr" property="apr" />
+		<result column="lowest_account" property="lowestAccount" />
+		<result column="most_account" property="mostAccount" />
+		<result column="valid_time" property="validTime" />
+		<result column="award" property="award" />
+		<result column="part_account" property="partAccount" />
+		<result column="funds" property="funds" />
+		<result column="open_account" property="openAccount" />
+		<result column="open_borrow" property="openBorrow" />
+		<result column="open_tender" property="openTender" />
+		<result column="open_credit" property="openCredit" />
+		<result column="content" property="content" />
+		<result column="addtime" property="addtime" />
+		<result column="addip" property="addip" />
+		<result column="pwd" property="pwd" />
+		<result column="isday" property="isDay" />
+		<result column="trust_level" property="trustLevel" />
+		<result column="borrow_fee_apr" property="borrowFeeApr" />
+		<result column="version" property="version" />
+		<result column="borrower_userid" property="borrowerUserId" />
+		<result column="updatetime" property="updatetime" />
+		<result column="updateip" property="updateip" />
+		<result column="fxpj" property="fxpj"  />
+	    <result column="cpxq" property="cpxq"  />
+	    <result column="jyjg" property="jyjg"  />
+	    <result column="fkcs" property="fkcs"  />
+	    <result column="zggf" property="zggf"  />
+	    <result column="cpxqs" property="cpxqs"  />
+	    <result column="jyjgs" property="jyjgs"  />
+	    <result column="fkcss" property="fkcss"  />
+	    <result column="zggfs" property="zggfs"  />
+	    <result column="contents" property="contents" />
+	    <result column="num" property="num"  />
+	    <result column="index_status" property="index_status"  />
+	    <result column="scales" property="scales"  />
+	    <result column="borrow_fee" property="borrow_fee"  />
+	    <result column="mortgagor" property="mortgagor"  /> 
+    	<result column="receivePerson" property="receivePerson"  />
+    	<result column="repayPerson" property="repayPerson"  /> 
+    	<result  column="marketFee"  property="marketFee"/>
+	</resultMap>
+	
+	<resultMap id="borrowResultForIndex" class="borrowAlias">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="name" property="name" />
+		<result column="status" property="status" />
+		<result column="bo_order" property="boOrder" />
+		<result column="hits" property="hits" />
+		<result column="litpic" property="litpic" />
+		<result column="borrow_type" property="borrowType" />
+		<result column="verify_user" property="verifyUser" />
+		<result column="verify_time" property="verifyTime" />
+		<result column="verify_remark" property="verifyRemark" />
+		<result column="repayment_account" property="repaymentAccount" />
+		<result column="repayment_yesaccount" property="repaymentYesAccount" />
+		<result column="repayment_yesinterest" property="repaymentYesInterest" />
+		<result column="borrow_use" property="borrowUse" />
+		<result column="time_limit" property="timeLimit" />
+		<result column="repayment_style" property="repaymentStyle" />
+		<result column="account" property="account" />
+		<result column="account_yes" property="accountYes" />
+		<result column="apr" property="apr" />
+		<result column="lowest_account" property="lowestAccount" />
+		<result column="most_account" property="mostAccount" />
+		<result column="valid_time" property="validTime" />
+		<result column="award" property="award" />
+		<result column="part_account" property="partAccount" />
+		<result column="funds" property="funds" />
+		<result column="open_account" property="openAccount" />
+		<result column="open_borrow" property="openBorrow" />
+		<result column="open_tender" property="openTender" />
+		<result column="open_credit" property="openCredit" />
+		<result column="content" property="content" />
+		<result column="addtime" property="addtime" />
+		<result column="addip" property="addip" />
+		<result column="pwd" property="pwd" />
+		<result column="isday" property="isDay" />
+		<result column="trust_level" property="trustLevel" />
+		<result column="borrow_fee_apr" property="borrowFeeApr" />
+		<result column="version" property="version" />
+		<result column="borrower_userid" property="borrowerUserId" />
+		<result column="updatetime" property="updatetime" />
+		<result column="updateip" property="updateip" />
+		<result column="fxpj" property="fxpj"  />
+	    <result column="cpxq" property="cpxq"  />
+	    <result column="jyjg" property="jyjg"  />
+	    <result column="fkcs" property="fkcs"  />
+	    <result column="zggf" property="zggf"  />
+	    <result column="cpxqs" property="cpxqs"  />
+	    <result column="jyjgs" property="jyjgs"  />
+	    <result column="fkcss" property="fkcss"  />
+	    <result column="zggfs" property="zggfs"  />
+	    <result column="contents" property="contents" />
+	    <result column="num" property="num"  />
+	    <result column="index_status" property="index_status"  />
+	    <result column="scales" property="scales"  />
+	    <result column="persionSize" property="persionSize"  />
+	</resultMap>
+	
+	<resultMap class="borrowAlias" id="borrowUserResult" extends="borrowResult">
+		<result column="username" property="username"  />
+		<result column="scales" property="scales"  />
+	  </resultMap>
+	  
+	  <resultMap class="borrowAlias" id="borrowScalesResult" extends="borrowResult">
+		<result column="scales" property="scales"  />
+	  </resultMap>
+	  
+	<update id="UPDATE_BORROW" parameterClass="borrowAlias">
+		UPDATE TB_BORROW
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="userId">
+				USER_ID = #userId#
+			</isNotNull>
+			<isNotNull prepend="," property="name">
+				NAME = #name#
+			</isNotNull>
+			<isNotNull prepend="," property="status">
+				`STATUS` = #status#
+			</isNotNull>
+			<isNotNull prepend="," property="boOrder">
+				BO_ORDER = #boOrder#
+			</isNotNull>
+			<isNotNull prepend="," property="hits">
+				HITS = #hits#
+			</isNotNull>
+			<isNotNull prepend="," property="litpic">
+				LITPIC = #litpic#
+			</isNotNull>
+			<isNotNull prepend="," property="borrowType">
+				BORROW_TYPE = #borrowType#
+			</isNotNull>
+			<isNotNull prepend="," property="verifyUser">
+				VERIFY_USER = #verifyUser#
+			</isNotNull>
+			<isNotNull prepend="," property="verifyTime">
+				VERIFY_TIME = #verifyTime#
+			</isNotNull>
+			<isNotNull prepend="," property="verifyRemark">
+				VERIFY_REMARK =
+				#verifyRemark#
+			</isNotNull>
+			<isNotNull prepend="," property="repaymentAccount">
+				REPAYMENT_ACCOUNT =
+				#repaymentAccount#
+			</isNotNull>
+			<isNotNull prepend="," property="repaymentYesAccount">
+				REPAYMENT_YESACCOUNT =
+				#repaymentYesAccount#
+			</isNotNull>
+			<isNotNull prepend="," property="repaymentYesInterest">
+				REPAYMENT_YESINTEREST =
+				#repaymentYesInterest#
+			</isNotNull>
+			<isNotNull prepend="," property="borrowUse">
+				BORROW_USE = #borrowUse#
+			</isNotNull>
+			<isNotNull prepend="," property="timeLimit">
+				TIME_LIMIT = #timeLimit#
+			</isNotNull>
+			<isNotNull prepend="," property="repaymentStyle">
+				REPAYMENT_STYLE =
+				#repaymentStyle#
+			</isNotNull>
+			<isNotNull prepend="," property="account">
+				ACCOUNT = #account#
+			</isNotNull>
+			<isNotNull prepend="," property="accountYes">
+				ACCOUNT_YES = #accountYes#
+			</isNotNull>
+			<isNotNull prepend="," property="apr">
+				APR = #apr#
+			</isNotNull>
+			<isNotNull prepend="," property="lowestAccount">
+				LOWEST_ACCOUNT =
+				#lowestAccount#
+			</isNotNull>
+			<isNotNull prepend="," property="mostAccount">
+				MOST_ACCOUNT =
+				#mostAccount#
+			</isNotNull>
+			<isNotNull prepend="," property="validTime">
+				VALID_TIME = #validTime#
+			</isNotNull>
+			<isNotNull prepend="," property="award">
+				AWARD = #award#
+			</isNotNull>
+			<isNotNull prepend="," property="partAccount">
+				PART_ACCOUNT =
+				#partAccount#
+			</isNotNull>
+			<isNotNull prepend="," property="funds">
+				FUNDS = #funds#
+			</isNotNull>
+			<isNotNull prepend="," property="openAccount">
+				OPEN_ACCOUNT =
+				#openAccount#
+			</isNotNull>
+			<isNotNull prepend="," property="openBorrow">
+				OPEN_BORROW = #openBorrow#
+			</isNotNull>
+			<isNotNull prepend="," property="openTender">
+				OPEN_TENDER = #openTender#
+			</isNotNull>
+			<isNotNull prepend="," property="openCredit">
+				OPEN_CREDIT = #openCredit#
+			</isNotNull>
+			<isNotNull prepend="," property="content">
+				CONTENT = #content#
+			</isNotNull>
+			<isNotNull prepend="," property="addtime">
+				ADDTIME = #addtime#
+			</isNotNull>
+			<isNotNull prepend="," property="addip">
+				ADDIP = #addip#
+			</isNotNull>
+			<isNotNull prepend="," property="pwd">
+				PWD = #pwd#
+			</isNotNull>
+			<isNotNull prepend="," property="isDay">
+				ISDAY = #isDay#
+			</isNotNull>
+			<isNotNull prepend="," property="trustLevel">
+				TRUST_LEVEL = #trustLevel#
+			</isNotNull>
+			<isNotNull prepend="," property="borrowFeeApr">
+				BORROW_FEE_APR =
+				#borrowFeeApr#
+			</isNotNull>
+			<isNotNull prepend="," property="version">
+				`VERSION` = #version#
+			</isNotNull>
+			<isNotNull prepend="," property="borrowerUserId">
+				BORROWER_USERID =
+				#borrowerUserId#
+			</isNotNull>
+			<isNotNull prepend="," property="updatetime">
+				UPDATETIME = #updatetime#
+			</isNotNull>
+			<isNotNull prepend="," property="updateip">
+				UPDATEIP = #updateip#
+			</isNotNull>
+			<isNotNull prepend="," property="fxpj">
+  			fxpj = #fxpj#
+  		</isNotNull> 
+  		<isNotNull prepend="," property="cpxq">
+  			cpxq = #cpxq#
+  		</isNotNull>
+  		<isNotNull prepend="," property="jyjg">
+  			jyjg = #jyjg#
+  		</isNotNull>
+  		<isNotNull prepend="," property="fkcs">
+  			fkcs = #fkcs#
+  		</isNotNull>
+  		<isNotNull prepend="," property="zggf">
+  			zggf = #zggf#
+  		</isNotNull>
+  		<isNotNull prepend="," property="cpxqs">
+  			cpxqs = #cpxqs#
+  		</isNotNull>
+  		<isNotNull prepend="," property="jyjgs">
+  			jyjgs = #jyjgs#
+  		</isNotNull>
+  		<isNotNull prepend="," property="fkcss">
+  			fkcss = #fkcss#
+  		</isNotNull>
+  		<isNotNull prepend="," property="zggfs">
+  			zggfs = #zggfs#
+  		</isNotNull>
+  		<isNotNull prepend="," property="index_status">
+  			index_status = #index_status#
+  		</isNotNull>
+  		
+  		<isNotNull prepend="," property="contents">
+				CONTENTs = #contents#
+			</isNotNull>
+		</dynamic>
+		WHERE ID = #id#
+	</update>
+	
+	<update id="UPDATE_BORROW_FOR_TENDER" parameterClass="borrowAlias">
+		UPDATE TB_BORROW
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="status">
+				`STATUS` = #status#
+			</isNotNull>
+			<isNotNull prepend="," property="hits">
+				HITS = #hits#
+			</isNotNull>
+			<isNotNull prepend="," property="accountYes">
+				ACCOUNT_YES = ACCOUNT_YES + #accountYes#
+			</isNotNull>
+			<isNotNull prepend="," property="version">
+				`VERSION` = #version#
+			</isNotNull>
+			<isNotNull prepend="," property="updatetime">
+				UPDATETIME = #updatetime#
+			</isNotNull>
+			<isNotNull prepend="," property="updateip">
+				UPDATEIP = #updateip#
+			</isNotNull>
+		</dynamic>
+		WHERE ID = #id# 
+	</update>
+
+	<!-- 动态条件查询where -->
+	<sql id="BORROW_DYNAMIC_WHERE">
+		<isNotEmpty prepend="AND" property="id">
+			id = #id#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="timeLimit">
+			`TIME_LIMIT` = #timeLimit#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="borrowerUserId">
+			`BORROWER_USERID` = #borrowerUserId#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="userId">
+			`USER_ID` = #userId#
+		</isNotEmpty>
+	</sql>
+	<!-- 动态条件查询SEARCH -->
+	<sql id="BORROW_DYNAMIC_WHERE_EXT">
+		<isNotNull prepend="and" property="status_IN">
+	  		`STATUS` IN 
+	  		<iterate open="(" close=")" conjunction="," property="status_IN">
+	  			#status_IN[]#
+	  		</iterate>
+	  	</isNotNull>
+		<isNotEmpty prepend="AND" property="apr_le">
+			APR &lt;= #apr_le#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="apr_lt">
+			APR &lt; #apr_lt#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="apr_ge">
+			APR &gt;= #apr_ge#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="apr_gt">
+			APR &gt; #apr_gt#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" open="(" close=")" property="timelimit_le">
+			(TIME_LIMIT &lt;= #timelimit_le# AND ISDAY = 0) OR (TIME_LIMIT &lt;=
+			#timelimit_le#*31 AND ISDAY = 1)
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" open="(" close=")" property="timelimit_lt">
+			(TIME_LIMIT &lt; #timelimit_lt# AND ISDAY = 0) OR (TIME_LIMIT &lt;
+			#timelimit_lt#*31 AND ISDAY = 1)
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" open="(" close=")" property="timelimit_ge">
+			(TIME_LIMIT &gt;= #timelimit_ge# AND ISDAY = 0) OR (TIME_LIMIT &gt;=
+			#timelimit_ge#*30 AND ISDAY = 1)
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" open="(" close=")" property="timelimit_gt">
+			(TIME_LIMIT &gt; #timelimit_gt# AND ISDAY = 0) OR (TIME_LIMIT &gt;
+			#timelimit_gt#*30 AND ISDAY = 1)
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="accountno_le">
+			(account-account_yes)
+			&lt;= #accountno_le#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="accountno_lt">
+			(account-account_yes)
+			&lt; #accountno_lt#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="accountno_ge">
+			(account-account_yes)
+			&gt;= #accountno_ge#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="accountno_gt">
+			(account-account_yes)
+			&gt; #accountno_gt#
+		</isNotEmpty>
+	</sql>
+	<sql id="BORROW_DYNAMIC_SEARCH">
+		FROM TB_BORROW
+		<dynamic prepend="WHERE">
+			<include refid="BORROW_DYNAMIC_WHERE"/>
+		</dynamic>
+	</sql>
+	<sql id="BORROW_DYNAMIC_SEARCH_EXT">
+		FROM TB_BORROW where status = 2 
+		<dynamic prepend="WHERE">
+			<include refid="BORROW_DYNAMIC_WHERE"/>
+			<include refid="BORROW_DYNAMIC_WHERE_EXT"/>
+		</dynamic>
+	</sql>
+
+	<!-- 分页语句 -->
+	<sql id="BORROW_PAGE_LIMIT">
+		<isParameterPresent>
+			<isGreaterEqual compareValue="0" property="offset">
+				LIMIT
+				#offset# , #pageSize#
+			</isGreaterEqual>
+		</isParameterPresent>
+	</sql>
+	<select id="GET_BY_BORROW" parameterClass="borrowAlias"
+		resultMap="borrowResult">
+		SELECT *,CAST(ACCOUNT_YES/ACCOUNT AS DECIMAL(8,5)) AS SCALES 
+		<include refid="BORROW_DYNAMIC_SEARCH" />
+	</select>
+	<!-- 列表[分页]查询 -->
+	<select id="GET_LIST_BY_BORROW" parameterClass="map" resultMap="borrowResult">
+		SELECT *
+		<include refid="BORROW_DYNAMIC_SEARCH_EXT" />
+		ORDER BY bo_order DESC,verify_time DESC  <!-- LIMIT #offset#,#pageSize# -->
+		<include refid="BORROW_PAGE_LIMIT" />
+	</select>
+	<!-- 查询总条数 -->
+	<select id="GET_COUNT_BY_BORROW" parameterClass="map"
+		resultClass="int">
+		SELECT COUNT(*)
+		<include refid="BORROW_DYNAMIC_SEARCH_EXT" />
+	</select>
+
+	<select id="GET_LIST_BY_INDEX" parameterClass="map" resultMap="borrowUserResult">
+		  SELECT A.*, B.USERNAME, CAST(A.ACCOUNT_YES/A.ACCOUNT AS DECIMAL(8,5)) AS SCALES 
+		  FROM TB_BORROW A, TB_USER B WHERE A.USER_ID = B.ID and a.status in(1,2,3,5,6,11)
+		  ORDER BY A.ADDTIME DESC 
+	 </select>
+	<select id="GET_LIST_BY_ZXTZ_BORROW" parameterClass="map" resultMap="borrowResult">
+		SELECT A.*, CAST(A.ACCOUNT_YES/A.ACCOUNT AS DECIMAL(8,5)) AS SCALES FROM TB_BORROW A WHERE A.status=1 order by A.addtime desc
+	</select>
+	
+	<select id="GET_COUNT_BY_ZXTZ_BORROW" parameterClass="map" resultClass="int">
+		SELECT COUNT(*) FROM TB_BORROW A WHERE A.status=2 order by A.addtime desc
+	</select>
+	
+	
+	<select id="GET_LIST_BY_SEARCH" parameterClass="map" resultMap="borrowResultForIndex">
+	   SELECT
+		A.*, CAST(
+		A.ACCOUNT_YES / A.ACCOUNT AS DECIMAL (8, 5)
+		) AS SCALES,
+		(
+		SELECT
+			COUNT(DISTINCT t.user_id)
+		FROM
+			tb_borrow_tender t
+		WHERE
+			t.borrow_id = A.id
+		) AS persionSize
+		FROM
+		tb_borrow A
+		WHERE 1=1
+		and A.status in(1,2,3,5,6)
+	   <isNotEmpty  property="lcsysql" prepend="and">
+	   	$lcsysql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="lcqxsql" prepend="and">
+	   	$lcqxsql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="borrowTypeSql" prepend="and">
+	   	$borrowTypeSql$
+	  </isNotEmpty>	
+	    ORDER BY A.STATUS, A.VERIFY_TIME DESC
+  </select>
+  <select id="GET_COUNT_BY_SEARCH" parameterClass="map"  resultClass="int">
+	  SELECT COUNT(*) FROM TB_BORROW A
+	  where 1=1
+	  and A.status in(1,2,3,5,6)
+	  <isNotEmpty  property="lcsysql" prepend="and">
+	   	$lcsysql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="lcqxsql" prepend="and">
+	   	$lcqxsql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="borrowTypeSql" prepend="and">
+	   	$borrowTypeSql$
+	  </isNotEmpty>	
+  </select>
+	
+	<select id="GET_BY_APRS"  resultClass="borrowAlias">
+		select count(*),avg(a.apr) as aprs from tb_borrow a WHERE a.`status` in(1,2,3,5,6)
+	</select>
+	
+	<select id="GET_LIST_BY_ZGADDTIME"  resultClass="borrowAlias">
+		select * from tb_borrow ORDER BY addtime DESC
+	</select>
+	<select id="GET_LIST_BY_ZGAPR"  resultClass="borrowAlias">
+		select * from tb_borrow ORDER BY apr DESC
+	</select>
+	<select id="GET_LIST_BY_ZGACCOUNT"  resultClass="borrowAlias">
+		select * from tb_borrow ORDER BY account DESC
+	</select>
+	
+	<select id="GET_BY_BORROWBY_ID" parameterClass="borrowAlias" resultMap="borrowUserResult">
+  	   <![CDATA[
+  	    SELECT A.*, B.USERNAME,CAST(A.ACCOUNT_YES/A.ACCOUNT AS DECIMAL(8,5)) AS SCALES FROM TB_BORROW A, TB_USER B WHERE A.USER_ID = B.ID  
+  	   
+	   AND A.id=#id#
+	  ]]>
+  </select>
+	
+	<update id="UPDATE_BORROWS" parameterClass="borrowAlias">
+ 	 <![CDATA[
+ 	 update TB_BORROW set account_yes=account_yes+#account#,status=#status#
+	 where id=#id# and account_yes+#account#<=account+0
+	  ]]>
+ </update>
+	
+	<select id="GET_LIST_BY_GETBORROW" parameterClass="map" resultMap="borrowScalesResult">
+	  SELECT A.*, CAST(A.ACCOUNT_YES/A.ACCOUNT AS DECIMAL(8,5)) AS SCALES FROM TB_BORROW A WHERE A.STATUS =1 ORDER BY A.INDEX_STATUS,A.ADDTIME DESC LIMIT #count#
+  </select>
+  <select id="GET_LIST_BY_BORROWLIST_BORROWTYPE_INDEXSTATUS" parameterClass="borrowAlias" resultMap="borrowScalesResult">
+	 SELECT A.*, CAST(A.ACCOUNT_YES/A.ACCOUNT AS DECIMAL(8,5)) AS SCALES FROM TB_BORROW A WHERE  A.borrow_type=#borrowType# and A.index_status=#index_status# and STATUS in(1,3,5,6,11) order by addtime desc  limit #limits#
+  </select>
+	<select id="GET_LIST_BY_GETLISTSEARCH" parameterClass="map" resultMap="borrowUserResult">
+	   SELECT A.*, B.USERNAME as username, CAST(A.ACCOUNT_YES/A.ACCOUNT AS DECIMAL(8,5)) AS SCALES FROM TB_BORROW A, TB_USER B WHERE A.USER_ID = B.ID and A.STATUS in(1,3,5,6,11) ORDER BY addtime DESC 
+  </select>
+  <select id="GET_COUNT_BY_GETLISTSEARCH" parameterClass="map"  resultClass="int">
+	  SELECT COUNT(*) FROM TB_BORROW A, TB_USER B WHERE A.USER_ID = B.ID and A.STATUS in(1,3,5,6,11) ORDER BY addtime DESC 
+  </select>
+  
+  <select id="GET_LIST_BY_GETINDEXBORROWLIST" parameterClass="int" resultMap="borrowResultForIndex">
+  	SELECT
+		A.*, CAST(
+		A.ACCOUNT_YES / A.ACCOUNT AS DECIMAL (8, 5)
+		) AS SCALES,
+		(
+		SELECT
+			COUNT(DISTINCT t.user_id)
+		FROM
+			tb_borrow_tender t
+		WHERE
+			t.borrow_id = A.id
+		) AS persionSize
+		FROM
+		tb_borrow A
+		WHERE
+	A.STATUS IN (1,2,3,5,6)
+	AND A.index_status = 1
+	ORDER BY A.addtime DESC
+  	<isNotEmpty  property="value">
+	  limit $value$
+	</isNotEmpty>
+  </select>
+    <resultMap id="borrowResultForLoan" class="borrowAlias">
+	    <result column="count" property="count"  />
+	    <result column="account_yes" property="accountYes"  />
+	</resultMap>
+    <select id="GET_BY_BORROWFORLOAN"  resultMap="borrowResultForLoan">
+		SELECT count(*) as count,sum(account_yes) as account_yes FROM `tb_borrow` where `status` in (3,5,6);
+	</select>
+  
+  <select id="GET_LIST_BY_BORROWINDEX" parameterClass="borrowAlias" resultMap="borrowScalesResult">
+	 SELECT A.*, CAST(A.ACCOUNT_YES/A.ACCOUNT AS DECIMAL(8,5)) AS SCALES FROM TB_BORROW A WHERE  A.STATUS=#status# and A.index_status=#index_status# order by addtime desc  limit #limits#
+  </select>
+  
+</sqlMap>

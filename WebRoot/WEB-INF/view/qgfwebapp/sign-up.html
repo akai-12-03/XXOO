@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<title>钱功夫</title>
+				<script>
+			var ROOT_URL = '${weburl}';
+			var seajsEnv = {
+				'mode': 'development',
+				'debug': true
+			};
+		</script>
+		<style type="text/css">
+			#glass-msg{
+				border-radius: 10px;
+				color: red;
+				width: 80%;
+				height: 220px;
+				position: absolute;
+				left: 10%;
+				top: 35%;
+				text-align: center;
+				background-color: white;
+				z-index: 999;
+				padding: 50px 20px 20px 20px;
+				box-shadow: 0px 0px 112px -30px #333 inset;
+			}
+			.closeIcon{
+				display: inline-block;
+				z-index: 999;
+				width: 32px;
+				height: 32px;
+				position: absolute;
+				top: 0;
+				left: 90%;
+				background-image: url("${weburl}/dist/images/close.png");
+			}
+		</style>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="${weburl}/dist/libs/sea.js" ></script>
+		<script type="text/javascript" src="${weburl}/dist/src/js/config.js" ></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body class="mi">
+    <div class="title-top text-align-center">
+          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+          <span class="titleTitle">注册</span>
+          <span class="spanWhite"></span>
+     #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+    <form method="post" id="signup-form" action="${weburl}/webapp/signup.html?type=signup">
+		<div class="form" style="margin-top: 10%;">
+    		<label for="telphone" class="labelHeight">手机号码</label><div class="glass"><input type="text" placeholder="请输入绑定手机号码" class="inputText" required="required" data-validator="telphone" id="telphone" name="telphone"/></div>
+    		<div class="tip"></div>
+    	</div>
+    	<div class="form-3cell verifyimg-box">
+    		<label class="labelHeight">图形验证码</label><div class="glass"><input type="text" id="imgCode" name="imgCode" data-validator="code" placeholder="请输入图形验证码" class="inputText" required="required"/></div><div class="labelHeight yanzheng"><img  src="${weburl}/pcrimg.html"></div><div class="tip"></div>
+    	</div>
+    	<div class="form-3cell verifytel-box">
+    		<label class="labelHeight">手机验证码</label><div class="glass" style="line-height: normal;"><input type="text" name="code" data-validator="code" placeholder="请输入短信验证码" class="inputText" required="required"/><button class="labelHeight yanzheng" id="telyanzheng" type="button" style="position: absolute;">获取验证码</button><span class="tip"></span></div>
+    	</div>
+    	<div class="form">
+    		<label for="password" class="labelHeight">密码</label><div class="glass"><input type="password" id="password" placeholder="请输入密码(6-15位字母、数字)" class="inputText" required="required" name="password" data-validator="password"/></div>
+    		<div class="tip"></div>
+    	</div>
+    	<div class="form">
+    		<label for="repassword" class="labelHeight">确认密码</label><div class="glass"><input type="password" name="repassword" id="repassword" data-validator="repassword" placeholder="请输入密码(6-15位字母、数字)" class="inputText" required="required"/></div>
+    		<div class="tip"></div>
+    	</div>
+    	<div class="form">
+    		<label for="man" class="labelHeight">邀请人</label><div class="glass"><input type="text" name="referee" value="$!invite" id="man" placeholder="请输入推荐人手机号码(选填)" class="inputText"/></div>
+    	</div>
+    	<div class="btn">
+    		<input type="submit" value="注册" />
+    	</div>
+    	#if($!msg)
+    	    <div id="bgc-glass"></div>
+    		<div id="glass-msg">$!msg<i class="closeIcon"></i>
+    			#if($!msg.indexOf("成功")>0)<a href="${weburl}/webapp/myhome/user-index.html" style="text-decoration: none;color: #28B726;font-weight: bold;">点击跳转至个人中心</a>#end
+    		</div>
+    	#end
+    </form>
+    	<script>
+        	seajs.use('signup');
+        	$(function(){
+        		$(".closeIcon").on("click",function(){
+        			$("#bgc-glass").css("display","none");
+        			$("#glass-msg").css("display","none");
+        		});
+        	});
+        </script>
+	</body>
+</html>

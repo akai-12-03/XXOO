@@ -1,0 +1,146 @@
+#topbar('H')
+<script type="text/javascript">
+    function toparams(val, type) {
+        if (type == 1) {
+        	if(val==0)
+        	{
+        		$("#xmlx").val('');
+        	}
+        	else
+        	{
+            $("#xmlx").val(val);
+        	}
+        } else if (type == 2) {
+            $("#xmqx").val(val);
+        } else if (type == 3) {
+            $("#tzsy").val(val);
+        }
+
+        $("#page").val(1);
+
+        $("#borrowForm").submit();
+    }
+
+    $(function () {
+        var filters = $(".product-condition a");
+        var lines = [$("#xmlx").val(), $("#xmqx").val(), $("#tzsy").val()];
+        filters.each(function (index) {
+            var items = $(this).children("a");
+            items.eq(lines[index]).addClass("active");
+        });
+    });
+</script>
+<style>
+    .fnewP {
+        display: block;
+        padding: 3px 0;
+        color: #666;
+    }
+    .hp-newProject{
+        height: 396px!important;
+    }
+</style>
+<form action="${weburl}/market/search.html" method="get" id="borrowForm">
+    <input type="hidden" id="page" name="page" value="$!page"/>
+    <input type="hidden" name="xmlx" value="$!xmlx" id="xmlx"/>
+    <input type="hidden" name="xmqx" value="$!xmqx" id="xmqx"/>
+    <input type="hidden" name="tzsy" value="$!tzsy" id="tzsy"/>
+    <div class="borrow-wrap">
+        <div class="borrow-top">
+            <div class="mid-width">
+                <div class="list-tab">
+                    <p>
+                        <span onclick="window.location.href='javascript:toparams(0,1);'" style='cursor:pointer' #if(!$!xmlx || $!xmlx=="") class="active" #end>全部</span> 
+                        <span onclick="window.location.href='javascript:toparams(1,1);'" style='cursor:pointer'
+                              #if($!xmlx=='1') class="active" #end>购车垫资标</span>
+                        <span onclick="window.location.href='javascript:toparams(2,1);'" style='cursor:pointer'
+                              #if($!xmlx=='2') class="active" #end>汽车质押标</span>
+                        <span onclick="window.location.href='javascript:toparams(3,1);'" style='cursor:pointer'
+                              #if($!xmlx=='3') class="active" #end>汽车抵押标</span>
+                        <span onclick="window.location.href='javascript:toparams(4,1);'" style='cursor:pointer'
+                              #if($!xmlx=='4') class="active" #end>企业借款标</span>
+                        <span onclick="window.location.href='javascript:toparams(5,1);'" style='cursor:pointer'
+                              #if($!xmlx=='5') class="active" #end>新手标</span>
+                    </p>
+                </div>
+            </div>
+
+            <div class="product-condition">
+                <div class="mid-width">
+                    <p class="int-tab">
+                        项目收益：
+                        <a href="javascript:toparams(0,3);" #if(!$!tzsy || $!tzsy=='0' || $!tzsy=="") class="active"
+                           #end>全部</a>
+                        <a href="javascript:toparams(1,3);" #if($!tzsy=='1') class="active" #end>5%-7% </a>
+                        <a href="javascript:toparams(2,3);" #if($!tzsy=='2') class="active" #end>7%-10%</a>
+                        <a href="javascript:toparams(3,3);" #if($!tzsy=='3') class="active" #end>10%-15%</a>
+                    </p>
+                    <p class="int-tab">
+                        理财期限：
+                        <a href="javascript:toparams(0,2);" #if(!$!xmqx || $!xmqx=='0' || $!xmqx=="") class="active"
+                           #end>全部</a>
+                        <a href="javascript:toparams(1,2);" #if($!xmqx=='1') class="active" #end>0-1个月 </a>
+                        <a href="javascript:toparams(2,2);" #if($!xmqx=='2') class="active" #end>1-3个月 </a>
+                        <a href="javascript:toparams(3,2);" #if($!xmqx=='3') class="active" #end>3-6个月</a>
+                        <a href="javascript:toparams(4,2);" #if($!xmqx=='4') class="active" #end>6-12个月</a>
+                        <a href="javascript:toparams(5,2);" #if($!xmqx=='5') class="active" #end>12个月以上</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="mid-width clearfix">
+            <div class="hp-project clearfix" style="width:100%;">
+                #if($!marketPage.getResult().size()>0)
+                #foreach($market in $!marketPage.getResult())
+
+                <div #if($index==4 || $index==8) class="hp-newProject w290 mr0" #else class="hp-newProject w290" #end
+                     style="position: relative;">
+                    <header>$!market.borrowName</header>
+                    #if($!market.borrowType == 5)
+                    <i style="background-image: url('${weburl}/public/images/newperson.png');width: 64px;height: 64px;display: inline-block;background-repeat: no-repeat;position: absolute;right: 0;top: 0;"></i>
+                    #end
+                    <div class="hp-newProject-content">
+                        <p class="income">年化收益</p>
+                        <p class="percent" style="margin-bottom: 15px;">$!market.borrowApr
+                            <small>%</small>
+                        </p>
+                        <p class="fnewP">转让价格：$!market.transferPrice元</p>
+                        <input type="hidden" id="$market.id" name="$market.id" value="$market.borrowId">
+                        <p class="fnewP">待收金额：$numberTool.format($!market.collectionMoney)元</p>
+                        <!--<div class="progress" data-percent="80%"></div>-->
+                        <p class="fnewP">
+                            当前还款期：$!market.repayOrder / $!market.repayTotalOrder
+                        </p>
+                        <p class="fnewP">剩余天数：
+                            $!{market.remainingDays}
+                        </p>
+                        <!-- <p class="fnewP">
+                            让利金额：
+                        </p> -->
+                        <p class="fnewP">
+                            收益方式：$statusTool.getBorrowRepaymentStyle($!market.repaymentStyle)
+                        </p>
+                    </div>
+                    #if($market.status==0)
+                    <a onclick="borrowDtail($market.id)" class="pure-button button-primary w290"
+                       style="margin-top: 5px!important;">立即购买</a>
+                    #else
+                    <a href="#" onclick="borrowDtail($market.id)" class="pure-button w290"
+                       style="margin-top: 5px!important;">转让成功</a>
+                    #end
+                </div>
+                #end
+                #end
+            </div>
+        </div>
+        #pagination($marketPage,"borrowForm")
+    </div>
+</form>
+<script>
+    seajs.use("invest");
+    function borrowDtail(id) {
+        var marketId = $("#" + id).val();
+        location.href = "${weburl}/borrow/detail/" + marketId + ".html?marketId=" + id;
+    }
+</script>
+#foot()

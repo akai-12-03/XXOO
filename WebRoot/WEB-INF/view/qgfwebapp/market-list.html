@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,height=device-height">
+    <meta name="MobileOptimized" content="320" />
+    <link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css" />
+    <title>钱功夫</title>
+    <style>
+    .iteam-glass .iteam .iteam-bottom>div>.num {
+        font-size: 12px
+    }
+    </style>
+    <script src="${weburl}/dist/libs/zepto.min.js"></script>
+    <script src="${weburl}/dist/libs/jquery.js"></script>
+    <script src="${weburl}/dist/libs/raphael-min.js"></script>
+    <script src="${weburl}/dist/libs/progre.js"></script>
+    <style>
+    .new-person {
+        display: inline-block;
+        width: 32px;
+        height: 32px;
+        background-image: url("${weburl}/dist/images/succ.png");
+        background-size: 100%;
+        position: absolute;
+        top: 8%;
+        left: 78%;
+    }
+    
+    .chice {
+        font-size: 0;
+    }
+    
+    .chice>span {
+        font-size: 12px;
+        overflow: hidden;
+        vertical-align: top;
+    }
+    
+    .cell3 {
+        width: 18%!important;
+    }
+    
+    .iteam-top {
+        margin-top: 0!important;
+    }
+    
+    .iteam {
+        padding: 20px 0;
+    }
+    </style>
+</head>
+
+<body class="mi">
+    <div class="title-top text-align-center">
+        <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'" />
+        <span class="titleTitle">债权转让列表</span>
+        <span class="spanWhite"></span> #rightmenu()
+    </div>
+    <!--
+              ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓选项卡
+        -->
+    <div class="chice">
+        <span onclick="javascript:location.href='${weburl}/webapp/market/search.html'" #if(!$!xmlx || $!xmlx=="" ) class="information-title information-title-click" #else class="information-title" #end style="width: 16.66% !important;">全部分类</span>
+        <span onclick="javascript:location.href='${weburl}/webapp/market/search.html?xmlx=1'" #if($!xmlx=='1') class="information-title information-title-click" #else class="information-title" #end style="width: 16.66% !important;">购车垫资标</span>
+        <span onclick="javascript:location.href='${weburl}/webapp/market/search.html?xmlx=2'" #if($!xmlx=='2' ) class="information-title information-title-click" #else class="information-title" #end style="width: 16.66% !important;">汽车质押标</span>
+        <span onclick="javascript:location.href='${weburl}/webapp/market/search.html?xmlx=3'" #if($!xmlx=='3' ) class="information-title information-title-click" #else class="information-title" #end style="width: 16.66% !important;">汽车抵押标</span>
+        <span onclick="javascript:location.href='${weburl}/webapp/market/search.html?xmlx=4'" #if($!xmlx=='4' ) class="information-title information-title-click" #else class="information-title" #end style="width: 16.66% !important;">企业借款标</span>
+        <span onclick="javascript:location.href='${weburl}/webapp/market/search.html?xmlx=5'" #if($!xmlx=='5' ) class="information-title information-title-click" #else class="information-title" #end style="width: 16.66% !important;">新手标</span>
+    </div>
+    <!--
+            ↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+        -->
+    <div class="glassMode" onclick="closeRight()"></div>
+    <form action="${weburl}/webapp/market/search.html" method="post" id="borrowForm">
+        <input type="hidden" id="page" name="page" value="$!page" /> #foreach($br in $marketPage.getResult())
+        <div class="iteam-glass" onclick="window.location.href='${weburl}/webapp/borrow/detail/$!{br.id}.html'" style="position: relative;">
+        	#if($!br.status==1)
+            <i class="new-person"></i>
+            #end
+            <!--↑↑↑↑↑↑↑↑↑↑↑↑这个是已转让图标，需要判断-->
+            <div class="iteam">
+                <div class="iteam-top">
+                    #if($br.borrowName.length()>10) #limit($br.borrowName 10).. #else $br.borrowName #end
+                </div>
+                <div class="iteam-bottom">
+                    <div class="cell1">
+                        <div class="num">
+                            $viewTool.format1SD2($br.transferPrice)
+                        </div>
+                        <div class="text">
+                            转让金额
+                        </div>
+                    </div>
+                    <div class="cell2">
+                        <div class="num">
+                            $numberTool.format($!br.collectionMoney)
+                        </div>
+                        <div class="text">
+                            待收金额
+                        </div>
+                    </div>
+                    <div class="cell3">
+                        <div class="num">
+                            $br.timeLimit #if($!br.isday ==1) 天 #else 个月 #end
+                        </div>
+                        <div class="text">
+                            剩余天数
+                        </div>
+                    </div>
+                </div>
+                <div class="iteam-bottom">
+                    <div class="cell1">
+                        <div class="num">
+                            $statusTool.getBorrowRepaymentStyle($!br.repaymentStyle)
+                        </div>
+                        <div class="text">
+                            收益方式
+                        </div>
+                    </div>
+                    <div class="cell2">
+                        <div class="num">
+                            $!br.repayOrder / $!br.repayTotalOrder
+                        </div>
+                        <div class="text">
+                            当前还款期
+                        </div>
+                    </div>
+                    <div class="cell3">
+                        <div class="num">
+                            $!br.borrowApr%
+                        </div>
+                        <div class="text">
+                            年化收益
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- #if($dateTool.isOver2("$!br.verifyTime", "$!br.lastTime")&& $br.status==1 || $br.status==7)<img alt="" src="${weburl}/dist/images/ygq.png" width="15%" style="margin:5%"> #else<div style="width: 30%;display: inline-block;">
+                        <div class="proc">
+                            <div class="bill-goods-list">
+                                <div class="process-wrap">
+                                    <div class="process-con"></div>
+                                    <div class="process-num2" style="display: none;"></div>
+                                          <p style="display: none;" id="pasent">$!br.scales</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>#end -->
+        </div>
+        #end #pagination($marketPage,"borrowForm")
+    </form>
+    <script src="${weburl}/dist/js/items-list.js" type="text/javascript" charset="utf-8"></script>
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+#topbar('B')
+<script type="text/javascript" >
+	function toparams(val, type){
+		if(type==1){
+			$("#borrowType").val(val);
+		}else if(type==2){
+			$("#rzqx").val(val);
+		}else if(type==3){
+			$("#xmsy").val(val);
+		}
+		
+		$("#page").val(1);
+		
+		$("#borrowForm").submit();
+	}
+	
+	$(function(){
+		var filters = $(".product-condition a");
+		var lines = [ $("#borrowType").val(),$("#rzqx").val(),$("#xmsy").val()];
+		filters.each(function(index){
+			var items = $(this).children("a");
+			items.eq(lines[index]).addClass("active");
+		});
+	});
+</script>
+<form action="${weburl}/borrow/toubiao.html" method="get" id="borrowForm">
+       			<input type="hidden" id="page" name="page" value="$!page"/>
+       			<input type="hidden" name="borrowType" value="$!borrowType" id="borrowType" />
+       			<input type="hidden" name="rzqx" value="$!rzqx" id="rzqx" />
+       			<input type="hidden" name="xmsy" value="$!xmsy" id="xmsy" />
+		<div class="borrow-wrap">
+			<div class="borrow-top">
+				<div class="mid-width">
+					<div class="list-tab">
+						<p>
+<!-- 							<span onclick="window.location.href='javascript:toparams(1,1);'" style='cursor:pointer' class="active">汽车抵押借贷</span> -->
+							<span onclick="window.location.href='javascript:toparams(1,1);'" style='cursor:pointer' #if(!$!borrowType || $!borrowType=='1' || $!borrowType=="")  class="active" #end>购车垫资标</span>
+							<span onclick="window.location.href='javascript:toparams(2,1);'" style='cursor:pointer' #if($!borrowType=='2')  class="active" #end>汽车质押标</span>
+							<span onclick="window.location.href='javascript:toparams(3,1);'" style='cursor:pointer' #if($!borrowType=='3')  class="active" #end>汽车抵押标</span>
+							<span onclick="window.location.href='javascript:toparams(4,1);'" style='cursor:pointer' #if($!borrowType=='4')  class="active" #end>企业借款标</span>
+							<span onclick="window.location.href='javascript:toparams(5,1);'" style='cursor:pointer' #if($!borrowType=='5')  class="active" #end>新手标</span>
+						</p>
+					</div>
+				</div>
+
+				<div class="product-condition">
+					<div class="mid-width">
+						<p class="int-tab">
+							项目收益：
+							<a href="javascript:toparams(0,3);" #if(!$!xmsy || $!xmsy=='0' || $!xmsy=="") class="active" #end >全部</a>
+							<a href="javascript:toparams(1,3);" #if($!xmsy=='1') class="active" #end >5%-7% </a>
+							<a href="javascript:toparams(2,3);" #if($!xmsy=='2') class="active" #end >7%-10%</a>
+							<a href="javascript:toparams(3,3);" #if($!xmsy=='3') class="active" #end >10%-15%</a>
+						</p>
+						<p class="int-tab">
+							理财期限：
+							<a href="javascript:toparams(0,2);" #if(!$!rzqx || $!rzqx=='0' || $!rzqx=="") class="active" #end>全部</a>
+							<a href="javascript:toparams(1,2);" #if($!rzqx=='1') class="active" #end>0-1个月 </a>
+							<a href="javascript:toparams(2,2);" #if($!rzqx=='2') class="active" #end>1-3个月 </a>
+							<a href="javascript:toparams(3,2);" #if($!rzqx=='3') class="active" #end>3-6个月</a>
+							<a href="javascript:toparams(4,2);" #if($!rzqx=='4') class="active" #end>6-12个月</a>
+							<a href="javascript:toparams(5,2);" #if($!rzqx=='5') class="active" #end>12个月以上</a>
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="mid-width clearfix">
+				<div class="hp-project clearfix" style="width:100%;">
+				#foreach($bor in $borrowPage.getResult())
+				#set($remoney=$!bor.account - $!bor.accountYes)
+				#set($account=$!bor.account/10000)
+					<div #if($index==4 || $index==8) class="hp-newProject w290 mr0" #else class="hp-newProject w290" #end style="position: relative;">
+						<header>$!bor.name</header>
+						#if($!bor.borrowType == 5)
+						<i style="background-image: url('${weburl}/public/images/newperson.png');width: 64px;height: 64px;display: inline-block;background-repeat: no-repeat;position: absolute;right: 0;top: 0;"></i>
+						#end
+						<div class="hp-newProject-content">
+							<p class="income">年化收益</p>
+							<p class="percent">$viewTool.subStrApr($!bor.apr)<small>$viewTool.subEndApr($!bor.apr)%
+							<em>
+							#if($bor.award == 0)
+				              	#elseif($bor.award == 2)
+				              		#if($!bor.partAccount)
+				              			+${bor.partAccount}%
+				              		#else
+				              		#end
+				              	#else
+				              		#if($!bor.funds)
+				              		+$viewTool.format1SD2(${bor.funds})
+				              	#else
+				              	#end
+				            #end
+							</em></small></p>
+							<div class="progress" data-percent="$bor.scale%"></div>
+							<p class="finance">已融资$viewTool.format2Str($bor.scale)% | 剩余$viewTool.format1SD2($remoney)</p>
+							<p class="finance">
+							#if($!bor.isDay=='1')
+                              <span class="black">$!bor.timeLimit</span>天
+                        	#else
+                              <span class="black">$!bor.timeLimit</span>个月
+                        	#end | <span class="black"></span>$viewTool.decToStr8($account) 万 | <span class="black">$!bor.persionSize</span> 人已投</p>
+						</div>
+	                    #if ($!bor.status==7||($dateTool.isOver2("$!bor.verifyTime", "$!bor.lastTime")&& $bor.status==1))
+							<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary-gray w290">已过期-点击查看</a>
+						#elseif ($bor.status==1 && $viewTool.aMoreb($bor.account, $bor.accountYes)==1)
+						    <a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary w290">马上购买</a>
+						#elseif ($bor.status==2 && $viewTool.aMoreb($bor.account, $bor.accountYes)==0)
+							<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary w290">等待复审</a>
+						#elseif ($bor.status==3) 
+							<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary w290">复审通过</a>
+						#elseif ($bor.status==9) 
+						    <a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary-gray w290">复审失败</a>
+						#elseif ($bor.status==5) 
+							<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary w290">还款中</a>
+						#elseif ($bor.status==7) 
+							<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary-gray w290">已过期</a>
+						#elseif ($bor.status==6)
+							<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary-gray w290">已还款</a>
+						#else
+							<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary-gray w290">用户取消</a>
+						#end
+					</div>
+				#end
+				</div>
+			</div>
+			#pagination($borrowPage,"borrowForm")
+		</div>
+		</form>
+		<script>
+			seajs.use("invest");
+		</script>
+#foot()

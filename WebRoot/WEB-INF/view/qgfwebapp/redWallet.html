@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+		<title>钱功夫</title>
+	</head>
+	<body class="mi">
+	<div class="title-top text-align-center">
+          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+          <span class="titleTitle">我的红包</span>
+          <span class="spanWhite"></span>
+     #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+    #foreach($hb in $borrowPage.getResult())
+		<div class="redwWalet">
+			<div class="redwWalet-img">
+				<img src="${weburl}/dist/images/redhongbao.png"/>
+				<div class="redhongbao">$hb.money<span>元</span></div>
+			</div><div class="redwWalet-glass">
+				<div class="redwWalet-name">
+					#if($!hb.status==0)
+						未使用
+					#elseif($!hb.status==1)
+					   	已使用
+					#elseif($!hb.status==2)
+						正在使用中
+					#elseif($!hb.status==3)
+						已过期
+					#end
+				</div>
+				<!-- <div class="redwWalet-num">
+					单笔投资满100元使用
+				</div> -->
+				<div class="redwWalet-time">
+					有效期至#limit($dateTool.getStr($hb.endtime) 10)
+				</div>
+			</div>
+		</div>
+	#end
+	</body>
+</html>

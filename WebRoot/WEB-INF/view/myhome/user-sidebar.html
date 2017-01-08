@@ -1,0 +1,124 @@
+		<div class="slider-bg">
+			<div class="mid-width clearfix">
+				<img #if($!currUser.litpic) src="${weburl}/$!currUser.litpic"  #else src="${weburl}/public/images/user.png" #end />
+				<div class="slider-content">
+					<h3>下午好，#if($!currUser)$textTool.hideUsernameChar($!currUser.username)#end</h3>
+					<p>上次登录时间：<br/>$dateTool.getStr2($!lastLogintime)</p>
+				</div>
+				<div class="slider-info">
+					<p>
+					#if($!currUser.mobileBindingStatus==1)
+					已绑定 <i class="icon user-telphone-authed"></i> &nbsp;&nbsp;
+					#else
+					未绑定 <i class="icon user-telphone-unauthed"></i> &nbsp;&nbsp;
+					#end
+					#if($!currUser.realVerifyStatus==1)
+					已认证 <i class="icon user-realname-authed"></i> &nbsp;&nbsp;
+					#else
+					未认证 <i class="icon user-realname-unauthed"></i> &nbsp;&nbsp;
+					#end
+					#if($!currUser.cardBindingStatus==1)
+					已绑定 <i class="icon user-balance-authed"></i> &nbsp;&nbsp;
+					#else
+					未绑定 <i class="icon user-balance-unauthed"></i> &nbsp;&nbsp;
+					#end
+				</div>
+			</div>
+		</div>
+		<div class="mid-width clearfix">
+			<div class="user-sidebar">
+				<ul class="accordion">
+					<li class="manage lignheight">
+						<div class="accordion-title accordion-title-1"><a href="${weburl}/myhome/user-index.html" style="color:#fff">我的帐户</a></div>
+					</li>
+					<li #if($!sidenav2=="1") class="active" #end>
+						<div class="accordion-title"> <i class="icon user-home"></i> 帐户管理</div>
+						<ul>
+							<li #if($!sidenav=="11") class='cur' #end>
+								<a href="${weburl}/myhome/realname.html"><span>◆</span>实名认证</a>
+							</li>
+							<li #if($!sidenav=="12") class='cur' #end>
+								<a href="${weburl}/myhome/toChangePwd.html"><span>◆</span>修改密码</a>
+							</li>
+							<li #if($!sidenav=="13") class='cur' #end>
+								<a href="${weburl}/bankBind.html"><span>◆</span>银行卡</a>
+							</li>
+							<li #if($!sidenav=="14") class='cur' #end>
+								<a href="${weburl}/myhome/toUploadPic.html"><span>◆</span>头像上传</a>
+							</li>
+						</ul>
+					</li>
+					<li #if($!sidenav2=="2") class="active" #end>
+						<div class="accordion-title"> <i class="icon user-safe"></i> 资金管理</div>
+						<ul>
+							<li #if($!sidenav=="21") class='cur' #end>
+								<a href="${weburl}/myhome/charge.html"><span>◆</span>充值</a>
+							</li>
+							<li #if($!sidenav=="22") class='cur' #end>
+								<a href="${weburl}/myhome/withdraw.html"><span>◆</span>提现</a>
+							</li>
+							<li #if($!sidenav=="23") class='cur' #end>
+								<a href="${weburl}/myhome/hongbao.html"><span>◆</span>红包</a>
+							</li>
+							<li #if($!sidenav=="24") class='cur' #end>
+								<a href="${weburl}/myhome/moneyLog.html"><span>◆</span>交易明细</a>
+							</li>
+						</ul>
+					</li>
+					<li #if($!sidenav2=="3") class="active" #end>
+						<div class="accordion-title"><i class="icon user-loan"></i> 借款管理</div>
+						<ul>
+							<li #if($!sidenav=="31") class='cur' #end>
+								<a href="${weburl}/myhome/jieBorrow.html"><span>◆</span>正在招标的项目</a>
+							</li>
+							<li #if($!sidenav=="32") class='cur' #end>
+								<a href="${weburl}/myhome/jieBorrow.html?type=unpublish"><span>◆</span>尚未发布的项目</a>
+							</li>
+							<li #if($!sidenav=="33") class='cur' #end>
+								<a href="${weburl}/myhome/jieBorrow.html?type=repayment"><span>◆</span>正在还款的项目</a>
+							</li>
+							<li #if($!sidenav=="34") class='cur' #end>
+								<a href="${weburl}/myhome/jieBorrow.html?type=repaymentyes"><span>◆</span>已还款的项目</a>
+							</li>
+							<li #if($!sidenav=="35") class='cur' #end>
+								<a href="${weburl}/myhome/repinfo.html"><span>◆</span>全部明细</a>
+							</li>
+						</ul>
+					</li>
+					<li #if($!sidenav2=="4") class="active" #end>
+						<div class="accordion-title"><i class="icon user-invest"></i> 理财管理</div>
+						<ul>
+							<li #if($!sidenav=="41") class='cur' #end>
+								<a href="${weburl}/myhome/tblist.html"><span>◆</span>正在投标的项目</a>
+							</li>
+							<li #if($!sidenav=="42") class='cur' #end>
+								<a href="${weburl}/myhome/sklist.html?type=1"><span>◆</span>正在收款的项目</a>
+							</li>
+							<li #if($!sidenav=="43") class='cur' #end>
+								<a href="$weburl/myhome/wsklist.html?status=0"><span>◆</span>未收款的明细</a>
+							</li>
+							<li #if($!sidenav=="44") class='cur' #end>
+								<a href="$weburl/myhome/wsklist.html?status=2"><span>◆</span>已收款的明细</a>
+							</li>
+							<li #if($!sidenav=="45") class='cur' #end>
+								<a href="${weburl}/myhome/toubiao.html"><span>◆</span>借出明细帐</a>
+							</li>
+							<li #if($!sidenav=="46") class='cur' #end>
+								<a href="${weburl}/myhome/sklist.html?type=2"><span>◆</span>已还清项目</a>
+							</li>
+							<li #if($!sidenav=="47") class='cur' #end>
+								<a href="${weburl}/myhome/tenderSearch.html"><span>◆</span>债权转让</a>
+							</li>
+						</ul>
+					</li>
+
+					<li #if($!sidenav2=="5") class="active" #end>
+						<div class="accordion-title"><i class="icon user-extend"></i> 推广联盟</div>
+						<ul>
+							<li  #if($!sidenav=="51") class='cur' #end>
+								<a href="${weburl}/myhome/tuiguang.html"><span>◆</span>推广联盟</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>

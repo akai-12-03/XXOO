@@ -1,0 +1,106 @@
+﻿#topbar("C")
+		<div class="borrow-wrap">
+			<div class="loan-banner">
+				<div class="mid-width" style="position:relative;">
+					<div class="loan-dialogbg"></div>
+					<div class="loan-dialog">
+						<h3>我要申请借款</h3>
+						<form id="loan-form"  method="post" action="$weburl/borrow/loanBorrow.html" >
+							<div class="field clearfix">
+								<label>真实姓名</label>
+								<input type="text" name="realname" required>
+							</div>
+							<div class="field clearfix">
+								<label>手机号</label>
+								<input type="text" name="phone" data-validator="telphone" id="telphone" required>
+								<div class="tip" style="top:30px ! important;right:75px ! important;color:red ! important;"></div>
+							</div>
+							<div class="field clearfix">
+								<label>是否有车</label>
+								<input name="carStatus" value="0" type="radio" checked> 有车
+								<input name="carStatus" value="1" type="radio"> 无车
+							</div>
+							<div class="field verifyimg-box clearfix">
+								<label>验证码</label>
+								<input type="text" name="imgCode" id="imgCode" data-validator="code" class="shortinput" required>
+								<img src="${weburl}/pcrimg.html" alt="验证码" title="点击刷新" width="64" height="30">
+								<div class="tip" style="top: 30px;left: 70px;color: red;"></div>
+							</div>
+							<div class="field">
+								<button type="submit">立即申请</button>
+							</div>
+						</form>
+					</div>
+				#if($!msg)
+				<div id="tipBox" style="display:block;">
+					<header class="clearfix"><a href="javascript:closewin()" class="close_btn">X</a></header>
+					<div class="tip-content">
+						<p>#if($!msg.indexOf("成功")>0) <i class="icon icon-success"></i> #else <i class="icon icon-fail"></i> #end &nbsp;$!msg</p>
+					</div>
+				</div>
+				<div class="mask" style="display:block"></div>
+				#end
+				</div>
+			</div>
+			<div class="banner-tip">
+				<div class="mid-width">
+					<p class="clearfix"><span class="float-left">累计提供贷款 <strong>#if($!borrow.accountYes) $viewTool.format2JQStr($!borrow.accountYes)元 #else 0.00元 #end</strong>，成功提供贷款次数 <strong>#if($!borrow.count)$!borrow.count#else 0 #end</strong>，每笔贷款平均下放时间 <strong>2小时</strong></span><span class="float-right">直接咨询热线 <strong>400-6052-677</strong></span></p>
+				</div>
+			</div>
+			<div class="mid-width">
+				<div class="myloan-content">
+					<div class="content">
+						<h3 class="title">借款优势</h3>
+						<ul class="clearfix">
+							<li>
+								<i class="icon icon-loan1"></i>
+								<h3>门槛低</h3>
+								<p>月收入3000元即可申请</p>
+							</li>
+							<li>
+								<i class="icon icon-loan2"></i>
+								<h3>额度大</h3>
+								<p>最高借款额度达90万元</p>
+							</li>
+							<li>
+								<i class="icon icon-loan3"></i>
+								<h3>放款快</h3>
+								<p>3个工作日内即可审核完成</p>
+							</li>
+							<li>
+								<i class="icon icon-loan4"></i>
+								<h3>费率低</h3>
+								<p>月综合费率低至0.4%</p>
+							</li>
+							<li>
+								<i class="icon icon-loan5"></i>
+								<h3>不压车</h3>
+								<p>钱到账 车照开</p>
+							</li>
+						</ul>
+					</div>
+					<div class="content">
+						<h3 class="title">借款流程</h3>
+						<div class="loan-lc clearfix">
+							<img src="../public/images/loan-lc.png">
+							<div class="item">
+								<h3>第一步 提交贷款信息</h3>
+								<p>提交车辆信息并选择贷款期限</p>
+							</div>
+							<div class="item">
+								<h3>第二步 车辆评估及审核</h3>
+								<p>专业人员上门服务，成熟的评估审核体系快速响应</p>
+							</div>
+							<div class="item">
+								<h3>第三步 平台放款</h3>
+								<p>投资人通过平台投标，标满即可放款</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+#foot()
+		<script>
+			seajs.use('loan');
+		</script>

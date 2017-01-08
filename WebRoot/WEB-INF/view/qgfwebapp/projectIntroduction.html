@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+		<title>钱功夫</title>
+	</head>
+	<body class="mi">
+		<div class="title-top text-align-center">
+	          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+	          <span class="titleTitle">项目介绍</span>
+	          <span class="spanWhite"></span>
+	     #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+	    <div class="Intro-title">
+	    	项目介绍
+	    </div>
+	    <div class="Intro-text">
+	    	$!borrow.content
+	    </div>
+	 <!--    <script>
+       $(document).ready(function(){
+             imgArray();
+       })
+       function imgArray(){
+       	    var a=$("body").width();
+       	    var b=$(".Intro-text img");
+       	     b.each(function(){
+	       	     	$(this).on("load",function(){
+	       	     		if($(this).width() > a){
+							$(this).attr("width","100%");
+	       	     	    }
+	       	     	})     
+		    })
+       }
+	</script>-->
+	 <script>
+       $(document).ready(function(){
+             imgArray();
+       })
+       function imgArray(){
+       	    var a=$("body").width();
+       	    var b=$(".Intro-text>img");
+       	    var c=$(".Intro-text>p>img");
+       	     b.each(function(){
+	       	     	$(this).on("load",function(){
+	       	     		if($(this).width() > a){
+							$(this).attr("width","100%");
+	       	     	    }
+	       	     	})     
+		    })
+       	     c.each(function(){
+	       	     	$(this).on("load",function(){
+	       	     		if($(this).width() > a){
+							$(this).attr("width","100%");
+	       	     	    }
+	       	     	})     
+		    })
+       }
+	</script>
+	</body>
+</html>

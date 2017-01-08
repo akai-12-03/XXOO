@@ -1,0 +1,104 @@
+@charset:"utf-8";
+
+@import 'global.less';
+
+.color(@background, @border, @background-active){
+	background-color: @background;
+	border-color: @border;
+	&:hover{
+		background-color: lighten(@background, 5%);
+	}
+	&:active{
+		background-color: @background-active;
+	}
+}
+.field{
+	vertical-align: middle;
+	margin: 0.2em;
+}
+@pt: 6;
+@padding-top: @pt*1em;
+@padding-left: 1em;
+.button{
+	display: inline-block;
+	border:1px solid @lightgrey;
+	padding: @padding-top/@font-size @padding-left;
+	border-radius: 4/14em;
+	background-color: @smokewhite;
+	cursor: pointer;
+	font-size: 1em;
+	line-height: 1;
+	user-select: none;
+	&:focus{
+		outline: none;
+	}
+	&:hover{
+		background-color: lighten(@smokewhite, 5%);
+	}
+	&:active{
+		background-color: darken(@smokewhite, 8%);
+	}
+}
+.button.primary{
+	.color(@green, @green-border, @green-active);
+	color: @white;
+}
+.button.error{
+	.color(@red, @red-border, @red-active);
+	color: @white;
+}
+.button.warning{
+	.color(@yellow, @yellow-border, @yellow-active);
+	color: @white;
+}
+.button.green{
+	.button.primary;
+}
+.button.red{
+	.button.error;
+}
+.button.yellow{
+	.button.warning;
+}
+.button.blue{
+	.color(@blue, @blue-border, @blue-active);
+	color: @white;
+}
+//size
+.padding-multiple(@multiple){
+	padding: @multiple*@padding-top/@font-size @multiple*@padding-left;
+}
+.button.small{
+	font-size: 12/14em;
+}
+.button.large{
+	font-size: 1.2em;
+}
+.button.big{
+	font-size: 1.4em;
+}
+.button.huge{
+	font-size: 1.6em;
+}
+.buttons{
+	>.button{
+		float: left;
+		&:not(:first-child):not(:last-child){
+			border-radius: 0em;
+			border-left-width: 0em;
+			border-right-width: 0em;
+		}
+		&:not(:first-child){
+		}
+		&:first-child{
+			border-top-right-radius: 0em;
+			border-bottom-right-radius: 0em;
+			border-right-width: 0em;
+		}
+		&:last-child{
+			border-top-left-radius: 0em;
+			border-bottom-left-radius: 0em;
+			border-left-width: 0em;
+		}
+	}
+}

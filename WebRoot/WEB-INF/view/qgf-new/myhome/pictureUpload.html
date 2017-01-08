@@ -1,0 +1,224 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="renderer" content="webkit">
+		<title>钱功夫</title>
+		<link rel="stylesheet" type="text/css" href="../public/css/style.min.css">
+		<script>
+			var ROOT_URL = 'http://127.0.0.1:8020/qgf';
+			var seajsEnv = {
+				'mode': 'development',
+				'debug': true
+			};
+		</script>
+		<script src="../public/lib/sea.js"></script>
+		<script src="../public/lib/jquery-1.11.2.min.js"></script>
+		<script src="../public/js/config.js"></script>
+	</head>
+
+	<body>
+		<div class="topbar">
+			<div class="mid-width clearfix">
+				<div class="cs-info">
+					<i class="icon icon-phone"></i> 服务热线：<span class="red">4008-0571-92</span>
+					<span>服务时间：9：00-18：00</span>
+					<i class="icon icon-sina"></i> &nbsp;&nbsp;<i class="icon icon-qq"></i>
+				</div>
+				<nav class="opt nav-guest">
+					<a href="#" class="reset">欢迎来到钱功夫！</a>
+					<a href="#" class="ml0 red">注册</a>|
+					<a href="#">登录</a>|
+					<a href="#">帮助中心</a>
+				</nav>
+			</div>
+		</div>
+		<div class="top-navi-menu">
+			<div class="mid-width">
+				<div class="logo">
+					<a href="index.html"><img src="../public/images/logo.png" alt=""></a>
+				</div>
+				<nav class="nav-navi">
+					<ul class="clearfix">
+						<li class="active ml0"><a href="index.html">首页</a></li>
+						<li><a href="#">我要投资</a></li>
+						<li><a href="#">我要借款</a></li>
+						<li><a href="#">安全保障</a></li>
+						<li><a href="#">新手指南</a></li>
+						<li>
+							<a href="#">关于我们</a>
+							<ul class="menu-child">
+								<li><a href="javascript:;">平台规则</a></li>
+								<li><a href="javascript:;">平台公告</a></li>
+								<li><a href="javascript:;">行业资讯</a></li>
+							</ul>
+						</li>
+						<li><a href="#">我的帐户</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div class="slider-bg">
+			<div class="mid-width clearfix">
+				<img src="../public/images/user.png" />
+				<div class="slider-content">
+					<h3>下午好，188****4254</h3>
+					<p>上次登录时间：2015-03-27</p>
+				</div>
+				<div class="slider-info">
+					<p>已绑定 <i class="icon user-telphone-authed"></i> &nbsp;&nbsp;未认证 <i class="icon user-realname-unauthed"></i> &nbsp;&nbsp;未绑定 <i class="icon user-balance-unauthed"></i></p>
+				</div>
+			</div>
+		</div>
+		<div class="mid-width clearfix">
+			<div class="user-sidebar">
+				<ul class="accordion">
+					<li class="manage lignheight">
+						<div class="accordion-title accordion-title-1">我的帐户</div>
+					</li>
+					<li>
+						<div class="accordion-title"> <i class="icon user-home"></i> 帐户管理</div>
+						<ul>
+							<li class="cur">
+								<a href=""><span>◆</span>实名认证</a>
+							</li>
+							<li>
+								<a href=""><span>◆</span>修改密码</a>
+							</li>
+							<li>
+								<a href=""><span>◆</span>银行卡</a>
+							</li>
+							<li>
+								<a href=""><span>◆</span>头像上传</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<div class="accordion-title"> <i class="icon user-safe"></i> 资金管理</div>
+						<ul>
+							<li>
+								<a href=""><span>◆</span>充值</a>
+							</li>
+							<li>
+								<a href=""><span>◆</span>提现</a>
+							</li>
+							<li>
+								<a href=""><span>◆</span>交易明细</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<div class="accordion-title"><i class="icon user-loan"></i> 借款管理</div>
+						<ul>
+							<li>
+								<a href=""><span>◆</span>招标中的项目</a>
+							</li>
+							<li>
+								<a href=""><span>◆</span>待审核的项目</a>
+							</li>
+							<li>
+								<a href=""><span>◆</span>还款中的项目</a>
+							</li>
+							<li>
+								<a href=""><span>◆</span>已收款项目</a>
+							</li>
+							<li>
+								<a href=""><span>◆</span>还款明细</a>
+							</li>
+						</ul>
+					</li>
+					<li>
+						<div class="accordion-title"><i class="icon user-invest"></i> 理财管理</div>
+						<ul>
+							<li>
+								<a href=""><span>◆</span>投资项目</a>
+							</li>
+							<li>
+								<a href=""><span>◆</span>转让申请</a>
+							</li>
+							<li>
+								<a href=""><span>◆</span>收款明细</a>
+							</li>
+						</ul>
+					</li>
+
+					<li>
+						<div class="accordion-title"><i class="icon user-extend"></i> 推广联盟</div>
+						<ul>
+							<li>
+								<a href=""><span>◆</span>推广联盟</a>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="user-page">
+				<div class="user-profile">
+					<nav class="user-nav-tabs">
+						<a href="#" class="active">头像上传</a>
+					</nav>
+					<form class="avatar-form page-block clearfix" action="" method="post">
+						<div class="avatar-img field" id="avatar-img">
+							<img class="avatar-preview" id="avatar-preview" src="../public/images/user-avatar.png" width="143" height="143">
+							<br>
+							<br>
+							<a class="pure-button button-primary">选择照片</a>
+							<p class="upload-text"> &nbsp;选择本地照片，上传编辑自己的头像</p>
+						</div>
+						<div class="field">
+							<input class="hide" type="file" name="imgFile" onchange="previewImage(this)">
+							<div class="upload-action">
+								<button class="pure-button button-primary" type="submit">保存头像</button>
+							</div>
+							<p class="upload-text">仅支持JPG、JPEG、PNG格式（2M以下）</p>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="site-footer">
+			<div class="w1200 clearfix">
+				<div class="footer-left">
+					<ul class="clearfix">
+						<li><a href="#">帮助中心</a></li>
+						<li><a href="#">常见问题</a></li>
+						<li><a href="#">新手指南</a></li>
+						<li><a href="#">关于我们</a></li>
+						<li style="margin-right:25px;"><a href="#">关注我们</a>&nbsp;&nbsp;
+							<div class="float-right"><img src="../public/images/wechart-code.png">
+								<p>钱功夫</p>
+							</div>
+						</li>
+						<li style="margin-right:25px;">
+							<div class="float-right"><img src="../public/images/wechart-code.png">
+								<p>钱功夫</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="footer-right">
+					<p class="hotline">客服热线（工作时间 9:00-18:00）</p>
+					<p><strong>400-000-8888</strong><i class="icon icon-service"></i><span class="service">kefu@qiang.com</span></p>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="w1200">
+				<ul class="clearfix">
+					<li><a href="#"><i class="icon icon-logo1"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo2"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo3"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo4"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo5"></i></a></li>
+				</ul>
+				<span>版权所有：2013©雄猫软件  京ICP备13052580号-1</span>
+			</div>
+		</div>
+		<script>
+			seajs.use("myhome");
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Hongbao" >
+	<typeAlias alias="hongbaoAlias" type="com.dept.web.dao.model.Hongbao"/>
+    <resultMap id="hongbaoResult" class="hongbaoAlias" >
+    	<result column="id" property="id"  />
+	    <result column="user_id" property="user_id"  />
+	    <result column="money" property="money"  />
+	    <result column="status" property="status" />
+	    <result column="type" property="type"  />
+	    <result column="addtime" property="addtime" />
+	    <result column="endtime" property="endtime"  />
+    </resultMap>
+    
+    <resultMap id="hongbaoResultForAccount" class="hongbaoAlias">
+    	<result column="user_id" property="user_id"  />
+    	<result column="relAmont" property="relAmont"  />
+    	<result column="allAmont" property="allAmont"  />
+    	<result column="yesAmont" property="yesAmont"  />
+    	<result column="freezeAmont" property="freezeAmont"  />
+    </resultMap>
+   
+    <insert id="SAVE_HONGBAO" parameterClass="hongbaoAlias" >
+    insert into tb_hongbao (user_id, money, 
+      status, type, addtime,endtime)
+    values (#user_id#, #money#, #status#, #type#, #addtime#, #endtime#)
+  </insert>
+
+    <select id="GET_BY_USERID" parameterClass="LONG" resultClass="DOUBLE">
+        SELECT SUM(money) AS sumhongbao FROM TB_HONGBAO where user_id=#value# and status=1
+  </select>
+  
+  <select id="GET_BY_HONGBAOFORACCOUNT" parameterClass="LONG" resultMap="hongbaoResultForAccount">
+       select user_id,(select sum(money) from tb_hongbao where user_id=#value#) as allAmont ,
+		(select sum(money) from tb_hongbao where status=0 and user_id=#value#) as yesAmont,
+		(select sum(money) from tb_hongbao where status=1 and user_id=#value#) as relAmont,
+		(select sum(money) from tb_hongbao where status=2 and user_id=#value#) as freezeAmont
+ 		from tb_hongbao where user_id=#value# group by user_id
+  </select>
+  
+  <select id="GET_BY_TUIGUANGMONEY" parameterClass="LONG" resultClass="DOUBLE">
+        SELECT SUM(money) AS sumhongbao FROM TB_HONGBAO where user_id=#value# and type =2 
+  </select>
+  
+  <select id="GET_BY_BYHONGBAOID"  parameterClass="Long" resultMap="hongbaoResult">
+       SELECT * FROM TB_HONGBAO WHERE ID = #value# 
+    </select>
+   <select id="GET_LIST_BY_STATUS" parameterClass="map" resultMap="hongbaoResult">
+    SELECT * FROM TB_HONGBAO where user_id=#userId# 
+     <isNotEmpty  property="status" prepend="and">
+	   		status=#status#
+	 	</isNotEmpty>
+  </select>
+  
+  <select id="GET_COUNT_BY_IDSTATUS" parameterClass="map" resultClass="INT">
+    SELECT count(0) FROM TB_HONGBAO where user_id=#userId# 
+     <isNotEmpty  property="status" prepend="and">
+	   		status=#status#
+	 	</isNotEmpty>
+  </select>
+   <select id="GET_COUNT_BY_FIND_HONGBAOLOG_BY_USERID" parameterClass="map" resultClass="int">
+ 	 select count(1) from TB_HONGBAO where user_id=#userId#
+ 	 <isNotEmpty property="startTime" prepend="and">
+	 	    FROM_UNIXTIME(endtime,'%Y-%m-%d %h:%i:%s')>=#startTime#
+	 	</isNotEmpty>
+	 	<isNotEmpty property="endTime" prepend="and">
+	 	   <![CDATA[  
+             FROM_UNIXTIME(endtime,'%Y-%m-%d %h:%i:%s')<= #endTime#  
+         ]]> 
+	 	</isNotEmpty>
+  </select>
+  <select id="GET_LIST_BY_FIND_HONGBAOLOG_BY_USERID" parameterClass="map" resultMap="hongbaoResult">
+ 	 select * from TB_HONGBAO where user_id=#userId#  
+ 	 <isNotEmpty property="startTime" prepend="and">
+	 	    FROM_UNIXTIME(endtime,'%Y-%m-%d %h:%i:%s')>=#startTime#
+	 	</isNotEmpty>
+	 	<isNotEmpty property="endTime" prepend="and">
+	 	   <![CDATA[  
+             FROM_UNIXTIME(endtime,'%Y-%m-%d %h:%i:%s')<= #endTime#  
+         ]]> 
+	 	</isNotEmpty>
+	 	order by status,addtime desc
+  </select>
+  
+   <update id="UPDATE_UPSTATUS" parameterClass="hongbaoAlias">
+    update TB_HONGBAO
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="user_id" >
+        user_id = #user_id#
+      </isNotNull>
+      <isNotNull prepend="," property="money" >
+        money = #money#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        status = #status#
+      </isNotNull>
+      <isNotNull prepend="," property="type" >
+        type = #type#
+      </isNotNull>
+     <isNotNull prepend="," property="addtime" >
+        addtime = #addtime#
+      </isNotNull>
+      <isNotNull prepend="," property="endtime" >
+        endtime = #endtime#
+      </isNotNull>
+      <isNotNull prepend="," property="endtime" >
+        usetime = #usetime#
+      </isNotNull>
+    </dynamic>  
+  where id = #id#
+  </update>
+</sqlMap>

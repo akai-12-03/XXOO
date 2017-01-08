@@ -1,0 +1,147 @@
+#topbar('C')
+<script type="text/javascript" >
+	function toparams(val, type){
+		if(type==1){//项目状态
+			$("#xmzt").val(val);
+		}else if(type==2){
+			$("#xmqx").val(val);//项目期限
+		}else if(type==3){
+			$("#tzsy").val(val);//投资收益
+		}else if(type==4){
+			$("#bzfs").val(val);//保障方式
+		}else if(type=5){
+			$("#xmlx").val(val);//项目类型
+		}
+		
+		$("#page").val(1);
+		
+		$("#borrowForm").submit();
+	}
+	
+	$(function(){
+		var filters = $(".int-tab");
+		var lines = [$("#xmzt").val(),$("#xmqx").val(),$("#tzsy").val(),$("#bzfs").val(),$("#xmlx").val()];
+		filters.each(function(index){
+			var items = $(this).children("a");
+			if(!lines[index]){
+				items.eq(0).addClass("active");
+				return ;
+			}
+			items.eq(parseInt(lines[index]) ).addClass("active");
+		});
+	});
+</script>
+<script type="text/javascript">
+#if($!msg)
+		$(function(){
+			
+				alert("$!msg");
+			
+		});
+#end
+</script>
+    <form action="${weburl}/market/search.html" method="post" id="borrowForm" name="borrowForm">
+	  <input type="hidden" id="xmzt" name="xmzt" value="$!xmzt"/>
+		<input type="hidden" id="xmqx" name="xmqx" value="$!xmqx"/>
+		<input type="hidden" id="tzsy" name="tzsy" value="$!tzsy"/>
+		<input type="hidden" id="bzfs" name="bzfs" value="$!bzfs"/>
+		<input type="hidden" id="xmlx" name="xmlx" value="$!xmlx"/>
+		<input type="hidden" id="page" name="page" value="$!page"/>
+				
+	  <div class="mid-width clearfix">
+	  	<p class="detail-lc"><i class="icon icon-lc"></i>&nbsp;投资流程：注册&nbsp;&nbsp; - &nbsp;&nbsp;实名认证&nbsp;&nbsp;- &nbsp;&nbsp;选择产品&nbsp;&nbsp; - &nbsp;&nbsp;充值投资&nbsp;&nbsp; -  收益 </p>
+	    <div class="detail-list">
+	    	<p class="int-tab">
+	    		<span>项目状态：</span>
+	    		<a href="javascript:toparams(0,1)">全部</a>
+	    		<a href="javascript:toparams(1,1)">转让中</a>
+	    		<a href="javascript:toparams(2,1)">转让完成</a>
+	    		<!-- <a href="javascript:void(0);">投标中</a>
+	    		<a href="javascript:void(0);">投标中</a> -->
+	    	</p>
+	    	<p class="int-tab">
+	    		<span>项目期限：</span>
+	    		<a href="javascript:toparams(0,2)">全部</a>
+	    		<a href="javascript:toparams(1,2)">3个月以下</a>
+	    		<a href="javascript:toparams(2,2)">3-6个月</a>
+	    		<a href="javascript:toparams(3,2)">6-9个月</a>
+	    		<a href="javascript:toparams(4,2)">9-12个月</a>
+	    		<a href="javascript:toparams(5,2)">一年以上</a>
+	    	</p>
+	    	<p class="int-tab">
+	    		<span>项目收益：</span>
+	    		<a href="javascript:toparams(0,3)">全部</a>
+	    		<a href="javascript:toparams(1,3)">10%以下</a>
+	    		<a href="javascript:toparams(2,3)">10%~13%</a>
+	    		<a href="javascript:toparams(3,3)">13%~16%</a>
+	    		<a href="javascript:toparams(4,3)">16%以上</a>
+	    	</p>
+	    	<p class="int-tab">
+	    		<span>保障方式：</span>
+	    		<a href="javascript:toparams(0,4)">全部</a>
+	    		<a href="javascript:toparams(1,4)">房产抵押</a>
+	    		<a href="javascript:toparams(2,4)">车辆抵押</a>
+	    		<a href="javascript:toparams(3,4)">设备抵押</a>
+	    		<a href="javascript:toparams(4,4)">其他</a>
+	    	</p>
+	    	<p class="int-tab">
+	    		<span>项目类型：</span>
+	    		<a href="javascript:toparams(0,5)">全部</a>
+	    		<a href="javascript:toparams(1,5)">房贷</a>
+	    		<a href="javascript:toparams(2,5)">车贷</a>
+	    		<a href="javascript:toparams(3,5)">信用贷</a>
+	    		<a href="javascript:toparams(4,5)">机构产品</a>
+	    		<a href="javascript:toparams(5,5)">其他</a>
+	    	</p>
+	    </div>
+	    <p class="detail-account">债权项目：&nbsp;<span class="orange">$!marketPage.getResult().size()</span></p>|
+	    <p class="detail-account detail-step">转让中：&nbsp;<span class="orange">$!zring</span></p>|
+	    <p class="detail-account detail-step">转让完成：&nbsp;<span class="orange">$!zred</span></p>
+	    <div class="clearfix">
+	       #if($!marketPage.getResult().size()>0)
+				#foreach($market in $!marketPage.getResult())		
+	      <div class="project-list project-list-1" #if($!marketPage.getResult().size()%4==0) style="margin-right:0;"#end>
+		  	<div class="project-content" onclick="borrowDtail($market.id)">
+		  		<span>$borrowtype.getRepaymentType($market.repaymentStyle)</span><br />
+		  		<h3 title="${market.borrowName}">项目名称 $!market.borrowName </h3>
+			  	<div class="list-content">
+			  		 <p>转让价格：$!market.transferPrice元</p>
+			  		 <input type="hidden" id="$market.id" name="$market.id" value="$market.borrowId">
+			  		 <p>待收金额：$!market.collectionMoney元</p>	
+			  		<!--<div class="progress" data-percent="80%"></div>--> 
+			  		当前还款期：$!market.repayOrder / <span class="gray">$!market.repayTotalOrder</span>
+<!-- 			  		<p class="info">$!market.content</p> -->
+			  		<div class="list-bottom">
+			  		  <span class="orange">$!market.borrowApr</span>&nbsp;%<br />
+			  		  年化利率
+			  		</div>
+			  		<div class="list-bottom noborder">
+			  		  <span class="black">$!{market.timeLimit}</strong>#if($!market.isday=='1')天#else个月#end</span>&nbsp;<br />
+			  		  项目期限
+			  		</div>
+			  	</div>
+		  	</div>
+		  	#if($market.status==0)
+		  	<a onclick="borrowDtail($market.id)" class="pure-button">立即购买</a>
+		  	#else
+		  	<a href="#" class="pure-button">转让成功</a>
+		  	#end
+		  </div>
+		  #end
+		  #end
+		 
+		
+	  </div>
+	  #pagination($marketPage, 'borrowForm')
+	  </form>
+	  
+	  <script>seajs.use('index');
+	      function borrowDtail(id){
+	    	  var marketId=$("#"+id).val();
+			  location.href="${weburl}/borrow/detail/"+marketId+".html?marketId="+id;
+	      };
+		 
+	  
+	  </script> 
+</div>
+#foot()

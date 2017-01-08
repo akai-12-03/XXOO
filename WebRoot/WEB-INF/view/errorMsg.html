@@ -1,0 +1,28 @@
+#topbar()
+<body>
+	<script type="text/javascript">
+		;"use strict";
+		$(function(){
+			var D=5,a=$("#second"),s=D;
+			a.text(D);
+			window.setInterval(function(){
+			--s;a.text(s);if(0>=s){window.location.href= $("#jump-center").attr("href");s=D;}
+			},1000);
+		});
+	</script>
+		<div class="wrap">
+			<div class="mid-width text-center" style="margin:50px 0px; text-align:center">
+				<h2>
+					<i class="iconify icon-okay"></i>
+					<span class="red" style="font-size:24px; padding:15px 0px;">$!errorMsg </span><span id="second">5</span>秒后跳转到<a id="jump-center" href="${weburl}/myhome/user-index.html">个人中心</a>
+				</h2>
+				<div>
+					<span>如果没有跳转，请<a style="color:blue" href="${weburl}/myhome/user-index.html">点击这里</a></span>
+					<span>或者<a style="color:blue" href="${weburl}/index.html">跳转到首页</a>
+				</div>
+			</div>
+		</div>
+		#foot()
+	
+</body>
+</html>

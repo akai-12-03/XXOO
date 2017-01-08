@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="UserAccountLog">
+	<typeAlias alias="userAccountLogAlias" type="com.dept.web.dao.model.UserAccountLog" />
+	<resultMap id="userAccountLogResult" class="userAccountLogAlias">
+		<result column="id" property="id" />
+		<result column="id_related" property="idRelated" />
+		<result column="user_id" property="userId" />
+		<result column="type" property="type" />
+		<result column="money_operate" property="moneyOperate" />
+		<result column="money_total" property="moneyTotal" />
+		<result column="money_usable" property="moneyUsable" />
+		<result column="money_withdraw" property="moneyWithdraw" />
+		<result column="money_insure" property="moneyInsure" />
+		<result column="remark" property="remark" />
+		<result column="created_at" property="createdAt" />
+		<result column="created_ip" property="createdIp" />
+	</resultMap>
+	<resultMap class="userAccountLogAlias" extends="userAccountLogResult" id="userAccountLogUserResult">
+	    <result column="toUserName" property="toUserName" />
+		<result property="moneyTotal" column="money_total"/>
+	</resultMap>
+
+	<insert id="SAVE_USERACCOUNTLOG" parameterClass="userAccountLogAlias">
+		INSERT INTO TB_USER_ACCOUNT_LOG(id_related, user_id, type,
+		money_operate, money_total, money_usable, money_withdraw,
+		money_insure,
+		remark, created_at, created_ip)
+		VALUES (#idRelated#, #userId#, #type#, #moneyOperate#, #moneyTotal#,
+		#moneyUsable#, #moneyWithdraw#, #moneyInsure#, #remark#, #createdAt#,
+		#createdIp#)
+		<selectKey resultClass="long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<select id="GET_LIST_BY_QUERYBYUSERID" parameterClass="map"
+		resultMap="userAccountLogResult">
+		select * from tb_user_account_log where user_id=#userId#
+		<isNotEmpty property="type" prepend="and">
+			type = #type#
+		</isNotEmpty>
+		<isNotEmpty property="startTime" prepend="and">
+			created_at*1000 >= #startTime#
+		</isNotEmpty>
+		<isNotEmpty property="endTime" prepend="and">
+	 	   <![CDATA[  
+            created_at*1000 <= #endTime#  
+         ]]>
+		</isNotEmpty>
+		order by id desc
+	</select>
+	
+	<select id="GET_LIST_BY_SEARCH_ACCOUNT_LOG_BY_USERID" parameterClass="map" resultMap="userAccountLogUserResult">
+		select al.*,us.username as toUserName from TB_USER_ACCOUNT_LOG as al,tb_user as us where al.user_id =#userId# and al.user_id = us.id
+		<isNotEmpty  property="type" prepend="and">
+	   		type = #type#
+	 	</isNotEmpty>
+		order by al.id DESC 
+	</select>
+	
+	<select id="GET_COUNT_BY_SEARCH_ACCOUNT_LOG_BY_USERID" parameterClass="map" resultClass="int">
+		select count(1) from TB_USER_ACCOUNT_LOG as al,tb_user as us where al.user_id =#userId# and al.user_id = us.id
+		<isNotEmpty  property="type" prepend="and">
+	   		type = #type#
+	 	</isNotEmpty>
+		order by al.id DESC 
+	</select>
+
+	<select id="GET_COUNT_BY_QUERYBYUSERID" parameterClass="map"
+		resultClass="int">
+		select count(1) from tb_user_account_log where user_id=#userId#
+		<isNotEmpty property="type" prepend="and">
+			type = #type#
+		</isNotEmpty>
+		<isNotEmpty property="startTime" prepend="and">
+			created_at*1000 >= #startTime#
+		</isNotEmpty>
+		<isNotEmpty property="endTime" prepend="and">
+	 	   <![CDATA[  
+              created_at*1000 <= #endTime#  
+         ]]>
+		</isNotEmpty>
+	</select>
+
+	<select id="GET_BY_USERID" parameterClass="Long" resultMap="userAccountLogResult">
+		select * from tb_user_account_log where user_id = #value#
+	</select>
+	<select id="GET_LIST_BY_ACCUNTLOG_COUNT_BY_USERID" parameterClass="int" resultMap="userAccountLogResult">
+		select * from TB_USER_ACCOUNT_LOG where user_id=#value# group by user_id
+	</select>
+	
+	<select id="GET_BY_ACCOUNTFORACCOUNT" parameterClass="map" resultClass="double">
+		select sum(money_operate) from TB_USER_ACCOUNT_LOG where user_id=#userId# and type=#type#
+	</select>
+</sqlMap>

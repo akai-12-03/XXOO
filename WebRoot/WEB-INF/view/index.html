@@ -1,0 +1,418 @@
+#topbar('A')
+		<div class="slider" id="slider">
+			#foreach($banner in $bannerList)
+				<a #if($!banner.content!="") href="$!banner.content" #end class="slide" data-img="$!banner.litpic" target="_blank"></a>
+			#end
+            <div class="mid-width">
+				<div class="slider-dialogbg"></div>
+				#if(!$!currUser)
+				<div class="slider-dialog">
+					<h3>最高年化收益率</h3>
+					<span class="percent">13.<small>00%</small></span>
+					<p class="method">安全可靠的互联网理财方式</p>
+					<a href="${weburl}/signup.html" class="pure-button button-primary"> 注&nbsp;&nbsp;册</a>
+					<label class="more">
+						<span><a href="${weburl}/tologin.html">立即登录</a></span>
+					</label>
+				</div>
+				#else
+<!-- 				登录后的状态，不要手快给我删除哟 -->
+				<div class="slider-dialog" style="margin-top:50px;">
+					<h3>最高年化收益率</h3>
+					<span class="percent">13.<small>00%</small></span>
+					<p class="method">安全可靠的互联网理财方式</p>
+				</div>
+				#end
+			</div>
+		</div>
+		<div class="white">
+			<div class="mid-width">
+				<div class="pure-g">
+					<div class="pure-u-1-4">
+						<div class="item-list clearfix">
+							<i class="icon item-user float-left"></i>
+							<div class="float-left">
+								<h3>$!uas.zrs</h3>
+								<p class="item-list-info">
+									精明的理财人已经加入钱功夫理财
+								</p>
+							</div>
+							<span class="border-right"></span>
+						</div>
+					</div>
+					<div class="pure-u-1-4">
+						<div class="item-list clearfix">
+							<i class="icon item-income float-left"></i>
+							<div class="float-left">
+								<h3>13.00%</h3>
+								<p class="item-list-info">
+									逆天收益，持续为您增加收入
+								</p>
+							</div>
+							<span class="border-right"></span>
+						</div>
+					</div>
+					<div class="pure-u-1-4">
+						<div class="item-list clearfix">
+							<i class="icon item-account float-left"></i>
+							<div class="float-left">
+								<h3>$numberTool.format($!uas.accountInvestTotal)</h3>
+								<p class="item-list-info">
+									累计投资金额
+								</p>
+							</div>
+							<span class="border-right"></span>
+						</div>
+					</div>
+					<div class="pure-u-1-4">
+						<div class="item-list clearfix">
+							<i class="icon item-userIncome float-left"></i>
+							<div class="float-left">
+								<h3>$!uas.accountinteresttotal</h3>
+								<p class="item-list-info">
+									为用户赚取收益
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="mid-width clearfix">
+			<div class="hp-instruction">
+				<div class="instruction i1 clearfix">
+					<i class="icon icon-double float-left"></i>
+					<div class="product-info">
+						<h3>双优理财产品</h3>
+						<p class="hp-instruction-info">
+							层层精选，信息透明，
+							<br /> 安全放心
+						</p>
+					</div>
+				</div>
+				<div class="instruction i2 clearfix">
+					<i class="icon icon-cheap float-left"></i>
+					<div class="product-info">
+						<h3>低门槛高收益</h3>
+						<p class="hp-instruction-info">
+							投资门槛低，产品回报高，
+							<br /> 可达13%
+						</p>
+					</div>
+				</div>
+				<div class="instruction i3 mr0 clearfix">
+					<i class="icon icon-quick float-left"></i>
+					<div class="product-info">
+						<h3>三方托管无忧</h3>
+						<p class="hp-instruction-info">
+							权威的第三方支付托管，
+							<br /> 资金安全无忧
+						</p>
+					</div>
+				</div>
+			</div>
+			<div class="instruction-app">
+				<h3>邀请送现金</h3>
+				<p>邀请越多奖励越多</p>
+				<a href="${weburl}/myhome/tuiguang.html">立即前往</a>
+			</div>
+			#if($!bos)
+			<div class="hp-prediction">
+				<h3>$!bos.name &nbsp;<span>新手标</span></h3>
+				<ul class="clearfix">
+					<li class="short-width">
+						<p>项目期限</p>
+						<p>#if($!bos.isDay=='1')
+                              <span class="black">$!bos.timeLimit</span>天
+                        #else
+                              <span class="black">$!bos.timeLimit</span>个月
+                        #end</p>
+					</li>
+					<li>
+						<p>年化收益</p>
+						<p><span>$!bos.apr
+						</span> %<em>#if($!bos.award == 0)
+			              	#elseif($!bos.award == 2)
+			              		#if($!bos.partAccount)
+			              			+${bos.partAccount}%
+			              		#else
+			              		#end
+			              	#else
+			              		#if($!bos.funds)
+			              		+$viewTool.format1SD2(${bos.funds})
+			              	#else
+			              	#end
+			            #end</em></p>
+					</li>
+					<li>
+						<p>起投金额 </p>
+						<p><span>#if($!bos.lowestAccount && $!bos.lowestAccount>0) $viewTool.format2JQStr($!bos.lowestAccount) </span> 元 #else 无限制 #end</p>
+					</li>
+					<li class="short-width">
+						<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bos.id'" style="cursor: pointer;">立即购买</a>
+					</li>
+				</ul>
+				
+			</div>
+			#else
+			<div class="hp-prediction">
+				<h3><span>新手标</span></h3>
+				<ul class="clearfix"><div style="padding-left:30%;"><img src="${weburl}/public/images/norecord.png" /></div>
+				</ul>
+			</div>
+			#end
+			<div class="hp-notice">
+				<header class="clearfix">
+					<span class="title">官方公告</span>
+					<span class="more"><a href="${weburl}/about/ptgg.html?flag=wzgg">更多&gt;</a></span>
+				</header>
+				 #foreach($item in $ggList)
+					<ul class="hp-notice-content">
+						<li class="clearfix"><a href="$weburl/about/ptggdetail.html?id=$!item.id&flag=wzgg" class="notice-content">#limit($!item.name 40)</a><span class="float-right">$!dateTool.dateStr($!item.createdAt,'yyyy/MM/dd')</span></li>
+					</ul>
+				 #end
+			</div>
+			<div class="hp-product">
+				<span class="product">精选理财产品</span>
+				<span class="time"><i class="icon icon-notice"></i>工作日10:00、14:00更新，周末与其他时间随机</span>
+				<span><a href="${weburl}/borrow/toubiao.html" class="more">更多&gt;</a></span>
+			</div>
+			<div class="hp-notice hp-record">
+				<header class="clearfix">
+					<span class="title">投资记录与收益</span>
+				</header>
+				<div style="height:440px; overflow:hidden;" id="scrollNews">
+					<ul class="hp-notice-content hp-record-content">
+					#foreach($tender in $!tenderList)
+						<li><img src="public/images/product.png" /> <span class="font-12">#if($!tender.username)$textTool.hideUsernameChar($!tender.username)#end</span> &nbsp;&nbsp;<span class="font-12">投资</span> <span class="money">￥$!tender.account </span></li>
+					#end
+					</ul>
+				</div>
+			</div>
+			<div class="hp-project clearfix" style="height:780px;">
+				#foreach($bor in $!borList)
+				#set($remoney=$!bor.account - $!bor.accountYes)
+				#set($account=$!bor.account/10000)
+				<div #if($index==3 || $index==6) class="hp-newProject mr0" #else class="hp-newProject" #end style="position: relative;">
+					<header>$!bor.name</header>
+					#if($!bor.borrowType == 5)
+					<i style="background-image: url('${weburl}/public/images/newperson.png');width: 64px;height: 64px;display: inline-block;background-repeat: no-repeat;position: absolute;right: 0;top: 0;"></i>
+					#end
+					<div class="hp-newProject-content">
+						<p class="income">年化收益</p>
+						<p class="percent" style="font-size:50px;">$viewTool.subStrApr($!bor.apr)<small>$viewTool.subEndApr($!bor.apr)%
+						<em>
+						#if($!bor.award == 0)
+			              	#elseif($!bor.award == 2)
+			              		#if($!bor.partAccount)
+			              			+${bor.partAccount}%
+			              		#else
+			              		#end
+			              	#else
+			              		#if($!bor.funds)
+			              		+$viewTool.format1SD2(${bor.funds})
+			              	#else
+			              	#end
+			            #end
+						</em></small></p>
+						<div class="progress" data-percent="$bor.scale%"></div>
+						<p class="finance">已融资$viewTool.format2Str($bor.scale)% | 剩余$viewTool.format1SD2($remoney)</p>
+						<p class="finance">
+						#if($!bor.isDay=='1')
+                              <span class="black">$!bor.timeLimit</span>天
+                        #else
+                              <span class="black">$!bor.timeLimit</span>个月
+                        #end | <span class="black"></span>$viewTool.decToStr8($account) 万 | <span class="black">$!bor.persionSize</span> 人已投</p>
+					</div>
+	                    #if ($!bor.status==7||($dateTool.isOver2("$!bor.verifyTime", "$!bor.lastTime")&& $bor.status==1))
+							<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary-gray" style="margin-top:26px;">已过期-点击查看</a>
+						#elseif ($bor.status==1 && $viewTool.aMoreb($bor.account, $bor.accountYes)==1)
+						    <a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary" style="margin-top:26px;">马上购买</a>
+						#elseif ($bor.status==2 && $viewTool.aMoreb($bor.account, $bor.accountYes)==0)
+							<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary" style="margin-top:26px;">等待复审</a>
+						#elseif ($bor.status==3) 
+							<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary" style="margin-top:26px;">复审通过</a>
+						#elseif ($bor.status==9) 
+						    <a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary-gray" style="margin-top:26px;">复审失败</a>
+						#elseif ($bor.status==5) 
+							<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary" style="margin-top:26px;">还款中</a>
+						#elseif ($bor.status==7) 
+							<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary-gray" style="margin-top:26px;">已过期</a>
+						#elseif ($bor.status==6)
+							<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary-gray" style="margin-top:26px;">已还款</a>
+						#else
+							<a onclick="javascript:window.location.href='${weburl}/borrow/detail.html?id=$!bor.id'" class="pure-button button-primary-gray" style="margin-top:26px;">用户取消</a>
+						#end
+				</div>
+				#end
+			</div>
+			<div class="hp-notice hp-report">
+				<header class="clearfix">
+					<span class="title">媒体报道</span>
+					<span class="more"><a href="${weburl}/about/hyzx.html?flag=xwbd">更多&gt;</a></span>
+				</header>
+				#foreach($item in $zxList)
+					<ul class="hp-notice-content">
+						<li class="clearfix"><a href="$weburl/about/hyzxdetail.html?id=$item.id&flag=xwbd" class="notice-content">#limit($!item.name 40)</a><span class="float-right">$!dateTool.dateStr($!item.createdAt,'yyyy/MM/dd')</span></li>
+					</ul>
+				#end
+			</div>
+		</div>
+		<div class="w1200 hp-partner white">
+			<h3>合作伙伴</h3>
+			<div id="mx-left">
+				<div class="mx-hidden">
+					<div class="mx-width">
+						<div class="mx-content clearfix">
+						#foreach($hzhb in $!hzhbList)
+							<a target="_blank" #if($!hzhb.content!="") href="$!hzhb.content" #end><img src="$hzhb.litpic"></a>
+						#end
+						</div>
+					</div>
+				</div>
+				<!--<div class="mx-key">
+					<a href="javascript:;" class="mx-key-back"><i class="icon icon-back"></i></a>
+					<a href="javascript:;" class="mx-key-next"><i class="icon icon-next"></i></a>
+				</div>-->
+			</div>
+		</div>
+#foot()
+		<div id="online_qq_layer">
+			<div id="online_qq_tab">
+				<div class="Calculator item">
+					<a href="javascript:void(0);">
+						<i class="icon icon-calculator"></i>
+					</a>
+				</div>
+				<div class="QQ item">
+					<a href="javascript:void(0));">
+						<i class="icon icon-kefu"></i>
+					</a>
+				</div>
+				<div class="clear"></div>
+				<div class="sina item">
+					<a href="javascript:void(0);">
+						<i class="icon icon-wechart-slide"></i>
+					</a>
+				</div>
+				<!--<div class="phone item">
+					<a href="javascript:void(0);">
+						<i class="icon icon-qq-aside"></i>
+					</a>
+				</div>-->
+				<div class="wechat item" id="moquu_top">
+					<a href="javascript:void(0)" style="display: inline-block;">
+						<i class="icon icon-close"></i>
+					</a>
+				</div>
+			</div>
+			<div id="onlineService" style="display: none;">
+				<!-- QQ-->
+				<div id="qqHot" style="display: none;">
+					<ul>
+						<li>
+							<a target="_blank" href="http://wpa.b.qq.com/cgi/wpa.php?ln=1&amp;key=XzgwMDAyMTcxM18zMjA4MjJfODAwMDIxNzEzXzJf">
+								<!--<img style="margin:-5px 5px;" border="0" src="public/images/button_51.gif" alt="点击,给我发消息" title="点击这里,给我发消息">-->客服热线400-6052-677
+							</a>
+						</li>
+					</ul>
+				</div>
+				<!-- weichat -->
+				<div id="sina_img" style="display: none;">
+					<ul>
+						<li><img src="public/images/weChatDouble.jpg" height="170" width="170"></li>
+					</ul>
+				</div>
+				<!-- end weichat -->
+				<!-- 收益计算 calc -->
+				<div id="Calculator_Con" style="font-size: 12px; display: block;">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tbody>
+							<tr>
+								<td width="33%" height="23" align="center">
+									<label class="Calculator_text">
+										<input type="radio" value="按月计息" name="money" id="calculator_mounth" checked=""> 按月计息
+									</label>
+								</td>
+								<td width="44%" align="center">
+									<label class="Calculator_text">
+										<input type="radio" value="天计息" name="money" id="calculator_day"> 按天计息
+									</label>
+								</td>
+							</tr>
+							<tr>
+								<td height="20" colspan="2" align="left">
+									<div class="Calculator_title">投资金额(RMB元)：</div>
+								</td>
+							</tr>
+							<!--输入本金-->
+							<tr>
+								<td height="20" colspan="2">
+									<input type="text" class="calculator_in" id="cash_con" value="100000">
+								</td>
+							</tr>
+							<tr>
+								<td height="20" colspan="2" align="left">
+									<div class="Calculator_title">收益率：(%)：</div>
+								</td>
+							</tr>
+							<!--输入利率-->
+							<tr>
+								<td height="20" colspan="2">
+									<input type="text" class="calculator_in" value="8" id="calcul_con">
+								</td>
+							</tr>
+							<!--
+						<tr>
+							<td height="20" colspan="2" align="left">
+								<div class="Calculator_title">
+									奖励(%）：
+								</div>
+							</td>
+						</tr>
+						
+						<tr>
+							<td height="20" colspan="2">
+								<input type="text" class="calculator_in" value="2" id="great_con">
+							</td>
+						</tr>-->
+							<tr>
+								<td height="20" colspan="2" align="left">
+									<div class="Calculator_title">
+										借款时间 <span id="dvmounth" style="display: inline;">(月)</span><span id="dvday" style="display: none;">(天)</span>：
+									</div>
+								</td>
+							</tr>
+							<!--输入时间-->
+							<tr>
+								<td height="20" colspan="2" id="dvmounth_con" style="display: table-cell;">
+									<input type="text" class="calculator_in" id="mounth_time_con" value="1">
+								</td>
+								<td width="23%" height="20" colspan="2" id="dvday_con" style="display: none;">
+									<input type="text" class="calculator_in" id="day_time_con" value="28">
+								</td>
+							</tr>
+							<tr>
+								<td height="20" colspan="2" align="left">
+									<div class="Calculator_title">预计收益</div>
+								</td>
+							</tr>
+							<!--得出收益-->
+							<tr>
+								<td height="20" colspan="2">
+									<input type="text" class="relust_con" value="" readonly="readonly">
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- end calc -->
+			</div>
+		</div>
+		<script src="public/lib/mx-slide/mx-slide-min.js"></script>
+		<script type="text/javascript" src="src/js/common.js"></script>
+		<script>
+			seajs.use('index');
+			mx_slide('.hp-partner #mx-left').mode('left').start();
+		</script>
+	</body>

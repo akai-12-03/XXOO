@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="yes" name="apple-touch-fullscreen"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="MobileOptimized" content="320"/>
+    <link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+    <title>钱功夫</title>
+    <script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+</head>
+<body class="mi">
+<div class="title-top text-align-center">
+    <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1"
+         onclick="window.location.href='javascript:history.back(-1)'"/>
+    <span class="titleTitle">我的账户</span>
+    <span class="spanWhite"></span>
+    #rightmenu()
+</div>
+<div class="glassMode" onclick="closeRight()"></div>
+<div class="acount grid33-glass">
+    <div class="canUserMoney"><img src="${weburl}/dist/images/wallet.png"/>可用资金：#if($!ua.moneyUsable)
+        $viewTool.format2JQStr($!ua.moneyUsable)元 #else 0.00元 #end
+    </div>
+    <div class="midfont" style="padding-top: 3%;text-align:center;">
+        总资产(元)
+    </div>
+    <div style="font-size: 26px;padding:3% 0;text-align:center;">
+        #if($!ua.moneyTotal) $viewTool.format2JQStr($!ua.moneyTotal)元 #else 0.00元 #end
+    </div>
+    <div class="grid50">
+        <div class="midfont" style="margin-top: 3%;text-align:center;">冻结资金(元)</div>
+        <div style="font-size: 20px;text-align:center;">#if($!ua.ttdj) $viewTool.format2JQStr($!ua.ttdj)元 #else 0.00元
+            #end
+        </div>
+    </div>
+    <div class="grid50">
+        <div class="midfont text-align-center">待收资金(元)</div>
+        <div style="font-size: 20px;" class="text-align-center">#if($!ua.moneyCollection)
+            $viewTool.format2JQStr($!ua.moneyCollection)元 #else 0.00元 #end
+        </div>
+    </div>
+    <div class="grid50" style="margin-top: 10%;border-right: 1px solid white;margin-bottom: 2%;">
+        <div class="midfont text-align-center">累计收益(元)
+        </div>
+        <div class="midfont text-align-center">$viewTool.format2JQStr($!myinterest)元</div>
+    </div>
+    <div class="grid50">
+        <div class="midfont text-align-center">账户余额(元)</div>
+        <div class="midfont text-align-center">#if($!ua.moneyUsable) $viewTool.format2JQStr($!ua.moneyUsable)元 #else
+            0.00元 #end
+        </div>
+    </div>
+</div>
+<style type="text/css">
+    .grid33-glass {
+        font-size: 0;
+    }
+
+    .grid33 > div:nth-of-type(2) {
+        font-size: 14px;
+    }
+</style>
+<div style="border-bottom: 1px solid #c8c7cc" class="grid33-glass">
+    <div class="grid33" onclick="window.location.href='${weburl}/webapp/myhome/charge.html'">
+        <div class="text-align-center grid33-imgDiv"><img src="${weburl}/dist/images/myBank.png"/></div>
+        <div class="text-align-center grid33-imgTitle">充值</div>
+    </div>
+    <div class="grid33" onclick="window.location.href='${weburl}/webapp/myhome/aqzx.html'">
+        <div class="text-align-center grid33-imgDiv"><img src="${weburl}/dist/images/mySafe.png"/></div>
+        <div class="text-align-center grid33-imgTitle">安全中心</div>
+    </div>
+    <div class="grid33" onclick="window.location.href='${weburl}/webapp/myhome/hongbao.html'">
+        <div class="text-align-center grid33-imgDiv" style="border: none;"><img
+                src="${weburl}/dist/images/myRedWallet.png"/></div>
+        <div class="text-align-center grid33-imgTitle">我的红包</div>
+    </div>
+</div>
+<div style="border-bottom: 1px solid #c8c7cc" class="grid33-glass">
+    <div class="grid33" onclick="window.location.href='${weburl}/webapp/myhome/withdraw.html'">
+        <div class="text-align-center grid33-imgDiv"><img src="${weburl}/dist/images/myMoney.png"/></div>
+        <div class="text-align-center grid33-imgTitle">提现</div>
+    </div>
+    <div class="grid33" onclick="window.location.href='${weburl}/webapp/myhome/tenderSearch.html'">
+        <div class="text-align-center grid33-imgDiv"><img src="${weburl}/dist/images/ass.png"/></div>
+        <div class="text-align-center grid33-imgTitle">债权转让</div>
+    </div>
+    <div class="grid33" onclick="window.location.href='${weburl}/webapp/myhome/toubiao.html'">
+        <div class="text-align-center grid33-imgDiv"><img src="${weburl}/dist/images/myBook.png"/></div>
+        <div class="text-align-center grid33-imgTitle">投资记录</div>
+    </div>
+</div>
+<div class="grid33-glass">
+    <div class="grid33" onclick="window.location.href='${weburl}/webapp/myhome/moneyLog.html'">
+        <div class="text-align-center grid33-imgDiv" style="border: none;"><img src="${weburl}/dist/images/MyPen.png"/>
+        </div>
+        <div class="text-align-center grid33-imgTitle">交易记录</div>
+    </div>
+    <div class="grid33" onclick="window.location.href='${weburl}/webapp/myhome/tuiguang.html'">
+        <div class="text-align-center grid33-imgDiv"><img src="${weburl}/dist/images/myPerson.png"/></div>
+        <div class="text-align-center grid33-imgTitle">邀请好友</div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+#topbar("G")
+#user_sidebar("24")
+			<div class="user-page">
+				<div class="user-profile">
+					<nav class="user-nav-tabs">
+						<a class="active">交易明细</a>
+					</nav>
+					<div class="tab">
+						<ul class="user-nav-tabs-top tab-header clearfix">
+							<li  #if($mt == 23) class="item active" #else class="item" #end data-tab="1"><a href="${weburl}/myhome/moneyLog.html">交易记录</a></li>
+							<li  #if($mt == 21) class="item active" #else class="item" #end data-tab="2"><a href="${weburl}/myhome/moneyLog.html?type=1">充值记录</a></li>
+							<li  #if($mt == 22) class="item active" #else class="item" #end data-tab="3"><a href="${weburl}/myhome/moneyLog.html?type=5">提现记录</a></li>
+						</ul>
+						<div class="tab-content active" data-tab="1">
+							<table class="pure-table   table-compact record">
+								<thead>
+									<tr>
+										<th>交易时间</th>
+										<th>交易类型 </th>
+										<th>交易金额(元)</th>
+										<th>可用金额(元)</th>
+									</tr>
+								</thead>
+								<tbody>
+									#foreach($item in $borrowPage.result)
+								            <tr>
+								                <td>#limit($dateTool.getStr2($item.createdAt) 16)</td>
+								                <td>$jiaoyiType.getjyname($!item.type)</td>
+								                <td>$numberTool.format($item.moneyOperate)</td>
+								                <td>$numberTool.format($item.moneyUsable)</td>
+								            </tr>
+								        #end
+								</tbody>
+							</table>
+							<form id="borrowForm" name="borrowForm"  action="${weburl}/myhome/moneyLog.html">
+									<input type="hidden" id="page" name="page" #if($!page) value="$page" #else value="1" #end/>
+									<input type="hidden" id="type" name="type" #if($mt == 23) value="" #elseif($mt == 21) value="1" #elseif($mt == 22) value="5" #end/>
+        							#pagination($borrowPage 'borrowForm')
+  							</form>
+						</div>
+					</div>
+				</div>
+
+			</div>
+
+		</div>
+#foot()
+		<script>
+			seajs.use('myhome');
+		</script>
+	</body>
+
+</html>

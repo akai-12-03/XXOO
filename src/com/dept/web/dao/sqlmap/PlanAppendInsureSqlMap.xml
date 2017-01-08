@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PlanAppendInsure" >
+  <typeAlias alias="planAppendInsureAlias" type="com.dept.web.dao.model.PlanAppendInsure"/>
+  <resultMap id="planAppendInsureResult" class="planAppendInsureAlias" >
+    <result column="id" property="id"  />
+    <result column="user_id" property="userId"  />
+    <result column="plan_record_id" property="planRecordId"  />
+    <result column="money_insure" property="moneyInsure"  />
+    <result column="status" property="status"  />
+    <result column="user_operate" property="userOperate"  />
+    <result column="op_log" property="opLog"  />
+    <result column="created_at" property="createdAt"  />
+    <result column="operated_at" property="operatedAt"  />
+  </resultMap>
+  
+  <resultMap id="planAppendInsureViewResult" class="planAppendInsureAlias" extends="planAppendInsureResult">
+    <result column="plan_Type" property="planType"  />
+    <result column="money_Op" property="moneyOp"  />
+    <result column="old_MoneyInsure" property="oldMoneyInsure"  />
+    <result column="money_Fee" property="moneyFee"  />
+    <result column="rate" property="rate"  />
+  </resultMap>  
+  
+   <select id="GET_LIST_BY_PAGE_LIST" parameterClass="map" resultMap="planAppendInsureViewResult">
+      SELECT A.*, B.PLAN_TYPE, B.MONEY_OP, B.MONEY_INSURE AS OLD_MONEYINSURE, B.MONEY_FEE, B.RATE FROM TB_PLAN_APPEND_INSURE A, TB_PLAN_RECORD B WHERE A.USER_ID=#userId# AND A.PLAN_RECORD_ID = B.ID
+	 	<isNotEmpty property="startTime" prepend="and">
+	 	    FROM_UNIXTIME(A.CREATED_AT,'%Y-%m-%d')>=#startTime#
+	 	</isNotEmpty>
+	 	<isNotEmpty property="endTime" prepend="and">
+	 	   <![CDATA[  
+             FROM_UNIXTIME(A.CREATED_AT,'%Y-%m-%d')<= #endTime#  
+         ]]> 
+	 	</isNotEmpty>
+	 	ORDER BY ID DESC
+   </select>
+   <select id="GET_COUNT_BY_PAGE_LIST" parameterClass="map" resultClass="int">
+      SELECT COUNT(0) FROM TB_PLAN_APPEND_INSURE A, TB_PLAN_RECORD B WHERE A.USER_ID=#userId# AND A.PLAN_RECORD_ID = B.ID
+	 	<isNotEmpty property="startTime" prepend="and">
+	 	    FROM_UNIXTIME(A.CREATED_AT,'%Y-%m-%d')>=#startTime#
+	 	</isNotEmpty>
+	 	<isNotEmpty property="endTime" prepend="and">
+	 	   <![CDATA[  
+             FROM_UNIXTIME(A.CREATED_AT,'%Y-%m-%d')<= #endTime#  
+         ]]> 
+	 	</isNotEmpty>
+   </select>
+   
+   	<insert id="SAVE_PLANAPPENDINSURE" parameterClass="planAppendInsureAlias">
+ 		INSERT INTO TB_PLAN_APPEND_INSURE(USER_ID, PLAN_RECORD_ID, MONEY_INSURE, `STATUS`, USER_OPERATE, OP_LOG, CREATED_AT, OPERATED_AT)
+ 		VALUES(#userId#, #planRecordId#, #moneyInsure#, #status#, #userOperate#, #opLog#, #createdAt#, #operatedAt#)
+	      <selectKey resultClass="long" >
+		  		SELECT LAST_INSERT_ID()
+		   </selectKey>
+ 	</insert>
+</sqlMap>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Setting" >
+  <typeAlias alias="settingAlias" type="com.dept.web.dao.model.Setting"/>
+  <resultMap id="settingResult" class="settingAlias" >
+    <result column="id" property="id"  />
+    <result column="name" property="name"  />
+    <result column="value" property="value"  />
+    <result column="created_by" property="createdBy"  />
+    <result column="updated_by" property="updatedBy"  />
+    <result column="created_at" property="createdAt"  />
+    <result column="updated_at" property="updatedAt"  />
+  </resultMap>
+
+  <select id="GET_BY_ID" resultMap="settingResult" parameterClass="Long">
+       SELECT * FROM TB_SETTING WHERE ID = #value#
+  </select>
+  
+  <select id="GET_LIST_BY_ALL" resultMap="settingResult">
+       SELECT * FROM TB_SETTING ORDER BY ID DESC
+  </select>
+
+  <insert id="SAVE_SETTING" parameterClass="settingAlias">
+      INSERT INTO TB_SETTING (NAME,VALUE,CREATED_BY,UPDATED_BY,CREATED_AT,UPDATED_AT)
+      VALUES(#name#, #value#, #createdBy#, #updatedBy#, #createdAt#, #updatedAt#)
+	   <selectKey resultClass="long" >
+	  		SELECT LAST_INSERT_ID()
+	   </selectKey>
+  </insert>
+  
+  <update id="UPDATE_SETTING" parameterClass="settingAlias">
+  	  UPDATE TB_SETTING
+      	<dynamic prepend="set" > 
+      		<isNotNull prepend="," property="name" >
+       			NAME = #name#
+      		</isNotNull>
+      		<isNotNull prepend="," property="value" >
+       			VALUE = #value#
+      		</isNotNull>
+      		<isNotNull prepend="," property="createdBy" >
+       			CREATED_BY = #createdBy#
+      		</isNotNull>
+      		<isNotNull prepend="," property="updatedBy" >
+       			UPDATED_BY = #updatedBy#
+      		</isNotNull>
+      		<isNotNull prepend="," property="createdAt" >
+       			CREATED_AT = #createdAt#
+      		</isNotNull>
+      		<isNotNull prepend="," property="updatedAt" >
+       			UPDATED_AT = #updatedAt#
+      		</isNotNull>		      		      		      		
+    	</dynamic>
+   	  WHERE ID = #id#
+  </update>
+  
+</sqlMap>

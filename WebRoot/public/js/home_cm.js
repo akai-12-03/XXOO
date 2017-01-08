@@ -1,0 +1,4 @@
+/*! Tomcat360.com (c) 2015 
+	Author: Renzhao
+*/
+function scrollNews(n){var i=n.find("ul:first"),t=i.find("li:first").height();i.animate({marginTop:-t+"px"},600,function(){i.css({marginTop:0}).find("li:first").appendTo(i)})}$(function(){function n(n,i,t,e,l,c){var n=$(n),i=$(i),t=$(t),e=$(e).find("ul"),f=e.find("li").outerWidth(!0),r=l;if(t.click(function(){e.animate({"margin-left":-f},function(){e.find("li").eq(0).appendTo(e),e.css({"margin-left":0})})}),i.click(function(){e.find("li:last").prependTo(e),e.css({"margin-left":-f}),e.animate({"margin-left":0})}),1==c){var a=setInterval(function(){t.click()},5e3*r);n.hover(function(){clearInterval(a)},function(){a=setInterval(function(){t.click()},5e3*r)})}}n(".bank_list",".next",".prev",".img_list",4,!0)}),$(function(){var n,i=$(".scrollNews");i.hover(function(){clearInterval(n)},function(){n=setInterval(function(){scrollNews(i)},3e3)}).trigger("mouseleave")});

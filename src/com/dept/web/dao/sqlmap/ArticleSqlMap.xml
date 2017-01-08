@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Article">
+	<typeAlias alias="articleAlias" type="com.dept.web.dao.model.Article" />
+	<resultMap id="articleResult" class="articleAlias">
+		<result column="id" property="id" />
+		<result column="site_id" property="siteId" />
+		<result column="name" property="name" />
+		<result column="littitle" property="littitle" />
+		<result column="status" property="status" />
+		<result column="litpic" property="litpic" />
+		<result column="flag" property="flag" />
+		<result column="source" property="source" />
+		<result column="publish" property="publish" />
+		<result column="is_jump" property="isJump" />
+		<result column="author" property="author" />
+		<result column="jumpurl" property="jumpurl" />
+		<result column="summary" property="summary" />
+		<result column="a_order" property="aOrder" />
+		<result column="hits" property="hits" />
+		<result column="comment" property="comment" />
+		<result column="is_comment" property="isComment" />
+		<result column="user_id" property="userId" />
+		<result column="created_at" property="createdAt" />
+		<result column="updated_at" property="updatedAt" />
+		<result column="content" property="content" />
+	</resultMap>
+	
+	<resultMap id="articleSiteResult" class="articleAlias" extends="articleResult">
+  	<result column="sitename" property="sitename"/>
+  	</resultMap>
+  
+	<select id="GET_COUNT_BY_ABOUTUS_DETAIL" parameterClass="Map"
+		resultClass="int">
+		SELECT COUNT(*) FROM TB_ARTICLE WHERE STATUS = 1
+		<isNotEmpty property="flag" prepend="and">
+			SITE_ID IN (SELECT ID
+			FROM TB_SITE WHERE CODE=#code# AND PID > 0 AND NID =
+			#flag# )
+		</isNotEmpty>
+		<isEmpty property="flag" prepend="and">
+			SITE_ID IN (SELECT * FROM
+			(SELECT ID FROM TB_SITE WHERE CODE=#code# AND PID > 0
+			ORDER BY
+			`s_ORDER` LIMIT 1) AS C)
+		</isEmpty>
+	</select>
+	<select id="GET_LIST_BY_INDEX" parameterClass="map" resultMap="articleResult">
+    SELECT * FROM TB_ARTICLE WHERE SITE_ID IN (SELECT ID FROM TB_SITE WHERE NID = #nid# AND PID > 0) and status=1
+	ORDER BY a_order ASC,ID DESC LIMIT #start#,#end#
+    </select>
+
+	<select id="GET_LIST_BY_ABOUTUS_DETAIL" parameterClass="Map" resultMap="articleSiteResult">
+		SELECT A.*, B.NAME AS SITENAME FROM TB_ARTICLE A LEFT JOIN TB_SITE B ON A.SITE_ID = B.ID WHERE A.STATUS = 1
+		<isNotEmpty property="flag" prepend="and">
+			SITE_ID IN (SELECT ID	FROM TB_SITE WHERE CODE=#code# AND PID > 0 AND NID =#flag# )
+		</isNotEmpty>
+		<isEmpty property="flag" prepend="and">
+			SITE_ID IN (SELECT * FROM
+			(SELECT ID FROM TB_SITE WHERE CODE=#code# AND PID > 0
+			ORDER BY
+			`S_ORDER` LIMIT 1) AS C)
+		</isEmpty>
+		ORDER BY a_order ASC,ID DESC
+	</select>
+
+	<select id="GET_BY_ABOUTUS_DETAIL" parameterClass="String"
+		resultMap="articleResult">
+		SELECT * FROM TB_ARTICLE WHERE FLAG = #value# LIMIT 1
+	</select>
+	
+	<select id="GET_BY_ID" parameterClass="long" resultMap="articleResult">
+    	SELECT * FROM TB_ARTICLE WHERE ID = #value#
+  	</select>
+
+</sqlMap>

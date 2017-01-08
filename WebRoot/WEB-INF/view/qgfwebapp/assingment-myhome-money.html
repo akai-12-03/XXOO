@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="yes" name="apple-touch-fullscreen"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="MobileOptimized" content="320"/>
+    <link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+    <title>钱功夫</title>
+    <script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${weburl}/src/js/v-form.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+        .top {
+            color: #666;
+            font-size: 14px;
+            padding: 20px 0 5px 15px;
+        }
+
+        .top > span {
+            color: #ff7d26;
+        }
+
+        .ass-form {
+            background-color: white;
+            padding: 10px 0 10px 15px;
+            font-size: 14px;
+        }
+
+        .ass-btn {
+            width: 70%;
+            color: white;
+            background-color: #267dff;
+            border: none;
+            padding: 12px 0 12px 0;
+            text-align: center;
+            margin-top: 5%;
+            margin-left: 15%;
+            border-radius: 10px;
+            font-size: 16px;
+
+        }
+        .tip{
+            color: red;
+        }
+    </style>
+    <script>
+        $(function(){
+            new vForm({});
+        });
+    </script>
+</head>
+<body class="mi">
+<div class="title-top text-align-center">
+    <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1"
+         onclick="window.location.href='javascript:history.back(-1)'"/>
+    <span class="titleTitle">债权转让</span>
+    <span class="spanWhite"></span>
+</div>
+<div class="glassMode" onclick="closeRight()"></div>
+<div class="top">剩余可转让金额：<span>4500.00</span></div>
+<form action="" id="form">
+    <div class="ass-form">
+        <label for="">转让金额：</label>
+        <input type="text" autocomplete="off" required="required" id="money"/>
+        <div class="tip"></div>
+    </div>
+    <div>
+        <button type="submit" class="ass-btn">转让</button>
+    </div>
+</form>
+</body>
+</html>

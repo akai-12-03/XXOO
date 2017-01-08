@@ -1,0 +1,76 @@
+#topbar("G")
+#if($mt == 33)
+#user_sidebar('43')
+#elseif($mt == 34)
+#user_sidebar('44')
+#end
+			<div class="user-page">
+				<div class="user-profile">
+					<nav class="user-nav-tabs">
+						<a class="active">理财管理</a>
+					</nav>
+					<div class="tab">
+						<ul class="user-nav-tabs-top tab-header clearfix">
+							<li #if($mt==31) class="item active" #else class="item" #end data-tab="1"><a href="$weburl/myhome/tblist.html">正在投标的项目</a></li>
+							<li #if($mt==32) class="item active" #else class="item" #end data-tab="2"><a href="$weburl/myhome/sklist.html?type=1">正在收款的项目</a></li>
+							<li #if($mt==33) class="item active" #else class="item" #end data-tab="3"><a href="$weburl/myhome/wsklist.html?status=0">未收款的明细</a></li>
+							<li #if($mt==34) class="item active" #else class="item" #end data-tab="4"><a href="$weburl/myhome/wsklist.html?status=2">已收款的明细</a></li>
+							<li #if($mt==35) class="item active" #else class="item" #end data-tab="5"><a href="$weburl/myhome/toubiao.html">借出明细帐</a></li>
+							<li #if($mt==36) class="item active" #else class="item" #end data-tab="6"><a href="$weburl/myhome/sklist.html?type=2">已还清项目</a></li>
+						</ul>
+						<div class="tab-content active" data-tab="1">
+				<table class="pure-table   table-compact record">
+					<thead>
+						<tr>
+							<th>标题</th>
+							<th>借款者</th>
+							<th>第几期</th>
+							<th>收款总额</th>
+							<th>应收本金</th>
+							<th>应收利息</th>
+							<th>管理费</th>
+							<th>实得利息</th>
+						</tr>
+					</thead>
+					<tbody>
+							#if($!borrowPage.result.size() < 1 )
+							<tr>
+							<td colspan="8" style="padding-top:60px;border-bottom:none;"><img
+								src="${weburl}/public/images/norecord.png">
+							</td> 
+							</tr>
+							#else 
+							#foreach($items in ${borrowPage.result})
+							<tr>
+							<td>
+			            	<a href="$weburl/borrow/detail.html?id=$items.borrow_id"> 
+			            		#if ($items.borrow_name.length>=10) #limit($items.borrow_name 8)..  #else $items.borrow_name  #end 
+		            		</a>
+		            		</td> 
+							<td>#if($!items.mortgagor) $!items.mortgagor #else $!textTool.hideUsernameChar($items.name) #end </td> 
+							<td>$items.colOrder</td> 
+							<td>￥#if($items.repayAccount) $viewTool.format2JQStr($items.repayAccount) #else 0 #end</td> 
+							<td>￥#if($items.capital) $viewTool.format2JQStr($items.capital) #else 0 #end</td> 
+							<td>￥#if($items.interest) $viewTool.format2JQStr($items.interest) #else 0 #end</td> 
+							<td>￥0.00</td> 
+					           #set($count3 = $items.interest - $items.lateInterest) 
+							<td>￥#if($status==2) $numberTool.format($count3) #else 0.00 #end</td> 
+				            </tr>
+							#end
+							#end
+						</tbody>
+					</table>
+					<form id="borrowForm" name="borrowForm" action="$weburl/myhome/wsklist.html?status=$status">
+					<input type="hidden" id="page" name="page"#if($!page) value="$page" #else value="1" #end />
+					<input type="hidden" id="status" name="status" value="$!status"/>
+   						#pagination($borrowPage 'borrowForm')
+					</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+#foot()
+		<script>
+			seajs.use('myhome');
+		</script>

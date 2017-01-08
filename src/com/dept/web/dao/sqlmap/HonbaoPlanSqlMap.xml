@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="HongbaoPlan" >
+	<typeAlias alias="hongbaoPlanAlias" type="com.dept.web.dao.model.HongbaoPlan"/>
+    <resultMap id="hongbaoPlanResult" class="hongbaoPlanAlias" >
+    	<result column="id" property="id"  />
+	    <result column="user_id" property="userId"  />
+	    <result column="hongbao_id" property="hongbaoId"  />
+	    <result column="plan_record_id" property="planRecordId" />
+	    <result column="hongbao_status" property="hongbaoStatus" />
+	    <result column="plan_record_status" property="planRecordStatus" />
+	    <result column="created_At" property="createdAt"  />
+	    <result column="created_By" property="createdBy" />
+	    <result column="update_At" property="updateAt" />
+	    <result column="update_By" property="updateBy" />
+    </resultMap>
+   
+   	<insert id="SAVE_HONGBAOPLAN" parameterClass="hongbaoPlanAlias">
+  	  INSERT INTO TB_HONGBAO_PLAN(user_id, hongbao_id, plan_record_id, hongbao_status,plan_record_status,created_At, created_By, update_At, update_By) 
+  	  VALUES (#userId#, #hongbaoId#, #planRecordId#,#hongbaoStatus#,#planRecordStatus#, #createdAt#, #createdBy#, #updateAt#, #updateBy#)
+  </insert>
+  
+   <select id="GET_BY_IDS" parameterClass="map" resultMap="hongbaoPlanResult">
+    SELECT * FROM TB_HONGBAO_PLAN where user_id=#userId# and plan_record_id=#planRecordId#
+  </select>
+   
+</sqlMap>

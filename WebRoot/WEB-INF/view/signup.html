@@ -1,0 +1,150 @@
+﻿#topbar("signup")
+<body class="white">
+		<div class="common-topbar">
+			<div class="mid-width clearfix">
+				<a href="index.html"><img src="public/images/common-logo.png"></a>|<span>注册</span>
+			</div>
+		</div>
+		<div class="signup-area mid-width">
+			<div class="signup-body">
+				<form class="pure-form signup-form" method="post" action="${weburl}/signup.html?type=reg" id="signup-form" style="background-color: white;width: 424px;">
+					<h4><span>注册</span><span class="signup-account">已有帐户？<a class="red" href="${weburl}/tologin.html">立即登录</a></span></h4>
+					<div class="signup_field">
+						<label>*手&nbsp;机&nbsp; 号：</label>
+						<input name="telphone" type="text" class="signup_input" placeholder="请输入输入手机 " id="telphone" data-validator="telphone" required />
+						<div class="tip"></div>
+					</div>
+					<div class="signup_field">
+						<label>*密 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 码：</label>
+						<input name="password" type="password" class="signup_input" placeholder="请输入密码" id="password" data-validator="password" required />
+						<div class="tip"></div>
+					</div>
+					<div class="signup_field">
+						<label>*确认密码：</label>
+						<input name="repassword" type="password" class="signup_input" placeholder="请输入密码" id="repassword" data-validator="repassword" required />
+						<div class="tip"></div>
+					</div>
+					<div class="signup_field verifyimg-box clearfix">
+						<label>*验&nbsp; 证&nbsp; 码：</label>
+						<input type="text" name="verify" id="imgCode" placeholder="请输入图片验证码" data-validator="code" class="signup_input" style="width:182px; margin-right:10px;" required>
+						<img src="${weburl}/pcrimg.html" alt="验证码" title="点击刷新" width="85" height="38">
+						<div class="tip"></div>
+					</div>
+					<div class="signup_field verifytel-box">
+						<label>*验&nbsp; 证&nbsp; 码：</label>
+						<input type="text" name="code" data-validator="code" placeholder="请输入短信验证码" class="signup_input" style="width:182px; margin-right:10px;" required>
+						<button type="button" class="pure-button pure-button-primary prov-btn" style="float: none;position: absolute;right: 6px;">获取验证码</button>
+						<div class="tip"></div>
+					</div>
+					<div class="signup_field">
+						<label>*推&nbsp; 荐&nbsp; 人：$!ref</label>
+						<input name="referee" type="text" class="signup_input" value="$!invite" placeholder="请输入推荐人" />
+					</div>
+					<div class="signup_field">
+						<div class="checkbox">
+							<input name="" type="checkbox" value="" checked="checked" id="mycheckbox"> 我已阅读并且同意 <a class="red" href="javascript:;" id="agreement">《钱功夫注册服务协议》</a>
+						</div>
+					</div>
+					<div class="signup_field clearfix">
+						<input type="submit" id="send" class="pure-button button-primary" style="background-color: #f3485a;" value="注 册" />
+						<br/>
+						<br/>
+						<br/>
+						<div style="position: relative;height: 30px"><a class="red" href="${weburl}/index.html" style="right:20px;position: absolute;right: -9px;top: -8px;">返回首页</a></div>
+					</div>
+				</form>
+				#if($!successType || $!msg)
+				<div id="tipBox" style="display:block;">
+					<header class="clearfix"><a href="javascript:closewin()" class="close_btn">X</a></header>
+					<div class="tip-content">
+						#if($!successType)
+						<i class="icon icon-success"></i> &nbsp;恭喜您！注册成功,<a href="${weburl}/myhome/user-index.html">去个人中心</a>
+						#elseif($!msg)
+						<i class="icon icon-fail"></i> &nbsp;$!msg
+						#end
+					</div>
+				</div>
+				<div class="mask" style="display:block"></div>
+				#end
+			</div>
+		</div>
+		<div id="LoginBox1">
+			<header>
+				<h4>钱功夫理财注册/服务协议<a href="javascript:void(0)" title="关闭窗口" class="close_btn float-right" id="closeBtn">×</a></h4>
+			</header>
+			<div class="rule">
+				<p>
+					欢迎阅读钱功夫服务条款协议(下称“本协议”)。本协议双方为杭州乾坤互联网金融服务有限公司（以下简称“钱功夫”或“本公司”、“我公司”）与钱功夫用户（包括个人和企业客户，简称“用户”或“您”），本服务协议具有合同效力。本协议内容包括协议正文及所有已经发布的或将来可能发布的各类规则。所有规则为协议不可分割的一部分，与协议正文具有同等法律效力。
+					<br> 1. 接受条款
+					<br> 以任何方式进入钱功夫网站即表示您同意自己已经与钱功夫订立本协议，且您将受本协议的条款约束。钱功夫随时自行全权决定更改条款。如条款有任何变更，钱功夫将在其网站上刊载公告，通知予您。如您不同意相关变更，必须停止使用服务。经修订的条款一经在钱功夫网站的公布后，立即自动生效。您应在第一次登录后仔细阅读修订后的条款，并有权选择停止继续使用服务；一旦您继续使用服务，则表示您已接受经修订的条款，当您与钱功夫发生争议时，应以最新的服务协议为准。除另行明确声明外，任何使服务范围扩大或功能增强的的新内容均受本协议约束。除非经钱功夫的授权高层管理人员签订书面协议，本协议不得另行作出修订。
+					<br> 2. 定义
+					<br> 2.1 用户及用户注册：用户必须是具备完全民事行为能力的自然人，或者是具有合法经营资格的实体组织。无民事行为能力人、限制民事行为能力人以及无经营或特定经营资格的组织不应当注册为钱功夫用户或超过其民事权利或行为能力范围从事信息发布、交易的，其与钱功夫之间的服务协议自始无效，钱功夫一经发现，有权立即注销该用户，并追究其使用钱功夫“服务”的一切法律责任。用户注册是指用户登录钱功夫，并按要求填写相关信息并确认同意履行相关用户协议的过程。用户因进行信息发布、交易、获取有偿服务或接触钱功夫服务器而发生的所有应纳税赋，以及一切硬件、软件、服务及其它方面的费用均由用户负责支付。
+					<br> 2.2 会员：在钱功夫平台上注册的用户成为钱功夫会员。 钱功夫作为有借款需求客户（企业、个人）和资金提供方（借出者）的信息对接平台以及获取各类与投融资相关的服务信息的地点。钱功夫会对客户和机构的身份信息的真实性进行审核但不能完全控制双方交易所涉及的服务的质量、安全或合法性，信息的真实性或准确性，以及交易方履行其在贸易协议项下的各项义务的能力。钱功夫并不作为接受服务方或是提供服务方的身份参与交易行为的本身。钱功夫提醒用户应该通过自己的谨慎判断确定服务及相关信息的真实性、合法性和有效性。
+					<br> 3. 注册义务
+					<br> 注册义务您必须按照申请注册会员的表格，真实、准确、完整的填写您的资料；维持并及时更新资料，使其保持真实、准确、完整和反应当前情况。倘若您提供的资料不真实、准确和完整或我公司有合理理由怀疑该资料不真实、准确、完整的，我公司有权暂停或终止您的注册身份，并拒绝您在目前和将来对服务以任何形式使用。
+					<br> 注册名、密码和保密在登记过程中，您将选择注册名和密码。注册名的选择应遵守法律法规及社会公德。您必须对您的密码保密，您将对您注册名和密码下发生的所有活动承担责任。如发现任何人未经您同意使用您的注册名跟密码，你需立即通知我公司；对该行为造成的损害，我公司不负任何责任。
+					<br> 4. 您的权利和义务
+					<br> 4.1 您有权利拥有在钱功夫的会员名及登录密码，并有权利使用自己的会员名及密码随时登录钱功夫平台。您不得以任何形式擅自转让或授权他人使用自己的钱功夫会员名及密码；
+					<br> 4.2 您有权根据本服务协议的规定以及钱功夫上发布的相关规则利用钱功夫上信息发布平台查询服务信息、提交融资信息、参加钱功夫的有关活动以及有权享受钱功夫提供的其它的有关服务；
+					<br> 4.3 您在钱功夫上交易过程中如与其他融资机构因交易产生纠纷，可以请求钱功夫从中予以协调。您如发现其他机构有违法或违反本服务协议的行为，可以向钱功夫进行反映和要求处理。如您因网上交易与其他用户产生诉讼的，您有权通过司法部门要求钱功夫提供相关资料；
+					<br> 4.4 您同意遵守钱功夫的交易规则，接收来自钱功夫或钱功夫合作伙伴发出的邮件或信息。
+					<br> 4.5 您应当保证在使用钱功夫平台进行信息发布过程中遵守诚实信用的原则，不得在发布的信息中包含有反动、暴力、淫秽、毒品、赌博、教唆及有损社会公共道德的内容；不得发布各类违法或违规信息；
+					<br> 4.6 您不应在钱功夫平台上恶意评价其他用户，或采取不正当手段提高自身的信用度或降低其他用户的信用度；
+					<br> 4.7 您在钱功夫平台上不得发布包含有国家禁止或限制发布包含有侵犯他人知识产权或其它合法权益的机密类信息，也不得发布违背社会公共利益或公共道德的、或是钱功夫认为不适合在钱功夫上发布的信息。
+					<br> 4.8 您承诺自己在使钱功夫时实施的所有行为均遵守国家法律、法规和钱功夫的相关规定以及各种社会公共利益或公共道德。如有违反导致任何法律后果的发生，您独立承担所有相应的法律责任；
+					<br> 4.9 您同意，不对钱功夫上任何数据作商业性利用，包括但不限于在未经钱功夫事先书面批准的情况下，以复制、传播等方式使用在钱功夫网站上展示的任何资料。
+					<br> 5. 钱功夫的权利义务
+					<br> 5.1 钱功夫有权通过自身或委托其认可的第三方机构为您提供除信息发布外的融资比较、“融资体检“和实现一站式融资实现等增值服务；
+					<br> 5.2钱功夫有义务在现有技术上维护整个网上平台的正常运行，并努力提升和改进技术。对与您在注册使用钱功夫平台中所遇到的与信息发布或注册有关的问题及反应的情况，钱功夫应及时作出回复；
+					<br> 5.3 对于您在钱功夫平台上的不当行为或其它任何钱功夫认为应当终止服务的情况，钱功夫有权随时作出删除相关信息、终止服务提供等处理，而无须征得您的同意；
+					<br> 5.4 因网上平台的特殊性，钱功夫没有义务对所有会员的注册资料、行为及其他事项进行事先审查；
+					<br> 5.5 您在钱功夫进行交易过程中如与其它投资者产生纠纷，请求钱功夫从中予以调处，经钱功夫审核后，钱功夫有权通过电子邮件联系向纠纷双方了解情况，并将所了解的情况通过电子邮件互相通知对方；
+					<br> 5.6 您因在钱功夫平台上进行借款而与其他借出者产生诉讼的，您通过司法部门或行政部门依照法定程序要求钱功夫提供相关数据，钱功夫应积极配合并提供有关资料；
+					<br> 5.7 钱功夫有权对您的注册数据及信息发布行为进行查阅，发现注册数据或信息发布行为中存在任何问题或怀疑，均有权向您发出询问及要求改正的通知或者直接作出删除等处理；
+					<br> 5.8 经国家生效法律文书或行政处罚决定确认您存在违法行为，或者钱功夫有足够事实依据可以认定您存在违法或违反服务协议行为的，钱功夫有权在钱功夫平台及所在网站上以网络发布形式公布您的违法行为；
+					<br> 5.9 在您使用钱功夫服务时，钱功夫有权接收并记录您的个人信息，包括但不限于IP地址、网站Cookie中的资料及您要求取用的网页记录等。
+					<br> 6. 许可使用权 许可使用权您授予本公司永久的、免费的、完整的许可使用权利（并且有权对该权利进行再授权），使我公司有权使用、复制、修改、发布、翻译、分发您的资料或制作其派生作品，以已知或日后开发的任何形式、媒体或技术，将您的资料纳入其他作品里。
+					<br> 7. 隐私权 隐私权我公司不公开您选择保密的注册信息及其他个人信息。但在下列情况下，我公司有权全部或部分披露您的保密信息。
+					<br> 7.1 根据法律规定，或应行政机关、司法机关要求，向第三人或行政机关、司法机关披露；
+					<br> 7.2 如您系权利人并针对他人在钱功夫上侵犯您利益的行为提起投诉，应被投诉人要求，向被投诉人披露；
+					<br> 7.3 权利人认为您在钱功夫上的行为侵犯其合法权利并提出投诉的，可向权利人披露；
+					<br> 7.4 您出现违反钱功夫网站规则，需要向第三方披露的；
+					<br> 7.5 根据法律和钱功夫网站规则，其他我公司认为适合披露的。
+					<br> 8. 其他
+					<br> 8.1 免责声明您将对您发布的信息及其他在钱功夫上发生的任何行为承担责任，我公司对此不负任何责任。
+					<br> 8.2 不可抗力。对于因钱功夫合理控制范围以外的原因，包括但不限于自然灾害、罢工或骚乱、物质短缺或定量配给、暴动、战争行为、政府行为、通讯或其他设施故障或严重伤亡事故等，致使钱功夫延迟或未能履约的，钱功夫不对您承担任何责任。 
+					<br> 8.3 转让。钱功夫转让本协议无需经您同意。 
+					<br> 8.4 管辖因本协议或本公司服务所引起的或与其有关的任何争议，应向浙江省杭州市拱墅区区人民法院提起诉讼并适用中华人民共和国法律。
+				</p>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="mid-width">
+				<!--<ul class="clearfix">
+					<li><a href="#"><i class="icon icon-logo1"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo2"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo3"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo4"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo5"></i></a></li>
+				</ul>
+				--><span style="display:block;">备案号：浙ICP备16004794号&nbsp;&nbsp;杭州钱坤互联网金融服务有限公司</span>
+			</div>
+		</div>
+		<script>
+			seajs.use('signup');
+			$(function(){
+				 $("#send").click(function (){
+					  var mycheckbox=$("#mycheckbox");
+					  for(var i=0;i<mycheckbox.length;i++){
+					  if(mycheckbox[i].checked){
+						$("#signup-form").submit();  
+					  }else{
+						  alert("请勾选阅读该协议");
+						  return false;
+					  }
+					  }
+				  });
+			});
+		</script>
+	</body>
+</html>

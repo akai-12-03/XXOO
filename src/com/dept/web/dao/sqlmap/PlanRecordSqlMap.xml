@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PlanRecord" >
+  <typeAlias alias="planRecordAlias" type="com.dept.web.dao.model.PlanRecord"/>
+  <resultMap id="planRecordResult" class="planRecordAlias" >
+    <result column="id" property="id"  />
+    <result column="user_id" property="userId"  />
+    <result column="plan_id" property="planId"  />
+    <result column="plan_type" property="planType"  />
+    <result column="money_insure" property="moneyInsure"  />
+    <result column="power" property="power"  />
+    <result column="interval" property="interval"  />
+    <result column="rate" property="rate"  />
+    <result column="money_fee" property="moneyFee"  />
+    <result column="money_warning" property="moneyWarning"  />
+    <result column="money_force" property="moneyForce"  />
+    <result column="money_op" property="moneyOp"  />
+    <result column="money_settlement" property="moneySettlement"  />
+    <result column="status" property="status"  />
+    <result column="homs_account" property="homsAccount"  />
+    <result column="homs_pwd" property="homsPwd"  />
+	 <result column="user_operate" property="userOperate"  />
+    <result column="start_time" property="startTime"  />
+    <result column="end_time" property="endTime"  />
+    <result column="op_log" property="opLog"  />
+    <result column="created_at" property="createdAt"  />
+    <result column="operated_at" property="operatedAt"  /> 
+  </resultMap>
+ 
+   <select id="GET_BY_PLANRECORD" parameterClass="planRecordAlias" resultMap="planRecordResult">
+     SELECT * FROM TB_PLAN_RECORD WHERE ID = #id#
+   </select>
+   
+   <select id="GET_BY_ID" parameterClass="Long" resultMap="planRecordResult">
+     select * from tb_plan_record WHERE ID = #value# AND STATUS = 0
+   </select>
+   <insert id="SAVE_PLANRECORD" parameterClass="planRecordAlias">
+     insert into tb_plan_record (user_id,plan_id,plan_type,money_insure,power,`interval`,rate,money_fee,
+     money_warning,money_force,money_op,money_settlement,status,homs_account,homs_pwd,
+     user_operate,start_time,end_time,op_log,created_at,operated_at) 
+     values
+     (#userId#,#planId#,#planType#,#moneyInsure#,#power#,#interval#,#rate#,#moneyFee#,#moneyWarning#,
+     #moneyForce#,#moneyOp#,#moneySettlement#,
+     #status#,#homsAccount#,#homsPwd#,#userOperate#,#startTime#,#endTime#,#opLog#,#createdAt#,#operatedAt#)
+      <selectKey resultClass="long" >
+	  		SELECT LAST_INSERT_ID()
+	   </selectKey>
+   </insert>
+   
+   <select id="GET_LIST_BY_PAGE_LIST" parameterClass="map" resultMap="planRecordResult">
+      select * from tb_plan_record where user_id=#userId# and status!=-1
+     <isNotEmpty  property="type" prepend="and">
+	   		plan_type = #type#
+	 	</isNotEmpty>
+	 	<isNotEmpty property="startTime" prepend="and">
+	 	    FROM_UNIXTIME(created_at,'%Y-%m-%d')>=#startTime#
+	 	</isNotEmpty>
+	 	<isNotEmpty property="endTime" prepend="and">
+	 	   <![CDATA[  
+             FROM_UNIXTIME(created_at,'%Y-%m-%d')<= #endTime#  
+         ]]> 
+	 	</isNotEmpty>
+	 	ORDER BY ID DESC
+   </select>
+   <select id="GET_COUNT_BY_PAGE_LIST" parameterClass="map" resultClass="int">
+      select count(*) from tb_plan_record where user_id=#userId# and status!=-1
+     <isNotEmpty  property="type" prepend="and">
+	   		plan_type = #type#
+	 	</isNotEmpty>
+	 	<isNotEmpty property="startTime" prepend="and">
+	 	    FROM_UNIXTIME(created_at,'%Y-%m-%d')>=#startTime#
+	 	</isNotEmpty>
+	 	<isNotEmpty property="endTime" prepend="and">
+	 	   <![CDATA[  
+             FROM_UNIXTIME(created_at,'%Y-%m-%d')<= #endTime#  
+         ]]> 
+	 	</isNotEmpty>
+   </select>
+   <!-- 获取用户已批准的所有配资记录 -->
+   <select id="GET_LIST_BY_QUERYPLANRECORD_LIST_BY_USERID" parameterClass="long" resultMap="planRecordResult">
+      select * from tb_plan_record where user_id=#userId# and status=1
+   </select>
+   
+   <!-- 获取用户已批准的所有配资记录 -->
+   <select id="GET_LIST_BY_USER_FOR_FREEPLAN" parameterClass="long" resultMap="planRecordResult">
+      select * from tb_plan_record where user_id=#userId# and plan_type = 3
+   </select>   
+   
+   <select id="GET_LIST_BY_DATE_FOR_FREEPLAN" parameterClass="map" resultMap="planRecordResult">
+      select * from tb_plan_record where status = 0 and plan_type = 3
+      	<isNotEmpty property="startTime" prepend="and">
+	 	    operated_At >=#startTime#
+	 	</isNotEmpty>
+	 	<isNotEmpty property="endTime" prepend="and">
+	 	   <![CDATA[  
+             operated_At<= #endTime#  
+         ]]> 
+	 	</isNotEmpty>
+   </select>   
+   
+   <update id="UPDATE_STATUS_BY_ID" parameterClass="map">
+   		UPDATE TB_PLAN_RECORD
+   		<dynamic prepend="set">
+   			<isNotNull prepend="," property="status">
+   			`STATUS` = #status#
+   			</isNotNull>
+    		<isNotNull prepend="," property="operatedAt">
+   			OPERATED_AT = #operatedAt#
+   			</isNotNull>  
+   		</dynamic>
+   		WHERE ID = #id# 
+   </update>
+   
+   <update id="UPDATE_PRID" parameterClass="int">
+     update TB_PLAN_RECORD set status=-1 where id=#prid#
+   </update>
+</sqlMap>

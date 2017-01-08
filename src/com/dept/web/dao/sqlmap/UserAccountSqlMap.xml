@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="UserAccount">
+	<typeAlias alias="userAccountAlias" type="com.dept.web.dao.model.UserAccount" />
+	<resultMap id="userAccountResult" class="userAccountAlias">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="money_total" property="moneyTotal" />
+		<result column="money_usable" property="moneyUsable" />
+		<result column="money_withdraw" property="moneyWithdraw" />
+		<result column="money_insure" property="moneyInsure" />
+		<result column="money_tender_freeze" property="moneyTenderFreeze" />
+		<result column="money_collection" property="moneyCollection" />
+		<result column="profits_total" property="profitsTotal" />
+		<result column="created_at" property="createdAt" />
+		<result column="updated_at" property="updatedAt" />
+	</resultMap>
+
+	<insert id="SAVE_USERACCOUNT" parameterClass="userAccountAlias">
+		insert into
+		tb_user_account(user_id,money_total,money_usable,money_withdraw,money_insure,
+		profits_total, money_Tender_Freeze, created_at,updated_at,
+		money_collection)
+		values
+		(#userId#,#moneyTotal#,#moneyUsable#,#moneyWithdraw#,#moneyInsure#,#profitsTotal#,#moneyTenderFreeze#,
+		#createdAt#,#updatedAt#, #moneyCollection#)
+		<selectKey resultClass="long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+
+	<update id="UPDATE_USERACCOUNT" parameterClass="map">
+		UPDATE TB_USER_ACCOUNT
+		<dynamic prepend="set">
+			<isNotNull property="moneyTotal" prepend=",">
+				money_total = money_total + #moneyTotal#
+			</isNotNull>
+			<isNotNull property="moneyUsable" prepend=",">
+				money_usable = money_usable + #moneyUsable#
+			</isNotNull>
+			<isNotNull property="moneyWithdraw" prepend=",">
+				money_withdraw = money_withdraw + #moneyWithdraw#
+			</isNotNull>
+			<isNotNull property="moneyInsure" prepend=",">
+				money_insure = money_insure + #moneyInsure#
+			</isNotNull>
+			<isNotNull property="profitsTotal" prepend=",">
+				profits_total = profits_total + #profitsTotal#
+			</isNotNull>
+			<isNotNull property="moneyTenderFreeze" prepend=",">
+				money_Tender_Freeze = money_Tender_Freeze + #moneyTenderFreeze#
+			</isNotNull>
+			<isNotNull property="moneyCollection" prepend=",">
+				money_collection = money_collection + #moneyCollection#
+			</isNotNull>
+			<isNotNull property="updatedAt" prepend=",">
+				updated_at = #updatedAt#
+			</isNotNull>
+		</dynamic>
+		WHERE USER_ID = #userId# and ID = #id#
+	</update>
+	
+	<update id="UPDATE_USERACCOUNT2" parameterClass="userAccountAlias">
+		UPDATE TB_USER_ACCOUNT
+		<dynamic prepend="set">
+			<isNotNull property="moneyTotal" prepend=",">
+				money_total = #moneyTotal#
+			</isNotNull>
+			<isNotNull property="moneyUsable" prepend=",">
+				money_usable = #moneyUsable#
+			</isNotNull>
+			<isNotNull property="moneyWithdraw" prepend=",">
+				money_withdraw = #moneyWithdraw#
+			</isNotNull>
+			<isNotNull property="moneyInsure" prepend=",">
+				money_insure = #moneyInsure#
+			</isNotNull>
+			<isNotNull property="profitsTotal" prepend=",">
+				profits_total = #profitsTotal#
+			</isNotNull>
+			<isNotNull property="moneyTenderFreeze" prepend=",">
+				money_Tender_Freeze = #moneyTenderFreeze#
+			</isNotNull>
+			<isNotNull property="moneyCollection" prepend=",">
+				money_collection = #moneyCollection#
+			</isNotNull>
+			<isNotNull property="updatedAt" prepend=",">
+				updated_at = #updatedAt#
+			</isNotNull>
+		</dynamic>
+		WHERE USER_ID = #userId# and ID = #id#
+	</update>
+
+	<select id="GET_BY_USERID" parameterClass="long" resultMap="userAccountResult">
+		SELECT * FROM TB_USER_ACCOUNT WHERE USER_ID = #value#
+	</select>
+
+
+	<update id="UPDATE_UPDATE_ACCOUNT_BY_USERID" parameterClass="userAccountAlias">
+		update tb_user_account set money_total=money_total+#moneyTotal#,money_usable=money_usable+#moneyUsable#,money_Tender_Freeze=money_Tender_Freeze+#moneyTenderFreeze# where user_id=#userId#
+	</update>
+	
+	 <update id="UPDATE_UPDATE_ACCOUNT_NOT_ZERO" parameterClass="userAccountAlias">
+		<![CDATA[
+			update tb_user_account set money_total=money_total+#moneyTotal#,money_usable=money_usable+#moneyUsable#,money_Tender_Freeze=money_Tender_Freeze+#moneyTenderFreeze# where user_id=#userId# 
+		]]>
+	</update>
+</sqlMap>

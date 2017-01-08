@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="UserRecharge" >
+  <typeAlias alias="userRechargeAlias" type="com.dept.web.dao.model.UserRecharge"/>
+  <resultMap id="userRechargeResult" class="userRechargeAlias" >
+    <result column="id" property="id"  />
+    <result column="order_id" property="orderId"  />
+    <result column="account" property="account"  />
+    <result column="card_no" property="cardNo"  />
+    <result column="money_recharge" property="moneyRecharge"  />
+    <result column="remark" property="remark"  />
+    <result column="third_platform" property="thirdPlatform"  />
+    <result column="third_platform_order_id" property="thirdPlatformOrderId"  />
+    <result column="pay_source" property="paySource"  />
+    <result column="pay_result" property="payResult"  />
+    <result column="status" property="status"  />
+    <result column="created_by" property="createdBy"  />
+    <result column="updated_by" property="updatedBy"  />
+     <result column="created_at" property="createdAt"  />
+    <result column="updated_at" property="updatedAt"  />
+    <result column="created_ip" property="createdIp"  />
+  </resultMap>
+
+  <insert id="SAVE_USERRECHARGE" parameterClass="userRechargeAlias">
+  		INSERT INTO TB_USER_RECHARGE(ORDER_ID, ACCOUNT, CARD_NO, MONEY_RECHARGE, REMARK, THIRD_PLATFORM, THIRD_PLATFORM_ORDER_ID
+  		,PAY_SOURCE, PAY_RESULT, STATUS, CREATED_BY, UPDATED_BY, CREATED_AT, UPDATED_AT, CREATED_IP)
+  		VALUES(#orderId#, #account#, #cardNo#, #moneyRecharge#, #remark#, #thirdPlatform#, #thirdPlatformOrderId#, #paySource#, #payResult#, 
+  		#status#, #createdBy#, #updatedBy#, #createdAt#, #updatedAt#, #createdIp#)
+     	<selectKey resultClass="long" >
+	  		SELECT LAST_INSERT_ID()
+	    </selectKey> 
+  </insert>
+  <select id="GET_LIST_BY_CREATEBY" parameterClass="int" resultMap="userRechargeResult">
+        select * from TB_USER_RECHARGE where created_by=#value# group by created_by
+  </select>
+  
+	<!-- RECHARGE where 字段 -->
+	<sql id="RECHARGE_DYNAMIC_WHERE">
+		<isNotEmpty prepend="AND" property="id">
+			C.ID = #id#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="orderId">
+			C.ORDER_ID = #orderId#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="cardNo">
+			C.CARD_NO = #cardNo#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="createdBy">
+			C.CREATED_BY =
+			#createdBy#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="updatedBy">
+			C.UPDATED_AT =
+			#updatedBy#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="paySource">
+			C.PAY_SOURCE =
+			#paySource#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="payResult">
+			C.PAY_RESULT =
+			#payResult#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="thirdPlatform">
+			C.THIRD_PLATFORM =
+			#thirdPlatform#
+		</isNotEmpty>
+		<isNotEmpty prepend="AND" property="thirdPlatformOrderId">
+			C.THIRD_PLATFORM_ORDER_ID = #thirdPlatformOrderId#
+		</isNotEmpty>
+	</sql>
+	<!-- from -->
+	<sql id="TABLE_RECHARGE_FROM">
+		FROM TB_USER_RECHARGE C
+		<dynamic prepend="WHERE">
+			<include refid="RECHARGE_DYNAMIC_WHERE" />
+		</dynamic>
+	</sql>
+	<!-- order by -->
+	<sql id="RECHARGE_ORDER_BY"> ORDER BY ID DESC </sql>
+	<!-- 分页语句 -->
+	<sql id="RECHARGE_PAGE_LIMIT">
+		<isParameterPresent>
+			<isGreaterEqual compareValue="0" property="offset">
+				LIMIT
+				#offset# , #pageSize#
+			</isGreaterEqual>
+		</isParameterPresent>
+	</sql>
+	<!-- 单条查询 -->
+	<select id="GET_BY_USERRECHARGE" parameterClass="userRechargeAlias"
+		resultMap="userRechargeResult">
+		SELECT C.*
+		<include refid="TABLE_RECHARGE_FROM" />
+	</select>
+	<!-- 列表查询 -->
+	<select id="GET_LIST_BY_USERRECHARGE" parameterClass="map"
+		resultMap="userRechargeResult">
+		SELECT C.*
+		<include refid="TABLE_RECHARGE_FROM" />
+		<include refid="RECHARGE_ORDER_BY" />
+		<include refid="RECHARGE_PAGE_LIMIT" />
+	</select>
+
+	<update id="UPDATE_USERRECHARGE_BY_ORDER_ID" parameterClass="userRechargeAlias">
+		UPDATE TB_USER_RECHARGE
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="account">
+				account = #account#
+			</isNotNull>
+			<isNotNull prepend="," property="cardNo">
+				card_no = #cardNo#
+			</isNotNull>
+			<isNotNull prepend="," property="moneyRecharge">
+				money_recharge = #moneyRecharge#
+			</isNotNull>
+			<isNotNull prepend="," property="remark">
+				remark = #remark#
+			</isNotNull>
+			<isNotNull prepend="," property="paySource">
+				pay_source = #paySource#
+			</isNotNull>
+			<isNotNull prepend="," property="payResult">
+				pay_result = #payResult#
+			</isNotNull>
+			<isNotNull prepend="," property="status">
+				status = #status#
+			</isNotNull>
+			<isNotNull prepend="," property="updatedBy">
+				updated_by = #updatedBy#
+			</isNotNull>
+			<isNotNull prepend="," property="updatedAt">
+				updated_at = #updatedAt#
+			</isNotNull>
+		</dynamic>
+		WHERE ORDER_ID = #orderId# 
+		
+	</update>
+  
+ </sqlMap>

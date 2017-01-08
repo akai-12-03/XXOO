@@ -1,0 +1,67 @@
+#macro(pagination $page $formname)
+
+	<script type="text/javascript" >
+
+	function formsub(page,formname){
+		$("#page").val(page);
+		$("#"+formname).submit();
+	}
+	</script>
+
+	#if($!{page.getResult().size()} >0 )
+	#set($listnum = ($page.linkPageNumbers.size() - 1))
+
+	<div class="pagination">
+		<ul class="clearfix">
+			<li><a onclick="javascript:formsub(1, '$formname')" >首页</a></li>
+			#if($page.isHasPreviousPage())
+			<li><a onclick="javascript:formsub($page.previousPageNumber, '$formname');">上一页</a></li>
+			#end
+			#foreach( $linkPageNumber in [$page.linkPageNumbers.get(0)..$page.linkPageNumbers.get($listnum)] )
+			#if($linkPageNumber==$page.thisPageNumber)
+			<li class="cur"><a>$linkPageNumber</a></li>
+			#else
+			<li><a onclick="javascript:formsub($!linkPageNumber,'$formname');" >$linkPageNumber</a></li>
+			#end
+			#end
+
+			#if($page.isHasNextPage())
+			<li><a onclick="javascript:formsub($page.nextPageNumber,'$formname');">下一页</a></li>
+			#end
+			<li><a onclick="javascript:formsub($!page.lastPageNumber, '$formname')" >尾页</a></li>
+		</ul>
+	</div>
+	#end
+#end
+
+
+#macro(paginationAjax $page $div $url $form)
+	#if($!{page.getResult().size()} >0 )
+		<div class="pagination pagination-centered lighter" style="margin-top:15px!important;">
+			<input name="topPrevious" id="topPrevious" type="hidden" value="$page.previousPageNumber"/>
+			<input name="topNext" id="topNext" type="hidden" value="$page.nextPageNumber"/>	
+			<ol class="pagination text-center">
+				<li><a onclick="javascript:Util.pageSumbitAndLoad('$div','$url','$form','1');" >首页</a></li>
+				#if($page.thisPageNumber > 1)
+				<li><a onclick="javascript:Util.pageSumbitAndLoad('$div','$url','$form','$page.previousPageNumber');">上一页</a></li>
+				#else
+				<!-- li><a onclick="">上一页</a></li -->
+				#end
+	
+				#foreach( $linkPageNumber in [$page.linkPageNumbers.get(0)..$page.linkPageNumbers.get($listnum)] )
+				#if($linkPageNumber==$page.thisPageNumber)
+				<li class="active"><a>$linkPageNumber</a></li>
+				#else
+				<li><a onclick="javascript:Util.pageSumbitAndLoad('$div','$url','$form','$linkPageNumber');" >$linkPageNumber</a></li>
+				#end
+				#end
+	
+				#if($page.thisPageNumber == $totalPage)
+				<li><a>下一页</a></li>
+				#else
+				<li><a onclick="javascript:Util.pageSumbitAndLoad('$div','$url','$form','$page.nextPageNumber');">下一页</a></li>
+				#end
+			</ol>
+		</div>
+  	#end
+#end

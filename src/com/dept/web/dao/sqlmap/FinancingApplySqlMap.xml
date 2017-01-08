@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="FinancingApply" >
+  <typeAlias alias="financingApplyAlias" type="com.dept.web.dao.model.FinancingApply"/>
+  <resultMap id="financingApplyResult" class="financingApplyAlias" >
+    <result column="id" property="id"  />
+    <result column="name" property="name"  />
+	<result column="name_py" property="name_py"  />
+	<result column="phone" property="phone"  />
+	<result column="address" property="address"  />
+	<result column="company" property="company"  />
+	<result column="company_phone" property="company_phone"  />
+	<result column="year_money" property="year_money"  />
+	<result column="house" property="house"  />
+	<result column="apply_money" property="apply_money"  />
+	<result column="apply_type" property="apply_type"  />
+	<result column="apply_guarantee" property="apply_guarantee"  />
+	<result column="money_use" property="money_use"  />
+	<result column="yyzz" property="yyzz"  />
+	<result column="company_title" property="company_title"  />
+	<result column="sshy" property="sshy"  />
+	<result column="user_id" property="user_id"  />
+	<result column="addtime" property="addtime"  />
+	<result column="status" property="status"  />
+	<result column="types" property="types"  />
+	<result column="money" property="money"  />
+  </resultMap>
+   <resultMap id="financingApplyBySetingResult" class="financingApplyAlias" >
+   		<result column="setName" property="setName"  />
+  </resultMap>
+  
+  
+  
+		<select id="GET_BY_FINANCINGAPPLY_BY_ID" parameterClass="Long" resultMap="financingApplyResult">
+			 select * from tb_finance_apply  where id = #id#
+		</select>
+		
+		<insert id="SAVE_FINANCINGAPPLY" parameterClass="financingApplyAlias"  >
+			INSERT INTO tb_finance_apply(name, name_py, phone, address, company, company_phone, year_money,
+	 			house, apply_money, apply_type, apply_guarantee, money_use, yyzz, company_title, sshy,user_id,addtime,status,types,money)
+	 		VALUES(#name#, #name_py#,#phone#,#address#,#company#,#company_phone#,#year_money#,
+	 			#house#,#apply_money#,#apply_type#, #apply_guarantee#,#money_use#,#yyzz#, #company_title#,
+	 			#sshy#,#user_id#,#addtime#,#status#,#types#,#money#)
+			 <selectKey resultClass="long" >
+				SELECT LAST_INSERT_ID()
+	 	     </selectKey>  
+		</insert>
+		
+		<update id="UPDATE_FINANCINGAPPLY_BY_ID" parameterClass="financingApplyAlias">
+			UPDATE tb_finance_apply
+				<dynamic prepend="set">
+			  		<isNotNull prepend="," property="name">
+			  			name = #name#
+			  		</isNotNull>
+			  		<isNotNull prepend="," property="name_py">
+			  			name_py = #name_py#
+			  		</isNotNull>  	
+			  		<isNotNull prepend="," property="phone">
+			  			phone = #phone#
+			  		</isNotNull>
+			  		<isNotNull prepend="," property="address">
+			  			address = #address#
+			  		</isNotNull>
+			  		<isNotNull prepend="," property="company">
+			  			company = #company#
+			  		</isNotNull>
+			  		<isNotNull prepend="," property="company_phone">
+			  			company_phone = #company_phone#
+			  		</isNotNull>  	
+			  		<isNotNull prepend="," property="year_money">
+			  			year_money = #year_money#
+			  		</isNotNull>
+			  		<isNotNull prepend="," property="house">
+			  			house = #house#
+			  		</isNotNull>
+			  		<isNotNull prepend="," property="apply_money">
+			  			apply_money = #apply_money#
+			  		</isNotNull>
+			  		<isNotNull prepend="," property="apply_type">
+			  			apply_type = #apply_type#
+			  		</isNotNull>  	
+			  		<isNotNull prepend="," property="apply_guarantee">
+			  			apply_guarantee = #apply_guarantee#
+			  		</isNotNull>
+			  		<isNotNull prepend="," property="money_use">
+			  			money_use = #money_use#
+			  		</isNotNull> 	
+			  		<isNotNull prepend="," property="yyzz">
+			  			yyzz = #yyzz#
+			  		</isNotNull> 
+			  		<isNotNull prepend="," property="company_title">
+			  			company_title = #company_title#
+			  		</isNotNull> 	
+			  		<isNotNull prepend="," property="sshy">
+			  			sshy = #sshy#
+			  		</isNotNull> 
+			  		<isNotNull prepend="," property="user_id">
+			  			user_id = #user_id#
+			  		</isNotNull> 
+			  		<isNotNull prepend="," property="addtime">
+			  			addtime = #addtime#
+			  		</isNotNull> 
+			  		<isNotNull prepend="," property="status">
+			  			status = #status#
+			  		</isNotNull> 
+			  		<isNotNull prepend="," property="types">
+			  			types = #types#
+			  		</isNotNull> 
+			  		<isNotNull prepend="," property="money">
+			  			money = #money#
+			  		</isNotNull> 
+			  	</dynamic>
+		   WHERE ID = #id# 
+		</update>
+		<select id="GET_BY_QUERY_BY_SETING" parameterClass="financingApplyAlias" resultMap="financingApplyBySetingResult">
+			select value as setName from   tb_setting where  name='con_dmoney'
+		</select>
+			<select id="GET_COUNT_BY_SEARCH" parameterClass="map"  resultClass="int">
+			  SELECT COUNT(0) FROM tb_finance_apply
+			  <dynamic prepend="where">
+			      <isNotEmpty property="name" prepend="and">
+			     	  NAME LIKE CONCAT('%', #name#, '%')
+			      </isNotEmpty>
+			 	  <isNotEmpty property="starttime" prepend="and">
+			 	      FROM_UNIXTIME(ADDTIME,'%Y-%m-%d')>=#starttime#
+			 	  </isNotEmpty>
+			 	  <isNotEmpty property="endtime" prepend="and">
+			 	      <![CDATA[  
+			            FROM_UNIXTIME(ADDTIME,'%Y-%m-%d')<=#endtime# 
+			          ]]> 
+			 	  </isNotEmpty>
+			 	  <isNotEmpty property="status" prepend="and">
+			 	      	`STATUS` = #status#
+			 	  </isNotEmpty>	 
+			 	   <isNotEmpty property="types" prepend="and">
+			 	      	types = #types#
+			 	  </isNotEmpty>	 	
+			 	  <isNotEmpty property="user_id" prepend="and">
+	 	      		user_id = #user_id#
+	 	 	  	  </isNotEmpty>
+			  </dynamic>
+
+ 	 </select>
+  
+   <select id="GET_LIST_BY_SEARCH" parameterClass="map" resultMap="financingApplyResult">
+  		SELECT *  FROM tb_finance_apply
+		  <dynamic prepend="where">
+		       <isNotEmpty property="name" prepend="and">
+	     	 	 NAME LIKE CONCAT('%', #name#, '%')
+		      </isNotEmpty>
+		 	  <isNotEmpty property="starttime" prepend="and">
+			 	      FROM_UNIXTIME(ADDTIME,'%Y-%m-%d')>=#starttime#
+			 	  </isNotEmpty>
+			 	  <isNotEmpty property="endtime" prepend="and">
+			 	      <![CDATA[  
+			            FROM_UNIXTIME(ADDTIME,'%Y-%m-%d')<=#endtime# 
+			          ]]> 
+			 	  </isNotEmpty>
+		 	  <isNotEmpty property="status" prepend="and">
+		 	      	`STATUS` = #status#
+		 	  </isNotEmpty>	 
+		 	   <isNotEmpty property="types" prepend="and">
+	 	      	types = #types#
+	 	 	  </isNotEmpty>
+	 	 	  <isNotEmpty property="user_id" prepend="and">
+	 	      	user_id = #user_id#
+	 	 	  </isNotEmpty>	 		 	  
+		  </dynamic>	
+		ORDER BY id DESC
+  </select>
+    
+		
+</sqlMap>
+

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<title>钱功夫</title>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+	    <style type="text/css">
+			#glass-msg{
+				border-radius: 10px;
+				color: red;
+				width: 80%;
+				height: 220px;
+				position: absolute;
+				left: 10%;
+				top: 35%;
+				text-align: center;
+				background-color: white;
+				z-index: 999;
+				padding: 50px 20px 20px 20px;
+				box-shadow: 0px 0px 112px -30px #333 inset;
+			}
+			.closeIcon{
+				display: inline-block;
+				z-index: 999;
+				width: 32px;
+				height: 32px;
+				position: absolute;
+				top: 0;
+				left: 90%;
+				background-image: url("${weburl}/dist/images/close.png");
+			}
+		</style>
+	</head>
+	<body class="mi">
+		<div class="title-top text-align-center">
+	          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+	          <span class="titleTitle">立即投资</span>
+	          <span class="spanWhite"></span>
+	     #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+	    <form method="post" action="${weburl}/webapp/dept/acpmarket.html?marketId=$!market.id" class="form">
+		    <div style="padding: 5%;">
+		    	账户余额(元):<span style="color: #FF7D26;">#if($!user) $viewTool.format2JQStr($!ua.moneyUsable) #else <a href="${weburl}/webapp/tologin.html" style="text-decoration: none;color: #267dff;">请登录</a>#end</span>
+		    </div>
+		    <div class="form" style="margin-top: 2%;">
+	    		<label for="num" class="labelHeight" style="text-align: left;padding-left: 10%;">投资金额</label><div class="glass"><input type="text" name="tendermoney" id="num" value="$!marketmoney" class="inputText"  onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" required="required" readonly="readonly"/></div>
+	    		<div class="tip"></div>
+	    	</div>
+	    	
+		    <div class="btn" data-n="$!borrow.lowestAccount">
+	    		<input type="submit" name="" id="" value="确认购买" />
+	    	</div>
+    	</form>
+    	#if($!errormsg)
+    	    <div id="bgc-glass"></div>
+    		<div id="glass-msg">$!errormsg<i class="closeIcon"></i></div>
+    	#end
+    	<script>
+    		 $(function(){
+    			    $("#num").blur(function(){
+    				reg=/^\d+(\.\d{1,2})?$/;
+    				var text=$(this).val();
+    				if(!text.match(reg)){
+    						$(this).parent().next(".tip").text("请输入正确的金额");
+    						$("form").submit(false);
+    				}else{
+    					if(text<$('.btn').attr("data-n")){
+    					  	$(this).parent().next(".tip").text("起购金额低于"+$('.btn').attr("data-n")+"元");
+    					  	$("form").submit(false);
+    					}else{
+	    					$(this).parent().next(".tip").text("");
+	    					$("form").off();    						
+    					}
+    				}
+    			});
+    			    $('#num').on('keyup', function(){
+    			    	var pay =$('#num').val();
+    			    	$('#pay').text(pay);
+        			   })
+    		});
+    		
+    	</script>
+    	
+    	<!--
+        	以下成功弹窗
+        -->
+    	<div class="mode"></div>
+    	<div class="danchuang" style="background-color: #f0f0f0;top: 35%;">
+               <div style="text-align: center;position: relative;margin-top: 10%;"><img src="${weburl}/dist/images/yes.png" style="height:100%;position: absolute;left: 20%;"/>投资成功<span style="color: #ff5418;padding: 0 2%;">1000</span>元</div>
+               <div style="text-align: center;color: #999999;font-size: 13px;">2015-09-16</div>
+		        <div class="btn">
+		    		<div style="font-size: 16px;">
+		    			查看其他项目
+		    		</div>
+		    	</div>
+    	</div>
+    	<!--
+        	以下失败弹窗
+        -->
+    	<div class="danchuang" style="background-color: #f0f0f0;top: 35%;">
+               <div style="text-align: center;position: relative;margin-top: 10%;"><img src="${weburl}/dist/images/no.png" style="height:100%;position: absolute;left: 30%;"/>交易失败</div>
+               <div style="text-align: center;color: #999999;font-size: 13px;">2015-09-16</div>
+		        <div class="btn">
+		    		<div style="font-size: 16px;">
+		    			重新支付
+		    		</div>
+		    	</div>
+    	</div>
+	</body>
+	<script type="text/javascript">
+		    $(function(){
+        		$(".closeIcon").on("click",function(){
+        			$("#bgc-glass").css("display","none");
+        			$("#glass-msg").css("display","none");
+        		});
+        	});
+	</script>
+</html>

@@ -1,0 +1,96 @@
+#head()
+<body>
+#topbar("F")
+#accounttop()
+<div class="mid-width clearfix">
+     #user_sidebar("16")
+          <div class="user-page">
+              <div class="user-profile">
+                  <nav class="user-nav-tabs">
+                      <a href="#" class="active">企业开户</a>
+                  </nav>
+                  #if($user.realStatus=='1')
+			      <table width="434" border="0" cellspacing="0" style=" margin:30px 0px 0px 100px;">
+			       <tr>
+			        <td height="48" align="right" class="verify_t" style="padding-top:4px;">企业名称：</td>
+			        <td height="48" class="verify_t">$!user.realname<i></i></td>
+			       </tr>
+			       <tr>
+			         <td height="48" align="right" class="verify_t" style="padding-top:4px;">证件类别：</td>
+			         <td height="48" class="verify_t">营业执照<i></i></td>
+			       </tr>
+			       <tr>
+			        <td height="48" align="right" class="verify_t" style="padding-top:4px;">执照号码：</td>
+			        <td height="48" class="verify_t">$!user.cardId<i></i></td>
+			       </tr>
+			     </table>
+			     
+			     #else
+			     <form id="auth-form" name="centerForm" action="${weburl}/qddApi/toRegister.html" method="post">
+			     <input type="hidden" name="AccountType" value="1"/>
+			    <div class="tab_user_01">
+			       <div class="verify_title red">温馨提示:请认真填写以下的内容，一旦通过实名认证以下信息将不能修改。</div>
+			       <table width="434" border="0" cellspacing="0" style=" margin:30px 0px 0px 100px;">
+			       <tr>
+			        <td height="48" align="right" class="verify_t">用户名：</td>
+			        <td>
+			        	<input type="text" data-validators="name" name="username" placeholder="" style="width: 250px;height: 38px; padding: 0px 10px;" class="user_input required" value="$!user.username" id="username" >
+			        </td>
+			       </tr>
+			       <tr>
+			        <td height="48" align="right" class="verify_t">手机号码：</td>
+			        <td height="48" class="verify_t"><input type="text" id="phone" name="phone" value="$!user.phone"  style="width: 250px;height: 38px; padding: 0px 10px;" class="user_input" /></td>
+			       </tr>
+			       <!--
+			       <tr>
+			        <td height="48" align="right" class="verify_t">邮箱：</td>
+			        <td height="48" class="verify_t"><input type="text" id="email" name="email" value="$!user.email" class="user_input" style="width: 250px;height: 38px; padding: 0px 10px;" readonly="readonly"/></td>
+			       </tr>
+			       -->
+			       <tr>
+			        <td height="48" align="right" class="verify_t">真实姓名：</td>
+			        <td height="48" class="verify_t"><input type="text" id="realname" required name="realname" placeholder="请填写姓名" class="user_input" style="width: 250px;height: 38px; padding: 0px 10px;"/>  <font style="color:#F00;">*</font></td>
+			       </tr>
+			       <tr>
+			         <td height="48" align="right" class="verify_t">证件类别：</td>
+			         <td height="48" class="verify_t"><label for="select"></label>
+			            营业执照</td>
+			       </tr>
+			       <tr>
+			        <td height="48" align="right" class="verify_t">执照号码：</td>
+			        <td height="48" class="verify_t"><input type="text" id="cardId" name="cardId"  placeholder="请输入执照号码" style="width: 250px;height: 38px; padding: 0px 10px;" class="user_input" />   <font style="color:#F00;">*</font></td>
+			       </tr>
+			       <tr>
+			        <td height="120" colspan="2" align="center"><button class="pure-button button-primary" onclick="return showcard()" style="width:100px; height:38px;">确认提交</button></td>
+			       </tr>
+			     </table>
+			     <div class="instruction mt100">
+                      <h2>温馨提示</h2>
+                      <p>1.  请务必认真填写您的真实姓名及身份证号码，以免影响投资与赎回；</p>
+                      <p>2. 认证提交后，将跳转至乾多多（银监会授牌支付公司）开设资金托管账户。</p>
+                 </div>
+			     #end  
+			    </div>
+			    </form> 
+              </div>
+          </div>
+</div>
+<div class="clear"></div>
+#foot()  
+<script type="text/javascript">  
+function showcard(){
+	var realname = $("#realname");
+	var cardId = $("#cardId");
+	if(realname.val()==''){
+		alert("请输入企业名称再进行验证");
+		return false;
+	}
+	if(cardId.val()==''){
+		alert("请输入证件号码再进行验证");
+		return false;
+	}
+	
+	document.centerForm.submit();
+}  
+</script>
+</body>

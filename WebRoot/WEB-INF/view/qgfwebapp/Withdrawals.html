@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+		<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<title>钱功夫</title>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body class="mi">
+	<div class="title-top text-align-center">
+          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+          <span class="titleTitle">提现</span>
+          <span class="spanWhite"></span>
+     #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+        <div class="more-cell" style="margin-top: 3%;">
+    		<span style="padding-left: 5%;">银行卡</span>
+    		#foreach($b in $bclist)
+    		<span style="float: right;padding-right: 5%;">$b.cardNo</span>
+    		#end
+        </div>
+        <form action="${weburl}/webapp/qddApi/toloanwithdraws.html" method="post">
+	        <div class="form" style="margin-top: 3%;">
+	    		<label for="num" class="labelHeight">提现金额</label><div class="glass"><input type="text" name="tmoney" id="num" placeholder="请输入提现金额" class="inputText"  onkeyup="if(this.value==this.value2)return;if(this.value.search(/^\d*(?:\.\d{0,2})?$/)==-1)this.value=(this.value2)?this.value2:'';else this.value2=this.value;" required="required"/></div>
+	    		<div class="tip"></div>
+	    	</div>
+	    	<p style="padding: 5% 0 0 5%;"></strong>温馨提示</strong></p>
+	    	<p style="font-size: 12px;padding: 5% 0 0 5%;">通过微信端快捷支付充值的金额只能提现至与充值银行卡号相同的银行卡</p>
+	    	<div class="btn">
+	    		<input type="submit" name="" id="sub" value="下一步" />
+	    	</div>
+	    #if($!msg)
+    	    <div id="bgc-glass"></div>
+    		<div id="glass-msg">$!msg<i class="closeIcon"></i>
+    		</div>
+    	#end
+    	</form>
+    	<script type="text/javascript">
+    		$(function(){
+                    $("#num").blur(function(){
+    				reg=/^\d+(\.\d{1,2})?$/;
+    				var text=$(this).val();
+    				if(!text.match(reg)){
+    					$(this).parent().next(".tip").text("请输入正确的金额");
+    					$("form").submit(false);
+    				}
+    				else if(text <= 1){
+    					$(this).parent().next(".tip").text("提现金额需要大于1元");
+    					$("form").submit(false);
+    				}
+    				else{
+    					$(this).parent().next(".tip").text("");
+    					$("form").off();
+    				}
+    			});
+    		});
+    	</script>
+	<body>
+	</body>
+</html>

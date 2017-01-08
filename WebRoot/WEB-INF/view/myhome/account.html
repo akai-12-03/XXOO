@@ -1,0 +1,131 @@
+﻿#topbar("G")
+#user_sidebar("0")
+			<div class="user-account">
+				<div class="user-account-title">
+					<h3>
+                      帐户余额: &nbsp;&nbsp;<span>#if($!ua.moneyUsable) $viewTool.format2JQStr($!ua.moneyUsable) #else 0.00 #end</span> 元
+                      <span class="account-action">
+                          <a href="$weburl/myhome/charge.html" class="pure-button button-primary mr30">充 值</a>
+                          <a href="$weburl/myhome/withdraw.html" class="pure-button button-primary-gray">提 现</a>
+                      </span>
+                  </h3>
+					<div class="user-asset clearfix">
+						<div class="item">
+							<label>待收金额</label>
+							<strong>#if($!ua.moneyCollection) $viewTool.format2JQStr($!ua.moneyCollection)元 #else 0.00元 #end </strong>
+						</div>
+						<div class="sym">+</div>
+						<div class="item">
+							<label>冻结金额</label>
+							<strong>#if($!ua.ttdj) $viewTool.format2JQStr($!ua.ttdj)元 #else 0.00元 #end</strong>
+						</div>
+						<div class="sym">+</div>
+						<div class="item">
+							<label>可用金额</label>
+							<strong>#if($!ua.moneyUsable) $viewTool.format2JQStr($!ua.moneyUsable)元 #else 0.00元 #end</strong>
+						</div>
+						<div class="sym">=</div>
+						<div class="item">
+							<label>帐户总金额</label>
+							<strong>#if($!ua.moneyTotal) $viewTool.format2JQStr($!ua.moneyTotal)元 #else 0.00元  #end</strong>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="user-page">
+				<div class="user-profile">
+					<nav class="user-nav-tabs">
+						<a class="active">待收详情</a>
+					</nav>
+					<table class="pure-table pure-table-horizontal  table-compact">
+						<thead>
+							<tr>
+								<th class="pure-table-title">待收总额</th>
+								<th class="pure-table-title">最近待收金额</th>
+								<th class="pure-table-title">最近待收时间</th>
+								<th class="pure-table-title">已赚利息</th>
+								<th class="pure-table-title">已赚奖励</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="red">¥#if($!ua.moneyCollection) $viewTool.format2JQStr($!ua.moneyCollection)元 #else 0.00元 #end</td>
+								<td>¥#if($!collection.repayAccount) $viewTool.format2JQStr($!collection.repayAccount)元 #else 0.00元 #end</td>
+								<td>#if($!collection.repayTime) #limit($dateTool.getStr2($!collection.repayTime) 10) #else -- #end</td>
+								<td>¥#if($!myinterest) $viewTool.format2JQStr($!myinterest)元 #else 0.00元 #end</td>
+								<td>¥#if($!awardMoney) $viewTool.format2JQStr($!awardMoney)元 #else 0.00元 #end</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="user-page">
+				<div class="user-profile">
+					<nav class="user-nav-tabs">
+						<a class="active">红包详情</a>
+					</nav>
+					<table class="pure-table pure-table-horizontal  table-compact">
+						<thead>
+							<tr>
+								<th class="pure-table-title">红包总金额</th>
+								<th class="pure-table-title">红包可用金额</th>
+								<th class="pure-table-title">红包冻结金额</th>
+								<th class="pure-table-title">红包已返还金额</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td class="red">¥#if($!hb.allAmont) $viewTool.format2JQStr($!hb.allAmont)元 #else 0.00元 #end</td>
+								<td>¥#if($!hb.yesAmont) $viewTool.format2JQStr($!hb.yesAmont)元 #else 0.00元 #end</td>
+								<td>¥#if($!hb.freezeAmont) $viewTool.format2JQStr($!hb.freezeAmont)元 #else 0.00元 #end</td>
+								<td>¥#if($!hb.relAmont) $viewTool.format2JQStr($!hb.relAmont)元 #else 0.00元 #end</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="user-page mb20">
+				<div class="user-profile">
+					<nav class="user-nav-tabs">
+						<a class="active">热门推荐</a>
+					</nav>
+					<table class="pure-table pure-table-horizontal  table-compact tj-table">
+						<tbody>
+						#foreach($bor in $!borrowList)
+							<tr>
+								<td style="border-right:none!important;"><span>新</span>
+									<a href="$weburl/borrow/detail.html?id=$!bor.id">
+	                 					#if ($!bor.name.length<11) $!bor.name #else #limit($!bor.name 10) #end
+	            					</a>
+								</td>
+								<td>年收益#if($!bor.apr)$!bor.apr%#if($!bor.award == 0)
+			              					#elseif($!bor.award == 2)
+			              						#if($!bor.partAccount)
+			              							+${bor.partAccount}%
+			              						#else
+			              						#end
+			              						#else
+			              						#if($!bor.funds)
+			              							+${bor.funds}元
+									            #else
+									            #end
+									        #end
+									      #end
+			            		</td>
+								<td>投资期限#if($!bor.isDay=='1')$!bor.timeLimit 天
+                        					#else
+                              					$!bor.timeLimit 个月
+                        					#end
+                        		</td>
+								<td>发布时间#limit($dateTool.getStr2($!bor.verifyTime) 10)</td>
+							</tr>
+						#end
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		#foot()
+		<script>
+			seajs.use('myhome')
+		</script>

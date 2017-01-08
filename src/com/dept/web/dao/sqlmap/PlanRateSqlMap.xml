@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="PlanRate" >
+  <typeAlias alias="planRateAlias" type="com.dept.web.dao.model.PlanRate"/>
+  <resultMap id="planRateResult" class="planRateAlias" >
+    <result column="id" property="id"  />
+    <result column="type" property="type"  />
+    <result column="amount" property="amount"  />
+    <result column="interval" property="interval"  />
+    <result column="rate" property="rate"  />
+    <result column="status" property="status"  />
+    <result column="user_create" property="userCreate"  />
+    <result column="user_operate" property="userOperate"  />
+    <result column="created_at" property="createdAt"  />
+    <result column="updated_at" property="updatedAt"  />
+  </resultMap>
+
+ 	<insert id="SAVE_PLANRATE" parameterClass="planRateAlias">
+ 		INSERT INTO TB_PLAN_RATE(TYPE, AMOUNT, `INTERVAL`, RATE, `STATUS`, USER_CREATE, USER_OPERATE, CREATED_AT, UPDATED_AT)
+ 		VALUES(#type#, #amount#, #interval#, #rate#, #status#, #userCreate#, #userOperate#, #createdAt#, #updatedAt#)
+	      <selectKey resultClass="long" >
+		  		SELECT LAST_INSERT_ID()
+		   </selectKey> 	
+ 	</insert>
+</sqlMap>

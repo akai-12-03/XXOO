@@ -1,0 +1,43 @@
+﻿﻿#topbar("G")
+#user_sidebar("12")
+			<div class="user-page">
+				<div class="user-profile">
+					<nav class="user-nav-tabs">
+						<a class="active">修改登录密码</a>
+					</nav>
+					<form class="pure-form form form-position" method="post" action="$weburl/myhome/security.html?type=1" id="common-form">
+						<div class="field">
+							<label><span class="red">*</span>原密码：</label>
+							<input type="password" name="oldpassword" type="text">
+						</div>
+						<div class="field">
+							<label><span class="red">*</span>新密码：</label>
+							<input type="password" id="password" name="password" data-validator="password" required>
+							<div class="tip"></div>
+							<p class="pwd-info">6-15 位，不能为纯数字或者纯字母，不能包含空格</p>
+						</div>
+						<div class="field">
+							<label><span class="red">*</span>确认密码：</label>
+							<input type="password" name="repassword" id="repassword" data-validator="repassword" required>
+							<div class="tip"></div>
+						</div>
+						<div class="field">
+							<button class="pure-button button-primary">提交修改</button>
+						</div>
+					</form>
+				#if($!msg)
+				<div id="tipBox" style="display:block;">
+					<header class="clearfix"><a href="javascript:closewin()" class="close_btn">X</a></header>
+					<div class="tip-content">
+						#if($!msg.indexOf("成功")>0) <i class="icon icon-success"></i> #else <i class="icon icon-fail"></i> #end &nbsp;$!msg
+					</div>
+				</div>
+				<div class="mask" style="display:block"></div>
+				#end
+				</div>
+			</div>
+		</div>
+#foot()
+		<script>
+			seajs.use('myhome')
+		</script>

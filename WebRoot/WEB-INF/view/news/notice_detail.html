@@ -1,0 +1,61 @@
+#topbar('F')
+		<div class="about-wrap white">
+			<div class="aboutus-banner">
+				<div class="mid-width">
+					<div class="aboutus-banner-content">
+						<ul>
+							<li class="line"></li>
+							<li class="pie">
+								<a href="${weburl}/news/aboutus.html"><span class="gywm"></span><p>关于我们</p></a>
+							</li>
+						</ul>
+						<ul>
+							<li class="line"></li>
+							<li class="pie">
+								<a href="${weburl}/news/wzgz.html"><span class="ptgz"></span><p>平台规则</p></a>
+							</li>
+						</ul>
+						<ul>
+							<li class="line  cur"></li>
+							<li class="pie cur">
+								<a href="${weburl}/about/ptgg.html?flag=wzgg"><span class="ptgg"></span><p>平台公告</p></a>
+							</li>
+						</ul>
+						<ul>
+							<li class="line"></li>
+							<li class="pie">
+								<a href="${weburl}/about/hyzx.html?flag=xwbd"><span class="hyzx"></span><p>行业资讯</p></a>
+							</li>
+						</ul>
+						<ul>
+							<li class="line"></li>
+							<li class="pie">
+								<a href="${weburl}/about/help.html"><span class="bzzx"></span><p>帮助中心</p></a>
+							</li>
+						</ul>
+					</div>
+					<div class="about-tab">
+						#foreach($us in $sitelist)
+							<a href="${weburl}/about/ptgg.html?flag=$us.nid" class="item #if($flag==$us.nid)active#end">$us.name</a>
+						#end
+					</div>
+				</div>
+			</div>
+			<div class="aboutus-content">
+				<div class="mid-width">
+					<h3 class="help-title">$!art.name > 详情</h3>
+					<div class="rule-detail">
+						<h3>$!art.name<br></h3>
+						<p>
+						 $!art.content
+						</p>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="${weburl}/public/js/jquery.carousel.js"></script>
+		<script>
+			Caroursel.init($('.caroursel'))
+			seajs.use('aboutus');
+		</script>
+	#foot()		

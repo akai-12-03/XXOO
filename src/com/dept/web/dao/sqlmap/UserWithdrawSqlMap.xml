@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="UserWithdraw" >
+  <typeAlias alias="userWithdrawAlias" type="com.dept.web.dao.model.UserWithdraw"/>
+  <resultMap id="userWithdrawResult" class="userWithdrawAlias" >
+    <result column="id" property="id"  />
+    <result column="order_id" property="orderId"  />
+    <result column="money_withdraw" property="moneyWithdraw"  />
+    <result column="remark" property="remark"  />
+    <result column="status" property="status"  />
+    <result column="created_by" property="createdBy"  />
+    <result column="created_at" property="createdAt"  />
+    <result column="updated_by" property="updatedBy"  />
+    <result column="updated_at" property="updatedAt"  />
+    <result column="created_ip" property="createdIp"  />
+    <result column="use_card" property="useCard"  />
+    <result column="message" property="message"  />
+  </resultMap>
+  <insert id="SAVE_USERWITHDRAW" parameterClass="userWithdrawAlias">
+    insert into tb_user_withdraw (money_withdraw,order_id,remark,status,created_by,created_at,updated_by,updated_at,
+    created_ip,use_card)
+    values
+    (#moneyWithdraw#,#orderId#,#remark#,#status#,#createdBy#,#createdAt#,#updatedBy#,#updatedAt#,#createdIp#,#useCard#)
+  </insert>
+
+  <select id="GET_BY_ORDER_ID" parameterClass="String" resultMap="userWithdrawResult">
+  	  
+  	SELECT A.*
+	FROM TB_USER_WITHDRAW A  WHERE A.ORDER_ID = #id#
+  
+  </select>
+  
+  <update id="UPDATE_QDDUPDATE" parameterClass="userWithdrawAlias">
+  	UPDATE TB_USER_WITHDRAW
+  	<dynamic prepend="set"> 
+  		<isNotNull property="message" prepend=",">
+  			message = #message#
+  		</isNotNull>
+   		<isNotNull property="status" prepend=",">
+  			`status` = #status#
+  		</isNotNull>
+   		<isNotNull property="updatedAt" prepend=",">
+  			updated_at = #updatedAt#
+  		</isNotNull>
+  		WHERE ID = #id#
+  	</dynamic>
+  </update>
+</sqlMap>

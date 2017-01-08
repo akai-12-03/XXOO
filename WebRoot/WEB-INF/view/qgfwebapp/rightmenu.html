@@ -1,0 +1,54 @@
+<img src="${weburl}/dist/images/menu.png" class="menu" onclick="openRight()" style="height: 100%;"/>
+<div class="fixTitle">
+	<div class="fixTitle-item" style="text-align: left;"onclick="window.location.href='${weburl}/webapp/index.html'">
+        <i><img src="${weburl}/dist/images/shouye.png" width="70%"/></i>
+      	<div>首页</div>
+      </div>
+	#if($!currUser)
+	  <div class="fixTitle-item" style="text-align: left;"onclick="window.location.href='${weburl}/webapp/myhome/user-index.html'">
+        <i><img src="${weburl}/dist/images/acount.png" width="70%"/></i>
+      	<div>我的账户</div>
+      </div>
+      <div class="fixTitle-item" style="text-align: left;" onclick="window.location.href='${weburl}/webapp/borrow/toubiao.html'">
+      	<i><img src="${weburl}/dist/images/money.png" width="70%"/></i>
+      	<div>我要理财</div>
+      </div>
+      <div class="fixTitle-item" style="text-align: left;" onclick="window.location.href='${weburl}/webapp/market/search.html'">
+      	<i><img src="${weburl}/dist/images/money.png" width="70%"/></i>
+      	<div>债权转让</div>
+      </div>
+      <div class="fixTitle-item" style="text-align: left;" onclick="window.location.href='${weburl}/webapp/myhome/aqzx.html'">
+      	<i><img src="${weburl}/dist/images/man.png" width="70%"/></i>
+      	<div>安全中心</div>
+      </div>
+      <div class="fixTitle-item" style="text-align: left;"  onclick="window.location.href='${weburl}/qgfwebapp/more.html'">
+      	<i><img src="${weburl}/dist/images/more.png" width="70%"/></i>
+      	<div>更多</div>
+      </div>
+	#else
+      <div class="fixTitle-item" style="text-align: left;" onclick="window.location.href='${weburl}/webapp/tologin.html'">
+      	<i><img src="${weburl}/dist/images/login.png" width="70%"/></i>
+      	<div>点击登录</div>
+      </div>
+      <div class="fixTitle-item" style="text-align: left;"onclick="window.location.href='${weburl}/webapp/myhome/user-index.html'">
+        <i><img src="${weburl}/dist/images/acount.png" width="70%"/></i>
+      	<div>我的账户</div>
+      </div>
+      <div class="fixTitle-item" style="text-align: left;" onclick="window.location.href='${weburl}/webapp/borrow/toubiao.html'">
+      	<i><img src="${weburl}/dist/images/money.png" width="70%"/></i>
+      	<div>我要理财</div>
+      </div>
+      <div class="fixTitle-item" style="text-align: left;" onclick="window.location.href='${weburl}/webapp/market/search.html'">
+      	<i><img src="${weburl}/dist/images/money.png" width="70%"/></i>
+      	<div>债权转让</div>
+      </div>
+      <div class="fixTitle-item" style="text-align: left;" onclick="window.location.href='${weburl}/webapp/myhome/aqzx.html'">
+      	<i><img src="${weburl}/dist/images/man.png" width="70%"/></i>
+      	<div>安全中心</div>
+      </div>
+      <div class="fixTitle-item" style="text-align: left;"  onclick="window.location.href='${weburl}/qgfwebapp/more.html'">
+      	<i><img src="${weburl}/dist/images/more.png" width="70%"/></i>
+      	<div>更多</div>
+      </div>
+      #end
+</div>

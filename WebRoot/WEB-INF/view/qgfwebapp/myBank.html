@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<title>钱功夫</title>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body class="mi">
+	<div class="title-top text-align-center">
+          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+          <span class="titleTitle">我的银行卡</span>
+          <span class="spanWhite"></span>
+     #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+        <div class="more-cell" style="margin-top: 3%;">
+    		<span class="moreTextdeliy" style="color: #333;font-size: 15px;display: inline-block;width: 36%;text-align: left;margin: 0;padding-left: 5%;">银行卡 Bank</span>
+        </div>
+        
+        #if($!user.cardBindingStatus==1)
+        	#foreach($bankCard in $bankCardList)
+		        <div style="background-color: white;padding: 7% 0;">
+		        	<div style="width: 70%;display: inline-block;vertical-align: top;">
+			        	<div style="color: #fea88a;font-size: 12px;padding-left: 5%;width: 70%;">$!bankCard.bankName</div>
+			        	<div style="font-size: 18px;padding-left: 5%;margin-top: 1%;width: 70%;">$textTool.hideUsernameChar($!bankCard.cardNo)</div>
+			        </div><div style="width: 30%;display: inline-block;vertical-align: top;">
+		        		<a style="display: inline-block;width: 80%;height: 25px;line-height: 25px;background-color: #009AD6;border-radius: 10px;color: white; text-align: center" id="modify">修改</a>
+		        		<a href="${weburl}/webapp/myhome/bankBind.html?flag=del" style="display: inline-block;width: 80%;height: 25px;line-height: 25px;background-color: #009AD6;margin-top: 5px;border-radius: 10px;color: white;text-align: center">删除</a>		       
+			        </div>
+		        </div>
+		        <form action="${weburl}/webapp/myhome/bankBind.html" class="form" id="modify-form" style="display:none;" date-type="1" method="post">
+		        <input type="hidden" name="flag" value="upd"/>
+		        <div class="more-cell" style="margin-top: 3%;">
+		    		<span class="moreTextdeliy" style="color: #333;font-size: 15px;display: inline-block;width: 30%;text-align: center;margin: 0;">银行</span>
+		    		<select name="bankName">
+						#foreach($bank in $!bankList)
+								<option #if($!bankCard.bankId == $!bank.id) selected = 'selected' #end value="$bank.id">$bank.bankName</option>
+						#end
+					</select>
+		        </div>
+		        <div class="more-cell">
+		    		<span class="moreTextdeliy" style="color: #333;font-size: 15px;display: inline-block;width: 30%;text-align: center;margin: 0;">开户行省份</span>
+		    		<select name="province" id="province">
+						#foreach($Province in $!provinceList)
+								<option #if($!bankCard.province == $Province.cityId) selected = 'selected' #end value="$Province.cityId">$Province.city</option>
+						#end
+					</select>
+		        </div>
+		        <div class="more-cell">
+		    		<span class="moreTextdeliy" style="color: #333;font-size: 15px;display: inline-block;width: 30%;text-align: center;margin: 0;">开户行城市</span>
+		    		<select name="city" id="city"></select>
+		        </div>
+		        <div class="form">
+		    		<label for="bank" class="labelHeight">开户行支行名称</label><div class="glass"><input type="text" id="bank" name="bankDetail" value="$!bankCard.bankDetail" placeholder="请输入开户行支行名称" class="inputText" required="required"/></div>
+		    		<div class="tip"></div>
+		    	</div>
+		        <div class="form">
+		    		<label for="bankcard" class="labelHeight">银行卡号</label><div class="glass"><input type="text"  id="bankcard" name="cardNo" value="$!bankCard.cardNo" placeholder="请输入银行卡号" class="inputText" required="required"/></div>
+		    		<div class="tip"></div>
+		    	</div>
+		    	<div class="form">
+		    		<label for="rebankcard" class="labelHeight">确认卡号</label><div class="glass"><input type="text"  id="rebankcard" name="recardNo" value="$!bankCard.cardNo" class="inputText" placeholder="确认银行卡号" required="required"/></div>
+		    		<div class="tip"></div>
+		    	</div>
+		    	<div class="more-cell">
+		    		<span class="moreTextdeliy" style="color: #333;font-size: 15px;display: inline-block;width: 30%;text-align: center;margin: 0;">银行卡类型</span>
+		    		<select><option>借记卡</option></select>
+		        </div>
+		    <div class="btn">
+	    		<input type="submit" name="" id="" value="提交"/>
+	    	</div>
+	    	</form>
+	        #end
+        #else
+	        <form action="${weburl}/webapp/myhome/bankBind.html" class="form" method="post" date-type="2">
+		        <input type="hidden" name="flag" value="add"/>
+			        <div class="more-cell" style="margin-top: 3%;">
+			    		<span class="moreTextdeliy" style="color: #333;font-size: 15px;display: inline-block;width: 30%;text-align: center;margin: 0;">银行</span>
+			    		<select name="bankName">
+							#foreach($bank in $!bankList)
+									<option #if($!bankCard.bankId == $!bank.cityId) selected = 'selected' #end value="$bank.id">$bank.bankName</option>
+							#end
+						</select>
+			        </div>
+			        <div class="more-cell">
+			    		<span class="moreTextdeliy" style="color: #333;font-size: 15px;display: inline-block;width: 30%;text-align: center;margin: 0;">开户行省份</span>
+			    		<select name="province" id="province">
+							#foreach($Province in $!provinceList)
+									<option #if($!bankCard.province == $Province.cityId) selected = 'selected' #end value="$Province.cityId">$Province.city</option>
+							#end
+						</select>
+			        </div>
+			        <div class="more-cell">
+			    		<span class="moreTextdeliy" style="color: #333;font-size: 15px;display: inline-block;width: 30%;text-align: center;margin: 0;">开户行城市</span>
+			    		<select name="city" id="city"><option selected="selected">请先选择开户行省份</option>></select>
+			        </div>
+			        <div class="form">
+			    		<label for="bank" class="labelHeight">开户行支行名称</label><div class="glass"><input type="text" id="bank" name="bankDetail" placeholder="请输入开户行支行名称" class="inputText" required="required"/></div>
+			    		<div class="tip"></div>
+			    	</div>
+			        <div class="form">
+			    		<label for="bankcard" class="labelHeight">银行卡号</label><div class="glass"><input type="text"  id="bankcard" name="cardNo"  placeholder="请输入银行卡号" class="inputText" required="required"/></div>
+			    		<div class="tip"></div>
+			    	</div>
+			    	<div class="form">
+			    		<label for="rebankcard" class="labelHeight">确认卡号</label><div class="glass"><input type="text"  id="rebankcard" name="recardNo" class="inputText" placeholder="确认银行卡号" required="required"/></div>
+			    		<div class="tip"></div>
+			    	</div>
+			    	<div class="more-cell">
+			    		<span class="moreTextdeliy" style="color: #333;font-size: 15px;display: inline-block;width: 30%;text-align: center;margin: 0;">银行卡类型</span>
+			    		<select><option>借记卡</option></select>
+			        </div>
+			    <div class="btn">
+		    		<input type="submit" name="" id="" value="提交"/>
+		    	</div>
+		    	
+	    	</form>
+	   #end
+	   <div style="color: red">#if($!msg) $!msg #end</div>
+	   
+     <script>
+    	$(function(){
+    			var flag1,flag2,flag3;
+    			$("#bank").blur(function(){
+    				reg=/^([\u4e00-\u9fa5]){2,7}$/;
+    				var text=$(this).val();
+    				if(!text.match(reg)){
+    					$(this).parent().next(".tip").text("请输入正确的支行名称");
+    					$("form").submit(false);
+    				}else{
+    					$(this).parent().next(".tip").text("");
+    				    flag1=true;
+ 					    if(endFlag()==true){
+ 					    	$("form").off();
+ 					    }
+    				}
+    			});
+    			$("#bankcard").blur(function(){
+    				reg=/^(\d{16}|\d{17}|\d{18}|\d{19})$/;
+    				var text=$(this).val();
+    				if(!text.match(reg)){
+    					$(this).parent().next(".tip").text("请输入正确的银行卡号");
+    					$("form").submit(false);
+    				}else{
+    					$(this).parent().next(".tip").text("");
+    					flag2=true;
+    					if(endFlag()==true){
+ 					    	$("form").off();
+ 					    }
+    				}
+    			});
+    			$("#rebankcard").blur(function(){
+    				var reg=$("#bankcard").val();
+    				var text=$(this).val();
+    				if(text==reg){
+    					$(this).parent().next(".tip").text("");
+    					flag3=true;
+    					if(endFlag()==true){
+ 					    	$("form").off();
+ 					    }
+    				}else{
+    					$(this).parent().next(".tip").text("两次卡号输入不一致");
+    					$("form").submit(false);
+    				}
+    			});
+	    			function endFlag(){
+	    			type=$("form").attr("date-type");
+	    			if(type==1){
+		    			if(flag1==flag2==flag3==true){
+		    				return true;
+		    			}else{
+		    				return false;
+		    			}	    				
+	    			}else{
+	    				if(flag1==flag2==flag3==true||flag1==flag2==flag3==undefined){
+		    				return true;
+		    			}else{
+		    				return false;
+		    			}
+	    			}
+	    		}
+    		});
+    		
+    	</script>
+    	
+    	<script>
+				/*
+				  ajax二级联动省市by gwx 20160225
+				*/
+				$("#province").change(function(){
+					jQuery.ajax({   
+				    url:'${weburl}/getCityByParent.html',   
+				    type:'post',   
+				    data:{parentId:$("#province").val()},
+				    dataType:'json',   
+				    success:function(data){
+				    	$("#city").empty();//清空select
+				    	jQuery.each(data,function(n,value){
+				    		$("#city").append("<option value='"+value.cityId+"'"+">"+value.city+"</option>");
+						});
+				    }});
+				})
+		</script>
+    	
+    	
+    	<script  defer="defer">
+			if($("#province").val()!=null&&$("#province").val()!=""){
+			jQuery.ajax({   
+		    url:'${weburl}/getCityByParent.html',   
+		    type:'post',   
+		    data:{parentId:$("#province").val()},
+		    dataType:'json',   
+		    success:function(data){
+		    	jQuery.each(data,function(n,value){
+		    		if($!bankCard.city==value.cityId){
+		    			$("#city").append("<option value='"+value.cityId+"'"+"selected = 'selected'>"+value.city+"</option>");
+		    		}else{
+		    			$("#city").append("<option value='"+value.cityId+"'"+">"+value.city+"</option>");
+		    		}
+				});
+		    }});
+			}
+			$(function(){
+				$("#modify").click(function(){
+					$("#modify-form").slideToggle();
+				})
+			})
+		</script>
+	</body>
+</html>

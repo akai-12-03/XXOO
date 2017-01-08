@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1,height=device-height">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<title>钱功夫</title>
+		<style>
+			.iteam-glass .iteam .iteam-bottom>div>.num{font-size:12px}
+		</style>
+	    <script src="${weburl}/dist/libs/zepto.min.js"></script>
+	    <script src="${weburl}/dist/libs/jquery.js"></script>
+	    <script src="${weburl}/dist/libs/raphael-min.js"></script>
+	    <script src="${weburl}/dist/libs/progre.js"></script>
+	    <style>
+	    	.new-person{
+	    		display: inline-block;
+	    		width: 56px;
+	    		height: 56px;
+	    		background-image: url("${weburl}/dist/images/newperson.png");
+	    		background-size : 100%;
+	    		position:absolute;
+	    		top: 0;
+	    		left: 62%;
+	    	}
+	    	.chice{
+	    		font-size: 0;
+	    	}
+	    	.chice>span{
+	    		font-size: 12px;
+	    	}
+	    </style>
+	</head>
+	<body class="mi">
+		<div class="title-top text-align-center">
+	          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+	          <span class="titleTitle">项目列表</span>
+	          <span class="spanWhite"></span>
+        #rightmenu()
+        </div>
+        <!--
+              ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓选项卡
+        -->
+        <div class="chice">
+        <span onclick="javascript:location.href='${weburl}/webapp/borrow/toubiao.html?borrowType=1'" #if(!$!borrowType || $!borrowType=='1' || $!borrowType=="") class="information-title information-title-click" #else class="information-title"  #end style="width: 20% !important;">购车垫资标</span>
+        <span onclick="javascript:location.href='${weburl}/webapp/borrow/toubiao.html?borrowType=2'" #if($!borrowType=='2') class="information-title information-title-click" #else class="information-title"  #end style="width: 20% !important;">汽车质押标</span>
+        <span onclick="javascript:location.href='${weburl}/webapp/borrow/toubiao.html?borrowType=3'" #if($!borrowType=='3') class="information-title information-title-click" #else class="information-title"  #end style="width: 20% !important;">汽车抵押标</span>
+        <span onclick="javascript:location.href='${weburl}/webapp/borrow/toubiao.html?borrowType=4'" #if($!borrowType=='4') class="information-title information-title-click" #else class="information-title"  #end style="width: 20% !important;">企业借款标</span>
+        <span onclick="javascript:location.href='${weburl}/webapp/borrow/toubiao.html?borrowType=5'" #if($!borrowType=='5') class="information-title information-title-click" #else class="information-title"  #end style="width: 20% !important;">新手标</span>
+        </div>
+        <!--
+        	↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑↑
+        -->
+       <div class="glassMode" onclick="closeRight()"></div>
+	    <form action="${weburl}/webapp/borrow/toubiao.html" method="post" id="borrowForm">
+	    <input type="hidden" id="page" name="page" value="$!page"/>
+		    #foreach($br in $borrowPage.getResult())
+			    <div class="iteam-glass" onclick="window.location.href='${weburl}/webapp/borrow/detail.html?id=$!br.id'" style="position: relative;">
+			    	<i #if($!borrowType=='5') class="new-person" #end ></i> <!--这个是新手图标，需要判断-->
+			    	<div style="width: 70%;display: inline-block;" class="iteam">
+			    	    <div class="iteam-top">
+			    	    	#if($br.name.length()>10) #limit($br.name 10).. #else $br.name #end
+			    	    </div>
+			    	    <div class="iteam-bottom">
+			    	    	<div class="cell1">
+			    	    		<div class="num">
+			    	    			$viewTool.format1SD2($br.account)
+			    	    		</div>
+			    	    		<div class="text">
+			    	    			项目金额
+			    	    		</div>
+			    	    	</div><div class="cell2">
+			    	    		<div class="num">
+			    	    			$br.apr% #if($!br.award == 0)
+								              	#elseif($!br.award == 2)
+								              		#if($!br.partAccount)
+								              			+${br.partAccount}%
+								              		#else
+								              		#end
+								              	#else
+								              		#if($!br.funds)
+								              		+$viewTool.format1SD2(${br.funds})
+								              		#else
+								              		#end
+								            	#end
+			    	    		</div>
+			    	    		<div class="text">
+			    	    			预期年化利率
+			    	    		</div>
+			    	    	</div><div class="cell3">
+			    	    		<div class="num">
+			    	    			$br.timeLimit
+										#if($!br.isDay ==1)
+											天
+										#else
+											个月
+										#end
+			    	    		</div>
+			    	    		<div class="text">
+			    	    			期限
+			    	    		</div>
+			    	    	</div>
+			    	    </div>
+			    	</div>#if($dateTool.isOver2("$!br.verifyTime", "$!br.lastTime")&& $br.status==1 || $br.status==7)<img alt="" src="${weburl}/dist/images/ygq.png" width="15%" style="margin:5%"> #else<div style="width: 30%;display: inline-block;">
+						<div class="proc">
+					        <div class="bill-goods-list">
+					            <div class="process-wrap">
+					                <div class="process-con"></div>
+					                <div class="process-num2" style="display: none;"></div>
+					                      <p style="display: none;" id="pasent">$!br.scales</p>
+					            </div>
+					        </div>
+					    </div>
+			    	</div>#end
+			    </div>
+		    #end
+		    #pagination($borrowPage,"borrowForm")
+	    </form>
+	    <script src="${weburl}/dist/js/items-list.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="DebtTransfer" >
+  <typeAlias alias="debtTransferAlias" type="com.dept.web.dao.model.DebtTransfer"/>
+  <resultMap id="debtTransferResult" class="debtTransferAlias" >
+    <result column="id" property="id"  />
+    <result column="borrow_id" property="borrowId"  />
+    <result column="tender_id" property="tenderId"  />
+    <result column="tender_user_id" property="tenderUserId"  />
+    <result column="receive_user_Id" property="receiveUserId"  />
+    <result column="transfer_Price" property="transferPrice"  />
+    <result column="advance_interest" property="advanceInterest"  />
+    <result column="created_at" property="createdAt"  />
+    <result column="created_By" property="createdBy"  />  
+    <result column="update_At" property="updateAt"  />
+    <result column="update_By" property="updateBy"  /> 
+    <result column="marketId" property="marketId"  />
+    <result column="repay_Order" property="repayOrder"  /> 
+    <result column="username" property="username"/>              
+  </resultMap>
+  
+  	<insert id="SAVE_DEBTTRANSFER" parameterClass="debtTransferAlias">
+  		INSERT INTO TB_DEBT_TRANSFER(TENDER_ID, TENDER_USER_ID, RECEIVE_USER_ID, BORROW_ID, TRANSFER_PRICE,
+  			ADVANCE_INTEREST, CREATED_BY, CREATED_AT, UPDATE_BY, UPDATE_AT,MARKETID)
+  		VALUES(#tenderId#, #tenderUserId#, #receiveUserId#, #borrowId#, #transferPrice#, #advanceInterest#,
+  			#createdBy#, #createdAt#, #updateAt#, #updateBy#,#marketId#)
+ 		 <selectKey resultClass="long" >
+ 			SELECT LAST_INSERT_ID()
+  	     </selectKey> 
+  	</insert>
+  
+  	<select id="GET_BY_ID" parameterClass="long" resultMap="debtTransferResult">
+  	    select *,'' as repay_order,'' as username from TB_DEBT_TRANSFER where id=#value#
+  	</select>
+  	
+  	<select id="GET_LIST_BY_SEARCH" parameterClass="map" resultMap="debtTransferResult">
+  		select d.*,t.account,m.repay_order,u.username from tb_debt_transfer d,tb_borrow_tender t,tb_market m,tb_user u where d.tender_id=t.id and d.marketId=m.id and d.tender_user_id=u.id and d.receive_user_id=#userId#
+  	</select>
+  	
+  	<select id="GET_COUNT_BY_SEARCH" parameterClass="map" resultClass="int">
+  		select count(1) from tb_debt_transfer d,tb_borrow_tender t where d.tender_id=t.id and d.receive_user_id=#userId#
+  	</select>
+</sqlMap>

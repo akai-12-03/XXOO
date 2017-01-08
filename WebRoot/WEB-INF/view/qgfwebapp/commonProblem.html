@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<title>钱功夫</title>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body class="mi">
+	<script type="text/javascript">
+    	$(function(){
+    		$(".more-cell").each(function(){
+    		    $(this).click(function(){
+    		    	var flag=$(this).next().is(":visible");
+    		    	if(flag==false){
+    		    		$(this).next().fadeIn()
+    		    		$(this).find("img").attr("src","${weburl}/dist/images/down.png");
+    		    	}else{
+    		    		$(this).next().fadeOut();
+    		    		$(this).find("img").attr("src","${weburl}/dist/images/go.png");
+    		    	}
+    		    });
+    		});
+    	});
+    </script>
+		<div class="title-top text-align-center">
+	          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+	          <span class="titleTitle">常见问题</span>
+	          <span class="spanWhite"></span>
+	     #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+		    <div class="more-cell">
+	    		<span class="moreTextdeliy">如何注册钱功夫？</span><img src="${weburl}/dist/images/go.png" class="go"/>
+	        </div>
+	        <div class="more-cell-text">在钱功夫网站点击“注册”，输入手机号码，登录密码，短信验证码，图片验证码和推荐人，通过验证后完成注册.</div>
+	        <div class="more-cell">
+	    		<span class="moreTextdeliy">如何充值？</span><img src="${weburl}/dist/images/go.png" class="go"/>
+	        </div>
+	        <div class="more-cell-text">登录钱功夫官网，点击【我的账户】—【充值】，填写金额，跳转至第三方支付页面，按照页面的提示输入支付密码等信息即可完成充值.</div>
+	        <div class="more-cell">
+	    		<span class="moreTextdeliy">提现何时到账？</span><img src="${weburl}/dist/images/go.png" class="go"/>
+	        </div>
+	        <div class="more-cell-text">平台提现采用T+1到账模式，但节假日或提现金额大于五万到账时间顺延下一工作日。</div>
+	        <div class="more-cell">
+	    		<span class="moreTextdeliy">为什么要进行用户身份认证？</span><img src="${weburl}/dist/images/go.png" class="go"/>
+	        </div>
+	        <div class="more-cell-text">钱功夫是一个投资平台，按照国家相关法律，为了确保投资人的资金安全，以及反洗钱的需求，我们严格对用户身份进行认证，只有通过身份认证的投资人才有资格在钱功夫平台上进行投资.</div>
+	        <div class="more-cell">
+	    		<span class="moreTextdeliy">为什么要进行用户身份认证？</span><img src="${weburl}/dist/images/go.png" class="go"/>
+	        </div>
+	        <div class="more-cell-text">钱功夫是一个投资平台，按照国家相关法律，为了确保投资人的资金安全，以及反洗钱的需求，我们严格对用户身份进行认证，只有通过身份认证的投资人才有资格在钱功夫平台上进行投资.</div>
+	        <div class="more-cell">
+	    		<span class="moreTextdeliy">用户账户资金如何保障？</span><img src="${weburl}/dist/images/go.png" class="go"/>
+	        </div>
+	        <div class="more-cell-text">由第三方支付公司进行收付与记账账户服务，投资资金与自有运营资金账户分离，平台不触碰用户资金，充分保障投资人资金安全。</div>
+	</body>
+</html>

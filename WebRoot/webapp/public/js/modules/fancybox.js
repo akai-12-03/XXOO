@@ -1,0 +1,4 @@
+/*! Tomcat360.com (c) 2015 
+	Author: Renzhao
+*/
+define("modules/fancybox",["jQuery","log","fancybox-mousewheel","fancybox","fancybox-buttons"],function(e,n,o){"use strict";var a=e("jQuery"),s=e("log"),f=s.log,i=s.error;if("undefined"==typeof a||"undefined"==typeof a.fn||"string"!=typeof a.fn.jquery)return i("Can not find jQuery."),!1;s.$(),f("Module Fancybox is loading...");var l='<link rel="stylesheet" href="{$link}">';f("fancybox css is loading...");for(var y=0,t=seajs.data.alias.fancyboxCss.length;t>y;y++){var d=seajs.data.alias.fancyboxCss[y];a("head").append(l.replace("{$link}",d))}f("fancybox-mousewheel is loading..."),e("fancybox-mousewheel"),f("fancybox is loading..."),e("fancybox"),f("fancybox-buttons is loading..."),e("fancybox-buttons"),o.exports={},f("Module Fancybox is loaded.")});

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Cms" >
+  <typeAlias alias="cmsAlias" type="com.dept.web.dao.model.Cms"/>
+  <resultMap id="cmsResult" class="cmsAlias" >
+    <result column="id" property="id"  />
+    <result column="url" property="url"  />
+    <result column="title" property="title"  />
+    <result column="content" property="content"  />
+    <result column="status" property="status"  />
+    <result column="metaTitle" property="metaTitle"  />
+    <result column="metaDescription" property="metaDescription"  />
+    <result column="metaKeywords" property="metaKeywords"  />
+    <result column="created_At" property="createdAt"  />
+    <result column="updated_At" property="updatedAt"  />  
+  </resultMap>
+</sqlMap>

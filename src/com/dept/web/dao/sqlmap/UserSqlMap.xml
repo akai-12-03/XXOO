@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="User">
+	<typeAlias alias="userAlias" type="com.dept.web.dao.model.User" />
+	<resultMap id="userResult" class="userAlias">
+		<result column="id" property="id" />
+		<result column="username" property="username" />
+		<result column="password_hash" property="passwordHash" />
+		<result column="password_pay_hash" property="passwordPayHash" />
+		<result column="password_reset_token" property="passwordResetToken" />
+		<result column="auth_key" property="authKey" />
+		<result column="role" property="role" />
+		<result column="status" property="status" />
+		<result column="mobile" property="mobile" />
+		<result column="email" property="email" />
+		<result column="realname" property="realname" />
+		<result column="id_card" property="idCard" />
+		<result column="sex" property="sex" />
+		<result column="litpic" property="litpic" />
+		<result column="birthday" property="birthday" />
+		<result column="email_binding_status" property="emailBindingStatus" />
+		<result column="mobile_binding_status" property="mobileBindingStatus" />
+		<result column="real_verify_status" property="realVerifyStatus" />
+		<result column="card_binding_status" property="cardBindingStatus" />
+		<result column="card_id_base" property="cardIdBase" />
+		<result column="last_logintime" property="lastLogintime" />
+		<result column="created_at" property="createdAt" />
+		<result column="updated_at" property="updatedAt" />
+		<result column="created_ip" property="createdIp" />
+		<result column="invite_userid" property="inviteUserId" />
+		<result column="accountNumber" property="accountNumber"/>
+    	<result column="moneymoremoreId" property="moneymoremoreId"/>
+    	<result column="userType" property="userType"/>
+    	<result column="autoType" property="autoType"/>
+    	<result column="organization" property="organization"/>
+	</resultMap>
+
+	<insert id="SAVE_USER" parameterClass="userAlias">
+		insert into TB_USER
+		(username,password_hash,password_pay_hash,password_reset_token,auth_key,role,
+		status,mobile,email,realname,id_card,sex,
+		litpic,birthday,email_binding_status,mobile_binding_status,real_verify_status,
+		card_binding_status,card_id_base,last_logintime,created_at,updated_at,created_ip,invite_userid)
+		values
+		(#username#,#passwordHash#,#passwordPayHash#,#passwordResetToken#,#authKey#,#role#,
+		#status#,#mobile#,#email#,#realname#,#idCard#,#sex#,
+		#litpic#,#birthday#,#emailBindingStatus#,
+		#mobileBindingStatus#,#realVerifyStatus#,
+		#cardBindingStatus#,#cardIdBase#,#lastLogintime#,#createdAt#,
+		#updatedAt#,#createdIp#,#inviteUserId#)
+		<selectKey resultClass="long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<update id="UPDATE_USER" parameterClass="userAlias">
+		update TB_USER
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="username">
+				username = #username#
+			</isNotNull>
+			<isNotNull prepend="," property="passwordHash">
+				password_hash =
+				#passwordHash#
+			</isNotNull>
+			<isNotNull prepend="," property="passwordPayHash">
+				password_pay_hash =
+				#passwordPayHash#
+			</isNotNull>
+			<isNotNull prepend="," property="passwordResetToken">
+				password_reset_token =
+				#passwordResetToken#
+			</isNotNull>
+			<isNotNull prepend="," property="authKey">
+				auth_key = #authKey#
+			</isNotNull>
+			<isNotNull prepend="," property="role">
+				role = #role#
+			</isNotNull>
+			<isNotNull prepend="," property="status">
+				status = #status#
+			</isNotNull>
+			<isNotNull prepend="," property="mobile">
+				mobile = #mobile#
+			</isNotNull>
+			<isNotNull prepend="," property="email">
+				email = #email#
+			</isNotNull>
+			<isNotNull prepend="," property="realname">
+				realname = #realname#
+			</isNotNull>
+			<isNotNull prepend="," property="idCard">
+				id_card = #idCard#
+			</isNotNull>
+			<isNotNull prepend="," property="sex">
+				sex = #sex#
+			</isNotNull>
+			<isNotNull prepend="," property="litpic">
+				litpic = #litpic#
+			</isNotNull>
+			<isNotNull prepend="," property="birthday">
+				birthday = #birthday#
+			</isNotNull>
+			<isNotNull prepend="," property="emailBindingStatus">
+				email_binding_status =
+				#emailBindingStatus#
+			</isNotNull>
+			<isNotNull prepend="," property="mobileBindingStatus">
+				mobile_binding_status =
+				#mobileBindingStatus#
+			</isNotNull>
+			<isNotNull prepend="," property="realVerifyStatus">
+				real_verify_status =
+				#realVerifyStatus#
+			</isNotNull>
+			<isNotNull prepend="," property="cardBindingStatus">
+				card_binding_status =
+				#cardBindingStatus#
+			</isNotNull>
+			<isNotNull prepend="," property="cardIdBase">
+				card_id_base = #cardIdBase#
+			</isNotNull>
+			<isNotNull prepend="," property="lastLogintime">
+				last_logintime =
+				#lastLogintime#
+			</isNotNull>
+			<isNotNull prepend="," property="createdAt">
+				created_at = #createdAt#
+			</isNotNull>
+			<isNotNull prepend="," property="updatedAt">
+				updated_at = #updatedAt#
+			</isNotNull>
+			<isNotNull prepend="," property="createdIp">
+				created_ip = #createdIp#
+			</isNotNull>
+			<isNotNull prepend="," property="accountNumber">
+				accountNumber = #accountNumber#
+			</isNotNull>
+			<isNotNull prepend="," property="moneymoremoreId">
+				moneymoremoreId = #moneymoremoreId#
+			</isNotNull>
+			<isNotNull prepend="," property="inviteUserId">
+				invite_userid =
+				#inviteUserId#
+			</isNotNull>
+			<isNotNull prepend="," property="userType">
+				userType = #userType#
+			</isNotNull>
+			<isNotNull prepend="," property="organization">
+				organization = #organization#
+			</isNotNull>
+			<isNotNull prepend="," property="autoType">
+				autoType = #autoType#
+			</isNotNull>
+		</dynamic>
+		where id = #id#
+	</update>
+
+	<select id="GET_BY_LOGINFO" parameterClass="map" resultMap="userResult">
+		select * from tb_user where (username =#username# or mobile=#username#) and password_hash=#password#
+	</select>
+	<select id="GET_BY_USERID" parameterClass="Long" resultMap="userResult">
+		select * from tb_user where id = #value#
+	</select>
+	
+	<select id="GET_BY_MID" parameterClass="String" resultMap="userResult">
+		select * from tb_user where moneymoremoreId = #value#
+	</select>
+	
+	<select id="GET_LIST_BY_USERNAME" parameterClass="String"
+		resultMap="userResult">
+		select * from tb_user where username = #value#
+	</select>
+	<select id="GET_LIST_BY_MOBILE" parameterClass="String"
+		resultMap="userResult">
+		select * from tb_user where mobile = #value#
+	</select>
+	
+	  <!-- 賬戶安全中心修改密碼 -->
+  <update id="UPDATE_USER_PASSWORD" parameterClass="map" >
+   	UPDATE TB_USER SET PASSWORD_HASH=#password# WHERE ID =#id# 
+  </update>
+  <update id="UPDATE_USER_PAYPASSWORD" parameterClass="map" >
+   	UPDATE TB_USER SET password_pay_hash=#password# WHERE ID =#id# 
+  </update> 
+
+	<select id="GET_COUNT_BY_ALLUSER" resultClass="int">
+		SELECT COUNT(*)
+		FROM TB_USER
+	</select>
+	<select id="GET_COUNT_BY_EMAIL_FOR_USER" parameterClass="String"
+		resultClass="int">
+		select count(1) from tb_user where email=#value#
+	</select>
+	<select id="GET_COUNT_BY_FIND_CARDID" parameterClass="String"
+		resultClass="int">
+		select count(1) from tb_user where id_card=#cardId#
+	</select>
+	
+	<select id="GET_COUNT_BY_FIND_USER_BY_INVITEUSERID" parameterClass="map" resultClass="int">
+		select count(1) from tb_user where invite_userid=#userId# order by id desc
+	</select>
+	<select id="GET_LIST_BY_FIND_USER_BY_INVITEUSERID" parameterClass="map" resultMap="userResult">
+		select * from tb_user where invite_userid=#userId# order by id desc
+	</select>
+	<select id="GET_LIST_BY_QUERY_INVITE_LIST" parameterClass="String" resultMap="userResult">
+		select * from tb_user where invite_userid=#userId# order by id desc
+	</select>
+	<select id="GET_LIST_BY_FINDBY_INVITEUSERID" parameterClass="String" resultClass="userAlias">
+		select * from tb_user where invite_userid=#userId#
+	</select>
+	<select id="GET_LIST_BY_FINDBY_SHIMING" parameterClass="String" resultMap="userResult">
+		select * from tb_user where real_verify_status=1 and invite_userid=#value#
+	</select>
+	<select id="GET_LIST_BY_ZXUSER" resultMap="userResult">
+		select * from tb_user ORDER BY created_at DESC LIMIT 4
+	</select>
+	
+	
+</sqlMap>

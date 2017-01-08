@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="UserBorrowModel" >
+
+  <typeAlias alias="UserBorrowModelAlias" type="com.dept.web.dao.model.UserBorrowModel" />
+
+  <resultMap id="UserBorrowModelResult" class="UserBorrowModelAlias" >
+    <result column="id" property="id"  />
+    <result column="user_id" property="userId"  />
+    <result column="name" property="name"  />
+    <result column="status" property="status"  />
+    <result column="bo_order" property="boOrder"  />
+    <result column="hits" property="hits"  />
+    <result column="litpic" property="litpic"  />
+    <result column="verify_user" property="verifyUser"  />
+    <result column="verify_time" property="verifyTime"  />
+    <result column="verify_remark" property="verifyRemark"  />
+    <result column="repayment_account" property="repaymentAccount"  />
+    <result column="repayment_yesaccount" property="repaymentYesaccount"  />
+    <result column="isday" property="isDay"  />
+    <result column="time_limit" property="timeLimit"  />
+    <result column="account" property="account"  />
+    <result column="account_yes" property="accountYes"  />
+    <result column="apr" property="apr"  />
+    <result column="lowest_account" property="lowestAccount"  />
+    <result column="most_account" property="mostAccount"  />
+    <result column="valid_time" property="validTime"  />
+    <result column="award" property="award"  />
+    <result column="part_account" property="partAccount"  />
+    <result column="funds" property="funds"  />
+    <result column="open_account" property="openAccount"  />
+    <result column="open_borrow" property="openBorrow"  />
+    <result column="open_tender" property="openTender"  />
+    <result column="open_credit" property="openCredit"  />
+    <result column="addtime" property="addtime"  />
+    <result column="addip" property="addip"  />
+    <result column="pwd" property="pwd"  />
+    <result column="content" property="content"  />
+    <result column="username" property="username"  />
+    <result column="mobile" property="mobile"  />
+    <result column="scales" property="scales"  />
+    <result column="borrow_type" property="borrowType"  />
+  </resultMap>
+  
+  
+  <resultMap class="UserBorrowModelAlias" id="UserBorrowModelDsResult">
+  	<result property="dhmoney" column="dhmoney"/>
+  </resultMap>
+  
+  
+  
+    <select id="GET_LIST_BY_SEARCH_USERCENTER_BORROW_LIST" parameterClass="map" resultMap="UserBorrowModelResult">
+	 <![CDATA[
+	select  p1.*,p2.username,p2.realname
+	,p1.account_yes/p1.account as scales,p1.name as borrow_name,p1.verify_time,p1.isday,
+	p1.time_limit,p2.username,p2.id,p2.mobile
+				from tb_borrow as p1 
+				left join tb_user as p2 on p1.user_id=p2.id 
+				 where p1.user_id=#userId#
+	  ]]>
+		  <isNotNull prepend="and" property="keywords" >
+	        	p1.name = #keywords#
+	      </isNotNull>
+	      <isNotNull prepend="and" property="dotime1" >
+	        	 p1.addtime&gt;#dotime1#
+	      </isNotNull>
+	      <isNotNull prepend="and" property="dotime2" >
+	        	 p1.addtime&lt;#dotime2#
+	      </isNotNull>
+	       	<isEqual property="type" compareValue="publish" prepend="and">
+	  				(p1.status=1 or p1.status=2)
+	  		</isEqual>
+	       	<isEqual property="type" compareValue="unpublish" prepend="and">
+	  				p1.status=0
+	  		</isEqual>
+	  		 <isEqual property="type" compareValue="repayment" prepend="and">
+	  				p1.status=5
+	  		</isEqual>
+	  		 <isEqual property="type" compareValue="repaymentyes" prepend="and">
+	  				p1.status=6
+	  		</isEqual>
+	  	order by p1.addtime desc
+  </select>
+  
+   <select id="GET_COUNT_BY_SEARCH_USERCENTER_BORROW_LIST" parameterClass="map" resultClass="int">
+   <![CDATA[
+	select  count(1)
+				from tb_borrow as p1 
+				left join tb_user as p2 on p1.user_id=p2.id 
+ 				where p1.user_id=#userId#
+	  ]]>
+		  <isNotNull prepend="and" property="keywords" >
+	        	p1.name = #keywords#
+	      </isNotNull>
+	      <isNotNull prepend="and" property="dotime1" >
+	        	 p1.addtime&gt;#dotime1#
+	      </isNotNull>
+	      <isNotNull prepend="and" property="dotime2" >
+	        	 p1.addtime&lt;#dotime2#
+	      </isNotNull>
+	      	<isEqual property="type" compareValue="publish" prepend="and">
+	  				(p1.status=1 or p1.status=2)
+	  		</isEqual>
+	       	<isEqual property="type" compareValue="unpublish" prepend="and">
+	  				p1.status=0
+	  		</isEqual>
+	  		 <isEqual property="type" compareValue="repayment" prepend="and">
+	  				p1.status=5
+	  		</isEqual>
+	  		 <isEqual property="type" compareValue="repaymentyes" prepend="and">
+	  				p1.status=6
+	  		</isEqual>
+  </select>
+  
+  
+  
+  <select id="GET_BY_USERBORROWDHMONEY" parameterClass="UserBorrowModelAlias" resultMap="UserBorrowModelDsResult">
+  <![CDATA[
+  		select sum(d.wait_account) dhmoney from 
+  			 (SELECT  b.wait_account FROM
+					tb_borrow a,
+					tb_borrow_tender b
+				WHERE
+					a.user_id = #userId#
+				AND b.borrow_id = a.id
+				AND a.`status` IN (1, 2, 3)
+				AND b.`status` = 0
+				AND b.addtime >= #dhstime#
+				AND b.addtime <= #dhetime#) d
+	]]>
+  </select>
+  
+</sqlMap>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="HongbaoLog" >
+	<typeAlias alias="hongbaoLogAlias" type="com.dept.web.dao.model.HongbaoLog"/>
+    <resultMap id="hongbaoLogResult" class="hongbaoLogAlias" >
+    	<result column="id" property="id"  />
+	    <result column="user_id" property="userId"  />
+	    <result column="money" property="money"  />
+	    <result column="status" property="status" />
+	    <result column="htype" property="htype"  />
+	    <result column="expired_days" property="expiredDays" />
+	    <result column="created_At" property="createdAt"  />
+	    <result column="created_By" property="createdBy" />
+	    <result column="update_At" property="updateAt" />
+	    <result column="update_By" property="updateBy" />
+    </resultMap>
+   
+    <insert id="SAVE_HONGBAOLOG" parameterClass="hongbaoLogAlias" >
+    insert into tb_hongbao_log (user_id, money, 
+      status, htype, expired_days,created_At, created_By, update_At, update_By)
+    values (#userId#, #money#, #status#, #htype#, #expiredDays#, #createdAt#, #createdBy#, #updateAt#,#updateBy#)
+  </insert>
+  <!--
+   <select id="GET_BY_BYID" parameterClass="LONG" resultMap="hongbaoLogResult">
+  		SELECT * FROM TB_HONGBAO_LOG where user_id=#value#
+  </select>
+  -->
+    <select id="GET_BY_USERID" parameterClass="LONG" resultClass="DOUBLE">
+        SELECT SUM(money) AS sumhongbao FROM TB_HONGBAO_LOG where user_id=#value# and status=1
+  </select>
+  
+  <select id="GET_BY_BYHONGBAOID"  parameterClass="Long" resultMap="hongbaoLogResult">
+       SELECT * FROM TB_HONGBAO_LOG WHERE ID = #value# 
+    </select>
+   <select id="GET_LIST_BY_STATUS" parameterClass="map" resultMap="hongbaoLogResult">
+    SELECT * FROM TB_HONGBAO_LOG where user_id=#userId# 
+     <isNotEmpty  property="status" prepend="and">
+	   		status=#status#
+	 	</isNotEmpty>
+  </select>
+  
+  <select id="GET_COUNT_BY_IDSTATUS" parameterClass="map" resultClass="INT">
+    SELECT count(0) FROM TB_HONGBAO_LOG where user_id=#userId# 
+     <isNotEmpty  property="status" prepend="and">
+	   		status=#status#
+	 	</isNotEmpty>
+  </select>
+   <select id="GET_COUNT_BY_FIND_HONGBAOLOG_BY_USERID" parameterClass="map" resultClass="int">
+ 	 select count(1) from TB_HONGBAO_LOG where user_id=#userId#
+ 	 <isNotEmpty property="startTime" prepend="and">
+	 	    FROM_UNIXTIME(created_at,'%Y-%m-%d %h:%i:%s')>=#startTime#
+	 	</isNotEmpty>
+	 	<isNotEmpty property="endTime" prepend="and">
+	 	   <![CDATA[  
+             FROM_UNIXTIME(created_at,'%Y-%m-%d %h:%i:%s')<= #endTime#  
+         ]]> 
+	 	</isNotEmpty>
+	 	 order by created_At desc
+  </select>
+  <select id="GET_LIST_BY_FIND_HONGBAOLOG_BY_USERID" parameterClass="map" resultMap="hongbaoLogResult">
+ 	 select * from TB_HONGBAO_LOG where user_id=#userId#  
+ 	 <isNotEmpty property="startTime" prepend="and">
+	 	    FROM_UNIXTIME(created_at,'%Y-%m-%d %h:%i:%s')>=#startTime#
+	 	</isNotEmpty>
+	 	<isNotEmpty property="endTime" prepend="and">
+	 	   <![CDATA[  
+             FROM_UNIXTIME(created_at,'%Y-%m-%d %h:%i:%s')<= #endTime#  
+         ]]> 
+	 	</isNotEmpty>
+	 	order by created_At desc
+  </select>
+  
+   <update id="UPDATE_UPSTATUS" parameterClass="hongbaoLogAlias">
+    update TB_HONGBAO_LOG
+    <dynamic prepend="set" >
+      <isNotNull prepend="," property="userId" >
+        user_id = #userId#
+      </isNotNull>
+      <isNotNull prepend="," property="money" >
+        money = #money#
+      </isNotNull>
+      <isNotNull prepend="," property="status" >
+        status = #status#
+      </isNotNull>
+      <isNotNull prepend="," property="htype" >
+        htype = #htype#
+      </isNotNull>
+     <isNotNull prepend="," property="expiredDays" >
+        expired_days = #expiredDays#
+      </isNotNull>
+      <isNotNull prepend="," property="createdAt" >
+        created_At = #createdAt#
+      </isNotNull>
+      <isNotNull prepend="," property="createdBy" >
+        created_By = #createdBy#
+      </isNotNull>
+      <isNotNull prepend="," property="updateAt" >
+        update_At = #updateAt#
+      </isNotNull>
+      <isNotNull prepend="," property="updateBy" >
+        update_By = #updateBy#
+      </isNotNull>
+    </dynamic>  
+  where id = #id#
+  </update>
+</sqlMap>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+		<title>钱功夫</title>
+	</head>
+	<body class="mi">
+		<div class="title-top text-align-center">
+	          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+	          <span class="titleTitle">平台公告</span>
+	          <span class="spanWhite"></span>
+	     #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+	    
+		<form id="borrowForm" name="borrowForm" action="$weburl/webapp/about/hyzx.html?flag=$flag">
+		<input type="hidden" id="page" name="page" value="$!page"/>
+		<input type="hidden" id="flag" name="flag" value="$!flag"/>
+			#if($!{artpage.getResult().size()} >0 )
+				#foreach($art in $artpage.getResult())
+					<div class="more-cell" onclick="window.location.href='$weburl/webapp/about/ptggdetail.html?id=$art.id&flag=$flag'">
+		    		<span class="moreTextdeliy">$art.name</span><img src="${weburl}/dist/images/go.png" class="go"/>
+		        	</div>
+				#end
+			#end
+			#pagination($artpage, 'borrowForm')
+		</form>
+        
+	</body>
+</html>

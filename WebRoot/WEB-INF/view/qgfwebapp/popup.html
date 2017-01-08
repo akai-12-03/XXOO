@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8"/>
+    <meta content="yes" name="apple-mobile-web-app-capable"/>
+    <meta content="yes" name="apple-touch-fullscreen"/>
+    <meta content="telephone=no" name="format-detection"/>
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="MobileOptimized" content="320"/>
+    <link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+    <script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <title>钱功夫</title>
+</head>
+<body>
+<style>
+    #maskBox {
+        opacity: .6;
+        background-color: #000;
+        position: absolute;
+        left: 0;
+        top: 0;
+        z-index: 998;
+        width: 100%;
+    }
+
+    #popupBox {
+        width: 60%;
+        position: absolute;
+        left: 20%;
+        top: 20%;
+        background-color: white;
+        box-shadow: 0 0 12px 1px #dcdcdc;
+        z-index: 999;
+        text-align: center;
+        padding: 20% 7%;
+    }
+
+    #closeBox {
+        width: 80%;
+        position: absolute;
+        left: 10%;
+        top: 60%;
+        background-color: #dcdcdc;
+        box-shadow: 0 0 12px 1px #dcdcdc;
+        z-index: 999;
+        text-align: center;
+        padding: 3% 0;
+        text-decoration: none;
+        color: #666;
+    }
+</style>
+<div id="maskBox"></div>
+<div id="popupBox">$!msg</div>
+<a id="closeBox" href="${weburl}/$!url">点击此处关闭</a>
+<script>
+    $(function () {
+        $("#maskBox").css("height", $(document).height());
+    });
+</script>
+</body>
+</html>

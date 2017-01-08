@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+		<meta name="renderer" content="webkit">
+		<title>钱功夫</title>
+		<link rel="stylesheet" type="text/css" href="../public/css/style.min.css">
+		<script>
+			var ROOT_URL = 'http://127.0.0.1:8020/qgf';
+			var seajsEnv = {
+				'mode': 'development',
+				'debug': true
+			};
+		</script>
+		<script src="../public/lib/sea.js"></script>
+		<script src="../public/lib/jquery-1.11.2.min.js"></script>
+		<script src="../public/js/config.js"></script>
+	</head>
+
+	<body class="white">
+		<div class="topbar">
+			<div class="mid-width clearfix">
+				<div class="cs-info">
+					<i class="icon icon-phone"></i> 服务热线：<span class="red">4008-0571-92</span>
+					<span>服务时间：9：00-18：00</span>
+					<i class="icon icon-sina"></i> &nbsp;&nbsp;<i class="icon icon-qq"></i>
+				</div>
+				<nav class="opt nav-guest">
+					<a href="#" class="reset">欢迎来到钱功夫！</a>
+					<a href="#" class="ml0 red">注册</a>|
+					<a href="#">登录</a>|
+					<a href="#">帮助中心</a>
+				</nav>
+			</div>
+		</div>
+		<div class="top-navi-menu">
+			<div class="mid-width">
+				<div class="logo">
+					<a href="index.html"><img src="../public/images/logo.png" alt=""></a>
+				</div>
+				<nav class="nav-navi">
+					<ul class="clearfix">
+						<li class="active ml0"><a href="index.html">首页</a></li>
+						<li><a href="#">我要投资</a></li>
+						<li><a href="#">我要借款</a></li>
+						<li><a href="#">安全保障</a></li>
+						<li><a href="#">新手指南</a></li>
+						<li>
+							<a href="#">关于我们</a>
+							<ul class="menu-child">
+								<li><a href="javascript:;">平台规则</a></li>
+								<li><a href="javascript:;">平台公告</a></li>
+								<li><a href="javascript:;">行业资讯</a></li>
+							</ul>
+						</li>
+						<li><a href="#">我的帐户</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+		<div class="about-wrap">
+			<div class="aboutus-banner">
+				<div class="mid-width">
+					<div class="aboutus-banner-content">
+						<ul>
+							<li class="line"></li>
+							<li class="pie">
+								<a href="/aboutus"><span class="gywm"></span><p>关于我们</p></a>
+							</li>
+						</ul>
+						<ul>
+							<li class="line cur"></li>
+							<li class="pie cur">
+								<a href="/help/rules"><span class="ptgz"></span><p>平台规则</p></a>
+							</li>
+						</ul>
+						<ul>
+							<li class="line"></li>
+							<li class="pie">
+								<a href="/help/product"><span class="ptgg"></span><p>平台公告</p></a>
+							</li>
+						</ul>
+						<ul>
+							<li class="line"></li>
+							<li class="pie">
+								<a href="/help/new"><span class="hyzx"></span><p>行业资讯</p></a>
+							</li>
+						</ul>
+						<ul>
+							<li class="line"></li>
+							<li class="pie">
+								<a href="/helps"><span class="bzzx"></span><p>帮助中心</p></a>
+							</li>
+						</ul>
+					</div>
+					<div class="about-tab">
+						<a href="javascript:;" class="active">网站规则</a>
+						<a href="javascript:;">协议范本</a>
+					</div>
+				</div>
+			</div>
+			<div class="aboutus-content">
+				<div class="content-item">
+					<div class="mid-width">
+						<h3 class="help-title">网站规则</h3>
+						<div class="rule">
+							<h3 class="rule-title">资费</h3>
+							<img src="../public/images/rule-table.png">
+							<p>（目前每位理财客户<span class="red">单个自然月可免费提现3笔</span>，单笔提现金额20万封顶，若单笔提现超出封顶金额，免费提现次数累计计算。）<br>
+								<br>
+								您所充值金额若在15天内未购买理财产品申请提现，将按千分之五收取额外提现费用！</p>
+							<h3 class="rule-title">红包</h3>
+							<p>
+								（1）注册：10 元<br>
+								（2）首次投资：20元<br>
+								（3）被推荐人注册后，送推荐人：10元<br>
+								（4）被推荐人首次投资后，送推荐人：20元<br>
+								 注：首次投资必须大于等于1000元才送红包（包括给推荐人的和被推荐人的）
+							</p>
+							<h3 class="rule-title">提现</h3>
+							<p>
+								<img src="../public/images/tixian-table.png"><br>
+								单笔最高500万<br>
+								提现手续费0.35%由平台支付，下限1元，上不封顶
+							</p>
+							<h3 class="rule-title">回款</h3>
+							<p>周一至周日正常回款（法定节日除外，将另行公告），回款或付息到账时间为到期日或付息日当日18:00 以前。（一般情况下9:00开始陆续操作回款）</p>
+							<h3 class="rule-title">加息券使用规则</h3>
+							<p>
+								1、XX理财加息券为年化加息券，在您购买理财产品时可使用；<br>
+								2、一次只能使用一张加息券，不可拆分使用，不可叠加使用；<br>
+								3、加息券按产品种类分为：车丰享加息券、贸利通加息券、优资汇加息券、通用加息券等；<br>
+								4、使用加息券需满足该券的使用条件，具体使用条件见券上标注；<br>
+								5、自动投标时，无法使用加息券；<br>
+								6、加息券的奖励金额随息发放至用户账户（当理财周期为多个月时将分多月随息发放）
+							</p>
+							<h3 class="rule-title">提前还款</h3>
+							<p>提前回款将按实际借款期限计息还款，足月部分按月计算，未足月的部分按天计算。</p>
+							<h3 class="rule-title">工作时间</h3>
+							<p>
+								上班时间：周一至周五9:00-11:30、12:30-17:30<br>
+								值班时间：周一至周五19:00-21:00<br>
+                 				周六、周日9:00-11:30、12:30-17：30、19:00-21:00 <br>
+								<br>
+								注：如遇法定节假日，网站将另行公告，同时钱功夫将根据实际运营情况调整工作时间
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="content-item">
+					<div class="mid-width">
+						<h3 class="help-title">协议范本</h3>
+						<div class="question-list">
+							<p class="question clearfix"><a href="javascript:;"><span class="wen">Q</span>注册服务协议<span class="float-right">2015-05-17   14:39</span></a></p>
+						</div>
+						<div class="question-list">
+							<p class="question clearfix"><a href="javascript:;"><span class="wen">Q</span>借款协议<span class="float-right">2015-05-17   14:39</span></a></p>
+						</div>
+						<div class="question-list">
+							<p class="question clearfix"><a href="javascript:;"><span class="wen">Q</span>隐私条款<span class="float-right">2015-05-17   14:39</span></a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="site-footer">
+			<div class="w1200 clearfix">
+				<div class="footer-left">
+					<ul class="clearfix">
+						<li><a href="#">帮助中心</a></li>
+						<li><a href="#">常见问题</a></li>
+						<li><a href="#">新手指南</a></li>
+						<li><a href="#">关于我们</a></li>
+						<li style="margin-right:25px;"><a href="#">关注我们</a>&nbsp;&nbsp;
+							<div class="float-right"><img src="../public/images/wechart-code.png">
+								<p>钱功夫</p>
+							</div>
+						</li>
+						<li style="margin-right:25px;">
+							<div class="float-right"><img src="../public/images/wechart-code.png">
+								<p>钱功夫</p>
+							</div>
+						</li>
+					</ul>
+				</div>
+				<div class="footer-right">
+					<p class="hotline">客服热线（工作时间 9:00-18:00）</p>
+					<p><strong>400-000-8888</strong><i class="icon icon-service"></i><span class="service">kefu@qiang.com</span></p>
+				</div>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="w1200">
+				<ul class="clearfix">
+					<li><a href="#"><i class="icon icon-logo1"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo2"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo3"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo4"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo5"></i></a></li>
+				</ul>
+				<span>版权所有：2013©雄猫软件  京ICP备13052580号-1</span>
+			</div>
+		</div>
+		<script>
+			seajs.use('aboutus');
+		</script>
+	</body>
+
+</html>

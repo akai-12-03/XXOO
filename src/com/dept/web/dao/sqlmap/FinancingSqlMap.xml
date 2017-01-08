@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Financing" >
+  <typeAlias alias="financingAlias" type="com.dept.web.dao.model.Financing"/>
+  <resultMap id="financingResult" class="financingAlias" >
+    <result column="id" property="id"  />
+    <result column="user_id" property="user_id"  />
+	<result column="name" property="name"  />
+	<result column="money" property="money"  />
+	<result column="num" property="num"  />
+	<result column="counts" property="counts"  />
+	<result column="trade" property="trade"  />
+	<result column="city" property="city"  />
+	<result column="time_limit" property="time_limit"  />
+	<result column="guarantee" property="guarantee"  />
+	<result column="risk" property="risk"  />
+	<result column="types" property="types"  />
+	<result column="types1" property="types1"  />
+	<result column="status" property="status"  />
+	<result column="addtime" property="addtime"  />
+	<result column="starttime" property="starttime"  />
+	<result column="apr" property="apr"  />
+	<result column="content" property="content"  />
+	<result column="jdbg" property="jdbg"  />
+	<result column="fkxx" property="fkxx"  />
+	<result column="hkjh" property="hkjh"  />
+	<result column="zjjy" property="zjjy"  />
+	<result column="contents" property="contents"  />
+	<result column="jdbgs" property="jdbgs"  />
+	<result column="fkxxs" property="fkxxs"  />
+	<result column="hkjhs" property="hkjhs"  />
+	<result column="zjjys" property="zjjys"  />
+  </resultMap>
+	
+	<resultMap class="financingAlias" id="financingIndexResult">
+		<result column="totalCounts" property="totalCounts"  />
+		<result column="totalMoney" property="totalMoney"  />
+		<result column="aprs" property="aprs"  />
+	</resultMap>
+	
+	<select id="GET_LIST_BY_FINANCING_INDEX" parameterClass="financingAlias" resultMap="financingResult">
+		SELECT * FROM TB_FINANCING where 1=1
+		<isNotEmpty property="status" prepend="and">
+			status in(1,3)
+		</isNotEmpty>
+		<isNotEmpty property="types1" prepend="and">
+			types1 = #types1#
+		</isNotEmpty>
+		order by addtime desc limit 3;
+	</select>
+	
+	<select id="GET_LIST_BY_FINANCING" parameterClass="financingAlias" resultMap="financingResult">
+		SELECT * FROM TB_FINANCING where 1=1
+		<isNotEmpty property="user_id" prepend="and">
+			user_id = #user_id#
+		</isNotEmpty>
+		<isNotEmpty property="status" prepend="and">
+			status = #status#
+		</isNotEmpty>
+		<isNotEmpty property="types1" prepend="and">
+			types1 = #types1#
+		</isNotEmpty>
+		<isNotEmpty property="types1" prepend="and">
+			city = #city#
+		</isNotEmpty>
+		<isNotEmpty property="types1" prepend="and">
+			trade = #trade#
+		</isNotEmpty>
+		<isNotEmpty property="guarantee" prepend="and">
+			guarantee = #guarantee#
+		</isNotEmpty>
+		<isNotEmpty property="apr" prepend="and">
+			apr = #apr#
+		</isNotEmpty>
+		order by addtime desc
+	</select>
+	
+	<select id="GET_LIST_BY_FINANCING_USERID" parameterClass="Long" resultMap="financingResult">
+		SELECT * FROM TB_FINANCING WHERE USER_ID=#user_id#
+	</select>	
+	
+	<select id="GET_BY_FINANCING_ID" parameterClass="Long" resultMap="financingResult">
+		SELECT * FROM TB_FINANCING WHERE ID=#id#
+	</select>
+	
+		
+  	<insert id="SAVE_FINANCING" parameterClass="financingAlias">
+ 		INSERT INTO TB_FINANCING(user_id, name, money, num, counts, trade, city,
+ 		time_limit, guarantee, risk, types, types1, status, addtime, starttime,apr,content,jdbg,fkxx,hkjh,zjjy,contents,jdbgs,fkxxs,hkjhs,zjjys)
+ 		VALUES(#user_id#, #name#,#money#,#num#,#counts#,#trade#,#city#,
+ 		#time_limit#,#guarantee#,#risk#, #types#,#types1#,#status#, #addtime#,
+ 		#starttime#,#apr#,#content#,#jdbg#,#fkxx#,#hkjh#,#zjjy#,#contents#,#jdbgs#,#fkxxs#,#hkjhs#,#zjjys#)
+		 <selectKey resultClass="long" >
+			SELECT LAST_INSERT_ID()
+ 	     </selectKey>  
+ 	 </insert>	
+	
+  <update id="UPDATE_FINANCING" parameterClass="financingAlias" >
+  	UPDATE TB_FINANCING
+  	<dynamic prepend="set">
+  		<isNotNull prepend="," property="user_id">
+  			user_id = #user_id#
+  		</isNotNull>
+  		<isNotNull prepend="," property="name">
+  			name = #name#
+  		</isNotNull>  	
+  		<isNotNull prepend="," property="money">
+  			money = #money#
+  		</isNotNull>
+  		<isNotNull prepend="," property="num">
+  			num = #num#
+  		</isNotNull>
+  		<isNotNull prepend="," property="counts">
+  			counts = #counts#
+  		</isNotNull>
+  		<isNotNull prepend="," property="trade">
+  			trade = #trade#
+  		</isNotNull>  	
+  		<isNotNull prepend="," property="city">
+  			city = #city#
+  		</isNotNull>
+  		<isNotNull prepend="," property="time_limit">
+  			time_limit = #time_limit#
+  		</isNotNull>
+  		<isNotNull prepend="," property="guarantee">
+  			guarantee = #guarantee#
+  		</isNotNull>
+  		<isNotNull prepend="," property="risk">
+  			risk = #risk#
+  		</isNotNull>  	
+  		<isNotNull prepend="," property="types">
+  			types = #types#
+  		</isNotNull>
+  		<isNotNull prepend="," property="types1">
+  			types1 = #types1#
+  		</isNotNull> 	
+  		<isNotNull prepend="," property="status">
+  			status = #status#
+  		</isNotNull> 
+  		<isNotNull prepend="," property="starttime">
+  			starttime = #starttime#
+  		</isNotNull> 	
+  		<isNotNull prepend="," property="apr">
+  			apr = #apr#
+  		</isNotNull> 
+  		<isNotNull prepend="," property="content">
+  			content = #content#
+  		</isNotNull> 
+  		<isNotNull prepend="," property="jdbg">
+  			jdbg = #jdbg#
+  		</isNotNull> 
+  		<isNotNull prepend="," property="fkxx">
+  			fkxx = #fkxx#
+  		</isNotNull> 
+  		<isNotNull prepend="," property="hkjh">
+  			hkjh = #hkjh#
+  		</isNotNull> 
+  		<isNotNull prepend="," property="zjjy">
+  			zjjy = #zjjy#
+  		</isNotNull> 
+  		<isNotNull prepend="," property="contents">
+  			contents = #contents#
+  		</isNotNull> 
+  		<isNotNull prepend="," property="jdbgs">
+  			jdbgs = #jdbgs#
+  		</isNotNull> 
+  		<isNotNull prepend="," property="fkxxs">
+  			fkxxs = #fkxxs#
+  		</isNotNull> 
+  		<isNotNull prepend="," property="hkjhs">
+  			hkjhs = #hkjhs#
+  		</isNotNull> 
+  		<isNotNull prepend="," property="zjjys">
+  			zjjys = #zjjys#
+  		</isNotNull> 
+  	</dynamic>
+  	 WHERE ID = #id# 
+  </update>
+	
+	<update id="UPDATE_FINANCING_STATUS" parameterClass="financingAlias" >
+  	  UPDATE TB_FINANCING SET STATUS =#status# WHERE ID = #id# 
+    </update>
+    
+    <update id="UPDATE_FINANCING_COUNTS" parameterClass="financingAlias" >
+  	  UPDATE TB_FINANCING SET counts =#counts# WHERE ID = #id# 
+    </update>
+    
+    
+    
+    <select id="GET_COUNT_BY_SEARCH" parameterClass="map"  resultClass="int">
+	  SELECT COUNT(0) FROM TB_FINANCING
+	  <dynamic prepend="where">
+	      <isNotEmpty  property="dqsql" prepend="and">
+	   			$dqsql$
+	  	  </isNotEmpty>
+	 	  <isNotEmpty  property="qyflsql" prepend="and">
+		   		$qyflsql$
+		  </isNotEmpty> 	
+		  <isNotEmpty  property="hylxsql" prepend="and">
+		   		$hylxsql$
+		  </isNotEmpty> 	  
+		  <isNotEmpty  property="rzjesql" prepend="and">
+		   		$rzjesql$
+		  </isNotEmpty> 	  
+		  <isNotEmpty  property="lcqxsql" prepend="and">
+		   		$lcqxsql$
+		  </isNotEmpty> 	  
+		  <isNotEmpty  property="fxpjsql" prepend="and">
+		   		$fxpjsql$
+		  </isNotEmpty> 	  
+		  <isNotEmpty  property="dbfssql" prepend="and">
+		   		$dbfssql$
+		  </isNotEmpty> 
+		  <isNotEmpty  property="tbxmsql" prepend="and">
+		   		$tbxmsql$
+		  </isNotEmpty> 	
+		   <isNotEmpty  property="typessql" prepend="and">
+		   		types1 = $typessql$
+		  </isNotEmpty> 	 	  
+	  </dynamic>
+
+  </select>
+  
+   <select id="GET_LIST_BY_SEARCH" parameterClass="map" resultMap="financingResult">
+  	SELECT *  FROM TB_FINANCING
+		 <dynamic prepend="where">
+	      <isNotEmpty  property="dqsql" prepend="and">
+	   			$dqsql$
+	  	  </isNotEmpty>
+	 	  <isNotEmpty  property="qyflsql" prepend="and">
+		   		$qyflsql$
+		  </isNotEmpty> 	
+		  <isNotEmpty  property="hylxsql" prepend="and">
+		   		$hylxsql$
+		  </isNotEmpty> 	  
+		  <isNotEmpty  property="rzjesql" prepend="and">
+		   		$rzjesql$
+		  </isNotEmpty> 	  
+		  <isNotEmpty  property="lcqxsql" prepend="and">
+		   		$lcqxsql$
+		  </isNotEmpty> 	  
+		  <isNotEmpty  property="fxpjsql" prepend="and">
+		   		$fxpjsql$
+		  </isNotEmpty> 	  
+		  <isNotEmpty  property="dbfssql" prepend="and">
+		   		$dbfssql$
+		  </isNotEmpty> 
+		  <isNotEmpty  property="tbxmsql" prepend="and">
+		   		$tbxmsql$
+		  </isNotEmpty> 
+		  <isNotEmpty  property="typessql" prepend="and">
+		   		types1 = $typessql$
+		  </isNotEmpty> 	  
+		 	     $fbsjsql$ 
+	  </dynamic>
+  </select>
+    
+    
+    
+    <select id="GET_BY_FINANCING_INDEX_COUNT" parameterClass="financingAlias" resultMap="financingIndexResult">
+    	SELECT count(1) as totalCounts,SUM(money) as totalMoney, avg(apr) as aprs FROM TB_FINANCING 
+    </select>
+    
+    <select id="GET_LIST_BY_FINANCINGLIST"  resultClass="financingAlias">
+    	SELECT * FROM TB_FINANCING WHERE `status` in(1,3) order by addtime desc limit 3
+    </select>
+    
+    
+</sqlMap>

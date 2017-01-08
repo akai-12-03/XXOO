@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="SmsJop" >
+  <typeAlias alias="smsJopAlias" type="com.dept.web.dao.model.SmsJop"/>
+  <resultMap id="smsJopResult" class="smsJopAlias" >
+    <result column="id" property="id"  />
+    <result column="phone" property="phone"  />
+    <result column="addtime" property="addtime"  />
+    <result column="type" property="type"  />
+    <result column="endtime" property="endTime"/>
+  </resultMap>
+	
+	
+	<select id="GET_BY_SMSJOP_BY_ID" parameterClass="Long" resultMap="smsJopResult">
+	 SELECT * FROM TB_SMS_JOP WHERE ID=#id#
+	</select>
+	
+		<select id="GET_BY_SMS_JOP_BY_PHONE" parameterClass="String" resultMap="smsJopResult">
+	 SELECT * FROM TB_SMS_JOP WHERE phone=#phone#
+	</select>
+	<select id="GET_LIST_BY_SMS_JOP_BY_ADDTIME" parameterClass="smsJopAlias" resultMap="smsJopResult">
+	<![CDATA[
+		select * from TB_SMS_JOP  
+	]]>
+	</select>
+	
+	
+	<insert id="SAVE_SMSJOP"  parameterClass="smsJopAlias">
+		insert into TB_SMS_JOP (phone,addtime,type,endtime)
+   		 values
+    	(#phone#,#addtime#,#type#,#endTime#)
+	    <selectKey resultClass="long" >
+		  		SELECT LAST_INSERT_ID()
+		</selectKey> 
+	</insert>
+	
+	<delete id="DELETE_SMS_JOP_DEL" parameterClass="Long">
+		DELETE FROM TB_SMS_JOP WHERE ID = #id#
+	</delete>
+	
+</sqlMap>
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Loan" >
+	<typeAlias alias="loanAlias" type="com.dept.web.dao.model.BorrowLoan"/>
+    <resultMap id="loanResult" class="loanAlias" >
+    	<result column="id" property="id"  />
+	    <result column="realname" property="realname"  />
+	    <result column="phone" property="phone"  />
+	    <result column="status" property="status" />
+	    <result column="carStatus" property="carStatus"  />
+	    <result column="verify_user" property="verifyUser" />
+	    <result column="verify_time" property="verifyTime"  />
+	    <result column="addtime" property="addtime"  />
+	    <result column="add_userid" property="addUserid"  />
+	    <result column="created_ip" property="createdIp"  />
+    </resultMap>
+   
+    <insert id="SAVE_LOAN" parameterClass="loanAlias" >
+    insert into tb_borrow_loan (realname,phone,
+      status,carStatus,addtime,add_userid,created_ip)
+    values (#realname#,#phone#,#status#,#carStatus#,#addtime#,#addUserid#,#createdIp#)
+  	</insert>
+</sqlMap>

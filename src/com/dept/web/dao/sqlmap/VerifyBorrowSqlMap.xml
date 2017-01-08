@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="VerifyBorrowLog" >
+  <typeAlias alias="verifyBorrowLogAlias" type="com.dept.web.dao.model.VerifyBorrowLog"/>
+  <resultMap id="VerifyBorrowLogResult" class="verifyBorrowLogAlias" >
+    <result column="id" property="id"  />
+    <result column="borrow_id" property="borrowId"  />
+    <result column="op_type" property="opType"  />
+    <result column="op_status" property="opStatus"  />
+    <result column="remark" property="remark"  />
+    <result column="created_at" property="createdAt"  />
+    <result column="updated_at" property="updatedAt"  />
+    <result column="created_by" property="createdBy"  />
+    <result column="updated_by" property="updatedBy"  />    
+  </resultMap>
+  
+  <select id="GET_BY_VERIFY_F" parameterClass="Long" resultMap="VerifyBorrowLogResult">
+  	SELECT * FROM TB_VERIFY_BORROW_LOG WHERE BORROW_ID = #value# AND OP_TYPE = 1 AND OP_STATUS = 0 LIMIT 1
+
+  </select>
+  
+  <select id="GET_BY_VERIFY_D" parameterClass="Long" resultMap="VerifyBorrowLogResult">
+  	SELECT * FROM TB_VERIFY_BORROW_LOG WHERE BORROW_ID = #value# AND OP_TYPE = 3 AND OP_STATUS = 0 LIMIT 1
+
+  </select>  
+  
+  <insert id="SAVE_VERIFYBORROWLOG" parameterClass="verifyBorrowLogAlias">
+  	INSERT INTO TB_VERIFY_BORROW_LOG(BORROW_ID, OP_TYPE, OP_STATUS, REMARK, CREATED_AT, UPDATED_AT, CREATED_BY, UPDATED_BY)
+  	VALUES(#borrowId#, #opType#, #opStatus#, #remark#, #createdAt#, #updatedAt#, #createdBy#, #updatedBy#)
+       <selectKey resultClass="long" >
+	  		SELECT LAST_INSERT_ID()
+	   </selectKey>  
+  </insert>
+  
+  <update id="UPDATE_VERIFYBORROWLOG" parameterClass="verifyBorrowLogAlias">
+  	UPDATE TB_VERIFY_BORROW_LOG
+  	<dynamic prepend="SET">
+  		<isNotEmpty prepend="," property="borrowId">
+  			BORROW_ID = #borrowId#
+  		</isNotEmpty>
+  		<isNotEmpty prepend="," property="opType">
+  			OP_TYPE = #opType#
+  		</isNotEmpty>
+  		<isNotEmpty prepend="," property="opStatus">
+  			OP_STATUS = #opStatus#
+  		</isNotEmpty>
+  		<isNotEmpty prepend="," property="remark">
+  			REMARK = #remark#
+  		</isNotEmpty>
+  		<isNotEmpty prepend="," property="createdAt">
+  			CREATED_AT = #createdAt#
+  		</isNotEmpty>  		  		  		  	
+  		<isNotEmpty prepend="," property="updatedAt">
+  			UPDATED_AT = #updatedAt#
+  		</isNotEmpty>
+  		<isNotEmpty prepend="," property="createdBy">
+  			CREATED_BY = #createdBy#
+  		</isNotEmpty>
+  		<isNotEmpty prepend="," property="updatedBy">
+  			UPDATED_BY = #updatedBy#
+  		</isNotEmpty>  	
+  	</dynamic>
+  	WHERE ID = #id#  
+  </update>
+</sqlMap>

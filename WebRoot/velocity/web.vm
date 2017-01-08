@@ -1,0 +1,53 @@
+## 头部
+#macro(topbar $headnav)
+	${httpInclude.include("/topbar.html?headnav=$headnav")}
+#end
+
+## 尾部
+#macro(foot)
+	${httpInclude.include("/foot.html")}
+#end
+
+## 我的帐户左边菜单
+#macro(user_sidebar $sidenav)
+	${httpInclude.include("/myhome/user-sidebar.html?sidenav=$sidenav")}
+#end
+
+## 尾部
+#macro(helps_sidebar $zc)
+	${httpInclude.include("/help/helps-sidebar.html?zc=$zc")}
+#end
+
+## 尾部
+#macro(rightmenu)
+	${httpInclude.include("/webapp/rightmenu.html")}
+#end
+
+## 首页导航
+#macro(indexnav)
+	${httpInclude.include("/indexnav.html")}
+#end
+
+## 微信导航
+#macro(weixinnvg)
+	${httpInclude.include("/webapp/weixinnvg.html")}
+#end
+
+
+##截取字段
+#macro(limit $content $value)
+#if($content)
+#set($content=$content.replaceAll("&amp;", "&"))
+#set($content=$content.replaceAll("&mdash;", "—"))
+#set($content=$content.replaceAll("&ldquo;", "“"))
+#set($content=$content.replaceAll("&rdquo;", "”"))
+#set($content=$content.replaceAll("&lsquo;", "‘"))
+#set($content=$content.replaceAll("&rsquo;", "’"))
+#set($content=$content.replaceAll("&nbsp;", " "))
+#set($content=$content.replaceAll("&hellip;", "…"))
+#set($content=$content.replaceAll("&middot;", "·"))
+#set($content=$content.replaceAll("&bull;", "•"))
+#set($content=$content.replaceAll("&#039;", "'"))
+#if($!{content.length()} > $value)$!{content.toString().substring(0, $value)}#else$!content#end
+#end
+#end

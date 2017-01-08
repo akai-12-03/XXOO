@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="FundFlow" >
+  <typeAlias alias="fundFlowAlias" type="com.dept.web.dao.model.FundFlow"/>
+  <resultMap id="fundFlowResult" class="fundFlowAlias" >
+    <result column="id" property="id"  />
+    <result column="type" property="type"  />
+    <result column="name" property="name"  />
+    <result column="src" property="src"  />
+    <result column="dest" property="dest"  />
+    <result column="remark" property="remark"  />
+    <result column="created_by" property="createdBy"  />
+    <result column="created_at" property="createdAt"  />
+    <result column="updated_at" property="updatedAt"  /> 
+  </resultMap>
+</sqlMap>

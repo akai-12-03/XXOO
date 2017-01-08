@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Menu" >
+  <typeAlias alias="menuAlias" type="com.dept.web.dao.model.Menu"/>
+  <resultMap id="menuResult" class="menuAlias" >
+    <result column="id" property="id"  />
+    <result column="name" property="name"  />
+    <result column="parent" property="parent"  />
+    <result column="route" property="route"  />
+    <result column="order" property="order"  />
+    <result column="data" property="data"  />
+  </resultMap>
+</sqlMap>

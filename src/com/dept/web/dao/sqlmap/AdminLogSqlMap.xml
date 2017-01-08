@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="AdminLog" >
+  <typeAlias alias="adminLogAlias" type="com.dept.web.dao.model.AdminLog"/>
+  <resultMap id="adminLogResult" class="adminLogAlias" >
+    <result column="id" property="id"  />
+    <result column="level" property="level"  />
+    <result column="category" property="category"  />
+    <result column="log_time" property="log_time"  />
+    <result column="prefix" property="prefix"  />
+    <result column="message" property="message"  />
+  </resultMap>
+
+</sqlMap>

@@ -1,0 +1,191 @@
+﻿#topbar('B')
+		<div class="mid-width clearfix">
+			<div class="loan">
+				<div class="loan-main">
+					<h1>
+                      $!borrow.name
+                      <span class="union"><i class="icon user-union"></i> 知本担保战略合作&nbsp;&nbsp;&nbsp;&nbsp;<i class="icon user-supervise"></i> 账户资金第三方监管</span>
+                  </h1>
+					<div class="loan-content">
+						<div class="loan-detail-info">
+							<label>借款金额:</label>
+							<strong>
+                              $viewTool.format2JQStr($!borrow.account)<span class="small">元</span>
+                          </strong>
+						</div>
+						<div class="loan-detail-info">
+							<label>年利率:</label>
+							<strong class="red" id="tender-apr" data-apr="$!borrow.apr">
+								 $viewTool.format2Str($!borrow.apr)%
+								<span class="small red">
+									#if($borrow.award == 0)
+			              			#elseif($borrow.award == 2)
+			              				#if($!borrow.partAccount)
+			              					+${borrow.partAccount}%
+			              				#else
+			              				#end
+			              			#else
+			              				#if($!borrow.funds)
+			              					+$viewTool.format1SD2(${borrow.funds})
+			              				#else
+			              				#end
+			              			#end
+			              		</span>
+                          </strong>
+						</div>
+						<div class="loan-detail-info">
+							<label>还款期限:</label>
+							<strong id="tender-time" data-num="$!borrow.timeLimit" data-unit="$!borrow.isDay">
+                              $!borrow.timeLimit</span><span class="small">#if($!borrow.isDay ==1)天#else个月#end</span>
+                          </strong>
+						</div>
+						<div class="loan-detail-info ring">
+							<span class="circle-progress">$borrow.scale</span>
+						</div>
+					</div>
+					<div class="loan-safe">
+						<table class="pure-table">
+							<tbody>
+								<tr>
+									<td> <span class="title-gray">还款方式:</span> $statusTool.getBorrowRepaymentStyle($borrow.repaymentStyle) </td>
+									<td><span class="title-gray">起购金额:</span> #if($!borrow.lowestAccount && $!borrow.lowestAccount>0) $viewTool.format2JQStr($!borrow.lowestAccount)  元 #else 无限制 #end </td>
+									<td><span class="title-gray">发布时间:</span> #limit($dateTool.getStr2($!borrow.verifyTime) 10)</td>
+								</tr>
+								<tr>
+									<td><span class="title-gray">计息方式:</span> T（满标日）+1 </td>
+									<td><span class="title-gray">最大投资金额:</span> #if($!borrow.mostAccount && $!borrow.mostAccount>0) $viewTool.format2JQStr($!borrow.mostAccount) 元 #else 无限制 #end </td>
+									<td><span class="msg"> 由钱功夫提供 </span></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="loan-opt">
+					<h1>
+                      剩余可投金额：<br />
+                      <span>¥$viewTool.format2JQStr($!borrow.lastAccount)元</span>
+                  </h1>
+					<form class="pure-form" method="post" action="${weburl}/borrow/tender.html?id=$borrow.id" style="position: relative;">
+					<input id="award" type="hidden" value="$!borrow.award" />
+					<input id="partAccount" type="hidden" value="$!borrow.partAccount" />
+					<input id="account" type="hidden" value="$!borrow.account" />
+					<input id="funds" type="hidden" value="$!borrow.funds" />
+						<div class="field">
+							#if($!errormsg)
+								<div id="tipBox" style="display:block;width:200%;left:-200%">
+									<header class="clearfix"><a href="javascript:closewin()" class="close_btn">X</a></header>
+									<div class="tip-content">
+										<i class="icon icon-fail"></i> &nbsp;$!errormsg
+									</div>
+								</div>
+								<div class="mask" style="display:block"></div>
+						    #end
+							<div class="clearfix">
+								<label class="float-left">
+								账户余额 
+								#if($!user) 
+								<span>$viewTool.format2JQStr($!ua.moneyUsable) 元 <input id="user_money" type="hidden" value="$!ua.moneyUsable"/></span>
+								#else
+								<span><a href="${weburl}/tologin.html">登录</a>后可查看余额</span>
+								#end
+								</label>
+								<a class="pure-button float-right" href="${weburl}/myhome/charge.html" style="width:80px; background:#ad0000">充 值</a>
+							</div>
+							<div class="mt15 clearfix">
+								<input type="tel" name="tendermoney" placeholder="#if($!borrow.lowestAccount && $!borrow.lowestAccount>0) 投注金额最少($viewTool.format2JQStr($!borrow.lowestAccount))元 #else 无限制 #end" id="tendermoney" style="width:292px; box-shadow: none;" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')">
+							</div>
+							#if($!hblist.size()>0)
+							<div class="mt10">
+								<select name="hongbaoId">
+									<option value="">请选择可用红包</option>
+									#foreach($hb in $!hblist)
+									<option value="$!hb.id">$!hb.money</option>
+									#end
+								</select>
+							</div>
+							#end
+							<div class="loan-income">预期投资收益：<em class="red">0.0</em>元</div>
+						</div>
+						#if($borrow.borrowType == 5)
+						<i style="background-image: url('${weburl}/public/images/newperson.png');width: 64px;height: 64px;display: inline-block;background-repeat: no-repeat;position: absolute;right: 14px;top: -95px;"></i>
+						#end
+							#if($borrow.status==0)
+								<button class="pure-button button-primary">即将开售</button>
+							 #elseif ($dateTool.isOver2("$!borrow.verifyTime", "$!borrow.lastTime")&& $borrow.status==1 || $borrow.status==7)
+							 	<button class="pure-button button-primary-gray">已过期</button>
+							 #elseif ($borrow.status==1 && $viewTool.aMoreb($!borrow.account, $borrow.accountYes)==1)
+							 	<p class="detail-endtime">
+									剩余时间:
+									<em  class="detail-djs" data-endtime="$!borrow.lastTime"></em>
+							    </p>
+							 	<button class="pure-button button-primary">立即投资</button>
+							 #elseif ($borrow.status==2 && $viewTool.aMoreb($borrow.account, $borrow.accountYes)==0)
+							 	<button class="pure-button button-primary">等待复审</button>
+							 #elseif ($borrow.status==3)
+							 	<button class="pure-button button-primary">复审通过</button>
+							 #elseif ($borrow.status==9)
+								<button class="pure-button button-primary">复审失败</button>
+							 #elseif ($borrow.status==5) 
+							 	<button class="pure-button button-primary">还款中</button>
+							 #elseif ($borrow.status==7)
+							 	<button class="pure-button button-primary">已过期</button>
+							 #elseif ($borrow.status==6)
+							 	<button class="pure-button button-primary">已还款</button>
+							 #elseif ($borrow.status==11)
+							 	<button class="pure-button button-primary">已还款</button>
+							 #else
+								<button class="pure-button button-primary">用户取消</button>
+							 #end
+					</form>
+				</div>
+			</div>
+			<div class="loan-bottom">
+				<div class="tab">
+					<ul class="tab-header clearfix">
+						<li class="item active" data-tab="1">项目详情</li>
+						<li class="item" data-tab="2">风险控制</li>
+						<li class="item" data-tab="3">投资记录</li>
+					</ul>
+					<div class="tab-content active" data-tab="1">
+						<div class="detail-content-text data-tab1">
+							<h3><span class="red">◆</span> 产品信息</h3>
+							$!borrow.content
+						</div>
+					</div>
+					<div class="tab-content" data-tab="2">
+						<div class="detail-content-text data-tab2">
+							<h3><span class="red">◆</span> 风险控制</h3>
+							$!borrow.cpxq
+						</div>
+					</div>
+					<div class="tab-content" data-tab="3">
+						<div class="detail-content-text">
+							<h3><span class="red">◆</span> 投资记录</h3>
+							<table class="pure-table">
+								<thead>
+									<tr style="background:#eee;">
+										<th>投资人</th>
+										<th>投资金额(￥)</th>
+										<th>投资时间</th>
+									</tr>
+								</thead>
+								<tbody>
+									#foreach($tl in $tenderList)
+										<tr>
+											<td class="gray-bg">#if($!tl.username) $textTool.hideUsernameChar($!tl.username) #else -- #end</td>
+											<td class="gray-bg">$tl.account</td>
+											<td class="gray-bg">#limit($dateTool.getStr2($!tl.addtime) 10)</td>
+										</tr>
+									#end
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+#foot()
+		<script>
+			seajs.use('invest');
+		</script>

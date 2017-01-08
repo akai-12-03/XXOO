@@ -1,0 +1,264 @@
+#topbar("G")
+#if($mt == 32)
+#user_sidebar('42')
+#elseif($mt == 36)
+#user_sidebar('46')
+#end
+<div class="user-page">
+    <div class="user-profile">
+        <nav class="user-nav-tabs">
+            <a class="active">理财管理</a>
+        </nav>
+        <div class="tab">
+            <ul class="user-nav-tabs-top tab-header clearfix">
+                <li #if($mt==31) class="item active" #else class="item" #end data-tab="1"><a
+                        href="$weburl/myhome/tblist.html">正在投标的项目</a></li>
+                <li #if($mt==32) class="item active" #else class="item" #end data-tab="2"><a
+                        href="$weburl/myhome/sklist.html?type=1">正在收款的项目</a></li>
+                <li #if($mt==33) class="item active" #else class="item" #end data-tab="3"><a
+                        href="$weburl/myhome/wsklist.html?status=0">未收款的明细</a></li>
+                <li #if($mt==34) class="item active" #else class="item" #end data-tab="4"><a
+                        href="$weburl/myhome/wsklist.html?status=2">已收款的明细</a></li>
+                <li #if($mt==35) class="item active" #else class="item" #end data-tab="5"><a
+                        href="$weburl/myhome/toubiao.html">借出明细帐</a></li>
+                <li #if($mt==36) class="item active" #else class="item" #end data-tab="6"><a
+                        href="$weburl/myhome/sklist.html?type=2">已还清项目</a></li>
+            </ul>
+            <div class="tab-content active" data-tab="1">
+                <table class="pure-table   table-compact record">
+                    <thead>
+                    <tr>
+                        <th>项目名称</th>
+                        <th>投资金额</th>
+                        <th>年利率</th>
+                        <th>期限</th>
+                        <th>投标时间</th>
+                        <th>回款本息</th>
+                        <th>合同</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    #if($!borrowPage.result.size() < 1 )
+                    <tr>
+                        <td colspan="6" style="padding-top:60px;border-bottom:none;"><img
+                                src="${weburl}/public/images/norecord.png"></td>
+                    </tr>
+                    #else
+                    #foreach($borrows in ${borrowPage.result})
+                    <tr>
+                        <td><a href="$weburl/borrow/detail.html?id=$!borrows.borrow_id">#if
+                            ($!borrows.borrow_name.length()>=10) #limit($!borrows.borrow_name 8).. #else
+                            $!borrows.borrow_name #end</a></td>
+                        <td>￥#if($borrows.anum) $viewTool.format2JQStr($borrows.anum)#else 0 #end</td>
+                        <td>$borrows.apr%</td>
+                        <td>$!borrows.time_limit
+                            #if($!borrows.isday == '1')
+                            天
+                            #else
+                            个月
+                            #end
+                        </td>
+                        <td>#limit($dateTool.getStr($borrows.tender_time) 16)</td>
+                        <td>#if($borrows.repaymentAccount) $viewTool.format2JQStr($borrows.repaymentAccount)#else 0
+                            #end
+                        </td>
+                        <td>
+                            <a target="_blank" href="$weburl/borrow/general/protocol.html?btId=$!borrows.id">
+                                下载
+                            </a>
+                        </td>
+                        <td class="spac">#if($!borrows.sumC==1) <a class="btn btn-primary btn-large "
+                                                                   style='background:gray;border:1px solid gray;'>已在还款中</a>
+                           #end
+                        </td>
+                    </tr>
+                    #end
+                    #end
+                    </tbody>
+                </table>
+                <form id="borrowForm" name="borrowForm" action="$weburl/myhome/sklist.html?type=$type">
+                    <input type="hidden" id="page" name="page" #if($!page) value="$page" #else value="1" #end/>
+                    <input type="hidden" id="type" name="type" value="$!type"/>
+                    #pagination($borrowPage 'borrowForm')
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+#foot()
+<script>
+    seajs.use('myhome');
+</script>
+<style type="text/css">
+    .theme-popover {
+        display: none;
+        position: fixed;
+        width: 350px;
+        height: 400px;
+        left: 40%;
+        top: 30%;
+        background-color: #ffffff;
+        z-index: 999;
+        box-shadow: 0 0 10px 1px #dcdcdc;
+    }
+
+    .mask {
+        display: none;
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: #000;
+        opacity: .6;
+        z-index: 998;
+    }
+
+    .theme-poptit {
+        position: relative;
+        text-align: center;
+        padding: 10px 0;
+        margin-bottom: 20px;
+    }
+
+    .theme-poptit > i {
+        display: inline-block;
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        background-image: url("$weburl/dist/images/close_icon.png");
+        background-size: 100%;
+        right: 0;
+        top: 0;
+        cursor: pointer;
+    }
+
+    .theme-signin label {
+        display: inline-block;
+        vertical-align: middle;
+        height: 35px;
+        line-height: 35px;
+        width: 100px;
+        text-align: right;
+    }
+
+    .btn-sub {
+        text-align: center;
+        padding-top: 15px;
+    }
+
+    .btn-sub > input[type="submit"] {
+        width: 70%;
+        height: 35px;
+        background-color: #67B5E3;
+        color: #fff;
+        border: none;
+        outline: none;
+        border-radius: 10px;
+    }
+
+    .btn-sub > input[type="submit"]:hover {
+        background-color: #00A12D;
+        -webkit-transition: background-color .3s linear;
+        -moz-transition: background-color .3s linear;
+        -ms-transition: background-color .3s linear;
+        -o-transition: background-color .3s linear;
+        transition: background-color .3s linear;
+    }
+</style>
+<div class="mask"></div>
+<div class="theme-popover">
+    <div class="theme-poptit">
+        <h3>放入转让市场</h3>
+        <i></i>
+    </div>
+    <div class="theme-popbod dform">
+        <form class="theme-signin" name="loginform" action="$weburl/myhome/addmarket.html" method="post">
+            <input type="hidden" name="id" id="id">
+            <div><label for="">标题：</label><input class="ipt" type="text" name="borrowName" readonly="readonly"
+                                                 style="height:35px;"/></div>
+            <div><label for="">投资本金：</label><input class="ipt" type="text" name="money" readonly="readonly"
+                                                   style="height:35px;"/></div>
+            <div><label for="">应收总额：</label><input class="ipt" type="text" name="repaymentAccount" readonly="readonly"
+                                                   style="height:35px;"/>
+            </div>
+            <div><label for="">待收利息：</label><input class="ipt" type="text" name="waitInterest" readonly="readonly"
+                                                   style="height:35px;"/></div>
+            <div><label for="">待收本金：</label><input class="ipt" type="text" name="waitAccount" readonly="readonly"
+                                                   style="height:35px;"/></div>
+            <div><label for="">现价：</label><input class="ipt" type="text" name="newprice" id="newprice"
+                                                 style="height:35px;" onkeyup="value=value.replace(/[^\d\.]/g,'')"
+                                                 required/></div>
+            <div class="btn-sub"><input class="btn btn-primary" type="submit" name="submit" value=" 提交 "/></div>
+        </form>
+    </div>
+</div>
+<div class="theme-popover-mask"></div>
+<script>
+    jQuery(document).ready(function ($) {
+        $(".mask").css("height", $(document).height());
+        $(".theme-popover").css({
+            "left": ($(window).width() - 350) / 2 + "px",
+            "top": ($(window).height() - 400) / 2 + "px"
+        });
+        $(".theme-poptit>i").on("click", function () {
+            $(".theme-popover").css("display", "none");
+            $(".mask").css("display", "none");
+        });
+        $(".theme-login").click(function () {
+            $(".mask").css("display","inline-block");
+            var borrowName2 = $(this).data('ta');
+            var borrowName = borrowName2;
+
+            var money2 = $(this).data('money');
+            var money = parseFloat(money2);
+
+            var repaymentAccount2 = $(this).data('repaymentaccount');
+            var repaymentAccount = parseFloat(repaymentAccount2);
+
+            var waitInterest2 = $(this).data('waitinterest');
+            var waitInterest = parseFloat(waitInterest2);
+
+            var waitAccount2 = $(this).data('waitaccount');
+            var waitAccount = parseFloat(waitAccount2);
+
+            var id = $(this).data('id');
+
+            $('form[name=loginform] input[name=id]').val(id);
+            $('form[name=loginform] input[name=borrowName]').val(borrowName);
+
+            $('form[name=loginform] input[name=id]').val(id);
+            $('form[name=loginform] input[name=money]').val(money);
+
+            $('form[name=loginform] input[name=id]').val(id);
+            $('form[name=loginform] input[name=repaymentAccount]').val(repaymentAccount);
+
+            $('form[name=loginform] input[name=id]').val(id);
+            $('form[name=loginform] input[name=waitInterest]').val(waitInterest);
+
+            $('form[name=loginform] input[name=id]').val(id);
+            $('form[name=loginform] input[name=waitAccount]').val(waitAccount);
+
+            $(".theme-popover-mask").fadeIn(100);
+            $(".theme-popover").slideDown(200);
+        })
+        $(".theme-poptit .close").click(function () {
+            $('form[name=loginform] input[name=id]').val('');
+            $('form[name=loginform] input[name=borrowName]').val('');
+
+            $('form[name=loginform] input[name=id]').val('');
+            $('form[name=loginform] input[name=money]').val('');
+
+            $('form[name=loginform] input[name=id]').val('');
+            $('form[name=loginform] input[name=repaymentAccount]').val('');
+
+            $('form[name=loginform] input[name=id]').val('');
+            $('form[name=loginform] input[name=waitInterest]').val('');
+
+            $('form[name=loginform] input[name=id]').val('');
+            $('form[name=loginform] input[name=waitAccount]').val('');
+            $(".theme-popover-mask").fadeOut(100);
+            $(".theme-popover").slideUp(200);
+        })
+
+    })
+</script>

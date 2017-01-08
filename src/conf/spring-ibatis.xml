@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-3.0.xsd"
+	default-autowire="byName">
+	
+	<bean id="sqlMapClient" class="com.sendinfo.xspring.ibatis.spring.SqlMapClientFactoryBean">
+		<property name="configLocation">
+			<value>classpath:conf/sqlMap-Config.xml
+			</value>
+		</property>
+		<property name="mappingLocations">
+			<list>
+				<value>classpath:com/**/web/**/dao/sqlmap/**/*SqlMap.xml
+				</value>
+			</list>
+		</property>
+		
+		<property name="sqlExecutor">
+			<bean class="com.sendinfo.xspring.ibatis.sqlmap.engine.execution.LimitSqlExecutor">
+				<property name="dialect">
+					<bean class="com.sendinfo.xspring.ibatis.jdbc.dialect.MySQLDialect" />
+				</property>
+			</bean>
+		</property>
+	</bean>
+	
+</beans>

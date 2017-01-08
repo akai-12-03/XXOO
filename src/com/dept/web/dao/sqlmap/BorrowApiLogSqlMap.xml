@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BorrowApiLog" >
+  <typeAlias alias="borrowApiLogAlias" type="com.dept.web.dao.model.BorrowApiLog" />
+  <resultMap id="borrowApiLogResult" class="borrowApiLogAlias" >
+    <result column="id" property="id"  />
+    <result column="borrow_id" property="borrowId"  />
+    <result column="user_id" property="userId"  />
+    <result column="money" property="money"  />
+    <result column="remark" property="remark"  />
+    <result column="status" property="status"  />
+    <result column="valid_account" property="valid_account"  />
+    <result column="operation_account" property="operation_account"  />
+    <result column="source" property="source"/>
+    <result column="tenderId" property="tenderId"/>
+  </resultMap>
+  <select id="GET_BY_ID" parameterClass="long" resultMap="borrowApiLogResult">
+  	   <![CDATA[
+	  SELECT A.*  FROM tb_borrow_api_log A WHERE A.ID = #value# AND A.status=0
+	  ]]>
+  </select> 
+  
+  <insert id="SAVE_BORROWAPILOG" parameterClass="borrowApiLogAlias" >
+    insert into tb_borrow_api_log (borrow_id, user_id, money,remark,status,valid_account,operation_account,source,tenderId)
+    values (#borrowId#, #userId#, #money#, #remark#,#status#,#valid_account#,#operation_account#,#source#,#tenderId#)
+	   <selectKey resultClass="long" >
+	  		SELECT LAST_INSERT_ID()
+	   </selectKey>
+  </insert>
+  
+  <update id="UPDATE_BORROWAPILOG" parameterClass="map" >
+   	update tb_borrow_api_log set status=1 where id=#id#
+  </update>
+  
+</sqlMap>

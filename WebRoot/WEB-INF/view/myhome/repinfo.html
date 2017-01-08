@@ -1,0 +1,111 @@
+#topbar('G') 
+#if($mt == 41)
+#user_sidebar('31')
+#elseif($mt == 42)
+#user_sidebar('32')
+#elseif($mt == 43)
+#user_sidebar('33')
+#elseif($mt == 44)
+#user_sidebar('34')
+#elseif($mt == 45)
+#user_sidebar('35')
+#end			<div class="user-page">
+				<div class="user-profile">
+					<nav class="user-nav-tabs">
+						<a  class="active">借款管理</a>
+					</nav>
+					<div class="tab">
+						<ul class="user-nav-tabs-top tab-header clearfix">
+							<li #if($mt == 41) class="item active" #else class="item" #end data-tab="1"><a href="$weburl/myhome/jieBorrow.html">正在招标的项目</a></li>
+							<li #if($mt == 42) class="item active" #else class="item" #end data-tab="2"><a href="$weburl/myhome/jieBorrow.html?type=unpublish">尚未发布的项目</a></li>
+							<li #if($mt == 43) class="item active" #else class="item" #end data-tab="3"><a href="$weburl/myhome/jieBorrow.html?type=repayment">正在还款的项目</a></li>
+							<li #if($mt == 44) class="item active" #else class="item" #end data-tab="4"><a href="$weburl/myhome/jieBorrow.html?type=repaymentyes">已还款的项目</a></li>
+							<li #if($mt == 45) class="item active" #else class="item" #end data-tab="5"><a href="$weburl/myhome/repinfo.html">全部明细</a></li>
+						</ul>
+						<div class="tab-content active" data-tab="1">
+							<table class="pure-table   table-compact record">
+								<thead>
+									<tr>
+										<th>项目名称</th>
+										<th>借款期数</th>
+										<th>应还款日期</th>
+										<th>应还本息</th>
+										<th>借款付息</th>
+										<th>借款状态</th>
+										<th>操作</th>
+									</tr>
+								</thead>
+								<tbody>
+									#if($!borrowPage.result.size() < 1 )
+										<td colspan="8" style="padding-top:60px;border-bottom:none;"><img src="${weburl}/public/images/norecord.png"></td>
+									#else
+									#foreach($item in ${borrowPage.result})
+				                       <tr>
+						                     <td>
+									            <a style="color: black;" href="$weburl/borrow/detail.html?id=$!item.borrowId">
+									                 #if ($item.borrow_name.length()>=10) #limit($item.borrow_name 8)..   #else $item.borrow_name   #end
+									            </a>
+								            </td>
+								            <td>$!item.rorder</td>
+								            <td>#limit($dateTool.getStr2($item.repaymentTime) 10)</td>
+								            <td>￥#if ($item.repaymentAccount)$numberTool.format($item.repaymentAccount)#else 0  #end</td>
+								            <td>￥#if ($item.interest)$numberTool.format($item.interest)#else 0 #end</td>
+								            <td>#if($item.status==1)
+													用户已经还款
+													#elseif ($item.status==2)
+													网站垫付
+													#else
+														#if($item.webstatus==1)
+															还款中
+														#else
+															待还款
+														#end
+													#end</td>
+						                    <td>
+						                       		#if ($item.status==1)
+													用户已经还款
+													#elseif ($item.status==2)
+													网站垫付
+													#else
+														#if($item.webstatus==1)
+															还款中
+														#else
+															#if($dateTool.isAhead($!item.repaymentTime,5))
+															
+																<a href="javascript:;" onclick="javascript:if(confirm('该项目还未到期，你确定要偿还此借款吗？')) location.href='$weburl/qddApi/toRepayment.html?id=$item.id'" style="color:red">还款</a>
+															#else
+																<a href="javascript:;" onclick="javascript:if(confirm('你确定要偿还此借款吗？')) location.href='$weburl/qddApi/toRepayment.html?id=$item.id'" style="color:red">还款</a>
+															#end
+														#end
+													#end
+						                    </td>
+				                       </tr>
+				               		#end
+				               		#end
+								</tbody>
+							</table>
+							<form id="borrowForm" name="borrowForm"  action="$weburl/myhome/repinfo.html">
+									<input type="hidden" id="page" name="page" #if($!page) value="$page" #else value="1" #end/>
+        							#pagination($borrowPage 'borrowForm')
+  							</form>
+						</div>
+					</div>
+				#if($!errmsg)
+				<div id="tipBox" style="display:block;">
+					<header class="clearfix"><a href="javascript:closewin()" class="close_btn">X</a></header>
+					<div class="tip-content">
+					<p>#if($!errmsg.indexOf("成功")>0) <i class="icon icon-success"></i> #else <i class="icon icon-fail"></i> #end &nbsp;$!errmsg</p>
+					</br>
+					<a href="${weburl}/borrow/toubiao.html">&nbsp;浏览理财项目</a>
+					<a href="${weburl}/myhome/user-index.html">&nbsp;进入帐户中心</a>
+					</div>
+				</div>
+				<div class="mask" style="display:block"></div>
+				#end
+				</div>
+			</div>
+		</div>
+#foot()
+		<script>
+			seajs.use('myhome');
+		</script>

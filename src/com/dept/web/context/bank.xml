@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<item>
+	<pc_bank_list name="pc_bank_list">
+		<bank id="50" code="ICBC_D_B2C" name="中国工商银行" image="gsyh.gif" payment="13"/>
+		<bank id="51" code="ABC_D_B2C" name="中国农业银行" image="nyyh.gif" payment="13"/>
+		<bank id="53" code="CCB_D_B2C" name="中国建设银行" image="jsyh.gif" payment="13"/>
+		<bank id="60" code="CMB_D_B2C" name="中国招商银行" image="zsyh.gif" payment="13"/>
+		<bank id="77" code="SRCB_D_B2C" name="上海农村商业银行" image="shnsyh.gif" payment="13"/>
+		<bank id="66" code="CBHB_D_B2C" name="渤海银行" image="bhyh.gif" payment="13"/>
+		<bank id="79" code="BON_D_B2C" name="南京银行" image="njyh.gif" payment="13"/>
+		<bank id="72" code="HZCB_D_B2C" name="杭州银行" image="hzyh.gif" payment="13"/>
+		<bank id="74" code="BOS_D_B2C" name="上海银行" image="shyh.gif" payment="13"/>
+		<bank id="84" code="WZCB_D_B2C" name="温州银行" image="wzyh.jpg" payment="13"/>
+		<bank id="80" code="BEA_D_B2C" name="东亚银行" image="dyyh.gif" payment="13"/>
+		<bank id="82" code="NBCB_D_B2C" name="宁波银行" image="nbyh.gif" payment="13"/>
+		<!--  <bank id="81" code="HSB_D_B2C" name="徽商银行" image="hsyh.gif" payment="13"/>-->
+		<bank id="52" code="BOCSH_D_B2C" name="中国银行" image="zgyh.gif" payment="13"/>
+		<bank id="68" code="POSTGC_D_B2C" name="中国邮政储蓄银行" image="yzcx.gif" payment="13"/>
+		<bank id="54" code="COMM_D_B2C" name="中国交通银行" image="jtyh.gif" payment="13"/>
+		<bank id="63" code="CMBCD_D_B2C" name="中国民生银行" image="msyh.gif" payment="13"/>
+		<bank id="55" code="CNCB_D_B2C" name="中信银行" image="zxyh.gif" payment="13"/>
+		<bank id="73" code="PINGAN_D_B2C" name="平安银行" image="payh.gif" payment="13"/>
+		<bank id="56" code="CEB_D_B2C" name="中国光大银行" image="gdyh.gif" payment="13"/>
+		<bank id="83" code="BOB_D_B2C" name="北京银行" image="bjyh.gif" payment="13"/>
+		<bank id="62" code="CIB_D_B2C" name="兴业银行" image="xyyh.gif" payment="13"/>
+		<bank id="57" code="HXB_D_B2C" name="华夏银行" image="hxyh.gif" payment="13"/>
+		<bank id="85" code="SPDB_D_B2C" name="浦发银行" image="pfyh.gif" payment="13"/>
+		<bank id="58" code="GDB_D_B2C" name="广东发展银行" image="gfyh.gif" payment="13"/>
+		<!--<bank id="76" code="GZCB_D_B2C" name="广州银行" image="gzyh.gif" payment="13"/>-->
+		<bank id="78" code="BJRCB-NET-B2C" name="北京农村商业银行" image="bjnsyh.gif" payment="15"/>
+		
+	</pc_bank_list>
+	<bankList name="app_bank_list">
+		<bank id="50" code="ICBC-KUAIDEBIT" name="中国工商银行" image="hst/images/appbank/gsyh.gif" payment="15"/>
+		<bank id="51" code="ABC-KUAIDEBIT" name="中国农业银行" image="hst/images/appbank/nyyh.gif" payment="15"/>
+		<bank id="60" code="CMBCHINA-KUAIDEBIT" name="中国招商银行" image="hst/images/appbank/zsyh.gif" payment="15"/>
+		<bank id="63" code="CMBC-KUAIDEBIT" name="中国民生银行" image="hst/images/appbank/msyh.gif" payment="15"/>
+		<bank id="53" code="CCB-KUAIDEBIT" name="中国建设银行" image="hst/images/appbank/jsyh.gif" payment="15"/>
+		<bank id="68" code="POST-KUAIDEBIT" name="中国邮政储蓄银行" image="hst/images/appbank/yzcx.gif" payment="15"/>
+		<bank id="56" code="CEB-KUAIDEBIT" name="中国光大银行" image="hst/images/appbank/gdyh.gif" payment="15"/>
+		<bank id="73" code="CPB-KUAIDEBIT" name="平安银行" image="hst/images/appbank/payh.gif" payment="15"/>
+		
+		<bank id="55" code="ZXYH_KUAIDEBIT" name="中信银行" image="hst/images/appbank/zxyh.gif" payment="15"/>
+		<bank id="83" code="BJYH_KUAIDEBIT" name="北京银行" image="hst/images/appbank/bjyh.gif" payment="15"/>
+		<bank id="58" code="GDFZYH_KUAIDEBIT" name="广东发展银行" image="hst/images/appbank/gfyh.gif" payment="15"/>
+		<bank id="78" code="BJNCYH_KUAIDEBIT" name="北京农村商业银行" image="hst/images/appbank/bjnsyh.gif" payment="15"/>
+		<bank id="52" code="ZGYH_KUAIDEBIT" name="中国银行" image="hst/images/appbank/zgyh.gif" payment="15"/>
+		<bank id="54" code="JTYH_KUAIDEBIT" name="中国交通银行" image="hst/images/appbank/jtyh.gif" payment="15"/>
+	</bankList>
+</item>
+

@@ -1,0 +1,52 @@
+﻿#topbar("signup")
+	<body class="white">
+		<div class="common-topbar">
+			<div class="mid-width clearfix">
+				<img src="public/images/common-logo.png">|<span>登录</span>
+			</div>
+		</div>
+		<div class="login-area mid-width">
+			<div class="login-body">
+				<form class="pure-form login-form" method="post" action="#" id="login-form">
+					<h4><span>登录</span><span class="login-account">未有帐户？<a class="red" href="javascript:;">免费注册</a></span></h4>
+					<div class="login_field">
+						<label>*手&nbsp;机&nbsp; 号：</label>
+						<input name="telphone" type="text" class="login_input" placeholder="请输入输入手机  / 邮箱 / 用户名" id="telphone" data-validator="telphone" required />
+						<div class="tip"></div>
+					</div>
+					<div class="login_field">
+						<label>*密 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 码：</label>
+						<input name="password" type="password" class="login_input" placeholder="请输入密码" id="password" data-validator="password" required />
+						<div class="tip"></div>
+					</div>
+					<div class="login_field verifyimg-box clearfix">
+						<label>*验&nbsp; 证&nbsp; 码：</label>
+						<input type="text" name="verify" id="imgCode" placeholder="请输入图片验证码" data-validator="code" class="signup_input" style="width:182px; margin-right:10px;" required>
+						<img src="${weburl}/pcrimg.html" alt="验证码" title="点击刷新" width="85" height="38">
+						<div class="tip"></div>
+					</div>
+					<div class="login_field clearfix mt0"><a href="#" class="float-right">忘记密码?</a></div>
+					<div class="login_field clearfix">
+						<button type="submit" id="send" class="pure-button button-primary">立即登录</button>
+					</div>
+				</form>
+			</div>
+		</div>
+		<div class="footer-bottom">
+			<div class="w1200">
+				<ul class="clearfix">
+					<li><a href="#"><i class="icon icon-logo1"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo2"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo3"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo4"></i></a></li>
+					<li><a href="#"><i class="icon icon-logo5"></i></a></li>
+				</ul>
+				<span>版权所有：2013©雄猫软件  京ICP备13052580号-1</span>
+			</div>
+		</div>
+		<script>
+			seajs.use('login');
+		</script>
+	</body>
+
+</html>

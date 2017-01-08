@@ -1,0 +1,111 @@
+﻿#topbar("G")
+#user_sidebar("11")
+			<div class="user-page">
+				<div class="user-profile">
+					<nav class="user-nav-tabs">
+						#if(!$!user.userType)
+							<a class="active">个人认证 $!currUser.realVerifyStatus</a>
+							<a href="${weburl}/myhome/companyAuth.html">企业认证</a>
+						#else
+							#if($!user.userType==1)<a class="active">个人认证 $!currUser.realVerifyStatus</a>#end
+							#if($!user.userType==2)<a class="active" href="${weburl}/myhome/companyAuth.html">企业认证</a>#end
+						#end
+						
+					</nav>
+					#if($!user&&$!user.realVerifyStatus==1&&$!user.idCard)
+					<form class="pure-form form form-position" method="post" action="" id="common-form">
+						<div class="field">
+							<label><span class="red">*</span>真实姓名：</label>
+							<input type="text" name="realname" value="$!user.realname" readonly="readonly">
+						</div>
+						<div class="field">
+							<label><span class="red">*</span>证件类型：</label>
+							<span style="font-size:16px">身份证</span>
+						</div>
+						<div class="field">
+							<label><span class="red">*</span>证件号码：</label>
+							<input type="text" name="cardId" value="$!user.idCard" readonly="readonly"  size="18" maxlength="18" onkeyup='this.value=this.value.replace(/[^0-9x]/gi,"")'>
+						</div>
+					</form>
+					#else
+					<form class="pure-form form form-position" method="post" action="${weburl}/qddApi/toRegister.html" id="common-form">
+						<input type="hidden" name="userType" value="1"/>
+						<div class="field">
+							<label><span class="red">*</span>真实姓名：</label>
+							<input type="text" name="realname" value="" required id="chinese">
+							<div class="tip"></div>
+						</div>
+						<div style="padding-left: 145px;font-size: 12px;color: #999;">实名认证所填写的姓名需要和提现银行卡的持卡人姓名保持一致</div>
+						<div class="field">
+							<label><span class="red">*</span>证件类型：</label>
+							身份证
+						</div>
+						<div class="field">
+							<label><span class="red">*</span>证件号码：</label>
+							<input type="text" name="cardId" size="18" maxlength="18" onkeyup='this.value=this.value.replace(/[^0-9x]/gi,"")' required id="shenfen">
+								<div class="tip" style="right: -90px;"></div>
+						</div>
+						<div class="field">
+							<button class="pure-button button-primary">确认</button>
+						</div>
+					</form>
+					#end
+					#if($!msg)
+					<div id="tipBox" style="display:block;">
+					<header class="clearfix"><a href="javascript:closewin()" class="close_btn">X</a></header>
+					<div class="tip-content">
+						<p>#if($!msg.indexOf("成功")>0) <i class="icon icon-success"></i> #else <i class="icon icon-fail"></i> #end &nbsp;$!msg</p>
+					</div>
+					</div>
+					<div class="mask" style="display:block"></div>
+					#end
+				</div>
+			</div>
+		</div>
+		#foot()
+		    	<script>
+    		$(function(){
+    			var flag1,flag2;
+    			$("#chinese").blur(function(){
+    				reg=/^([\u4e00-\u9fa5]){2,7}$/;
+    				var text=$(this).val();
+    				if(!text.match(reg)){
+    					$(this).next(".tip").text("请输入正确的姓名");
+    					$("form").submit(false);
+    				}else{
+    					$(this).parent().next(".tip").text("");
+    					flag1=true;
+ 					    if(endFlag()==true){
+ 					    	$("form").off();
+ 					    }
+    				}
+    			});
+    			$("#shenfen").blur(function(){
+    				reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;
+    				var text=$(this).val();
+    				if(!text.match(reg)){
+    					$(this).next(".tip").text("请输入正确的身份证号");
+    					$("form").submit(false);
+    				}else{
+    					$(this).parent().next(".tip").text("");
+    					flag2=true;
+ 					    if(endFlag()==true){
+ 					    	$("form").off();
+ 					    }
+    				}
+    			});
+                function endFlag(){
+	    			if(flag1==flag2==true){
+	    				return true;
+	    			}else{
+	    				return false;
+	    			}
+	    		}
+    		});
+    	</script>
+		<script>
+			seajs.use('myhome')
+		</script>
+	</body>
+
+</html>

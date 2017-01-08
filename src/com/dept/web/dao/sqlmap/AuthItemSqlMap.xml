@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="AuthItem" >
+  <typeAlias alias="authItemAlias" type="com.dept.web.dao.model.AuthItem"/>
+  <resultMap id="authItemResult" class="authItemAlias" >
+    <result column="id" property="id"  />
+    <result column="name" property="name"  />
+    <result column="type" property="type"  />
+    <result column="description" property="description"  />
+    <result column="rule_name" property="ruleName"  />
+    <result column="data" property="data"  />
+    <result column="created_at" property="createdAt"  />
+    <result column="updated_at" property="updatedAt"  />
+  </resultMap>
+</sqlMap>

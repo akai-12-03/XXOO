@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Market" >
+  <typeAlias alias="marketAlias" type="com.dept.web.dao.model.Market"/>
+  
+  <resultMap id="marketResult" class="marketAlias" >
+    <result column="id" property="id"  />
+    <result column="borrow_id" property="borrowId"  />
+    <result column="tender_id" property="tenderId"  />
+    <result column="tender_user_id" property="tenderUserId"  />
+    <result column="tender_Price" property="tenderPrice"  />
+    <result column="transfer_Price" property="transferPrice"  />
+    <result column="collection_Money" property="collectionMoney"  />
+    <result column="repay_Order" property="repayOrder"  />
+    <result column="repay_Total_Order" property="repayTotalOrder"  />
+    <result column="borrow_Apr" property="borrowApr"  />
+    <result column="borrow_Name" property="borrowName"  />
+    <result column="remaining_days" property="remainingDays"  />
+    <result column="status" property="status"  />
+    <result column="created_at" property="createdAt"  />
+    <result column="created_By" property="createdBy"  />  
+    <result column="update_At" property="updateAt"  />
+    <result column="update_By" property="updateBy"  /> 
+    
+  </resultMap>
+  
+   
+  <resultMap id="marketSearchResult" class="marketAlias" extends="marketResult">
+  	<result column="content" property="content"  />
+    <result column="repaymentStyle" property="repaymentStyle"  />
+    <result column="timeLimit" property="timeLimit"  />
+    <result column="isday" property="isday"  />
+    <result column="username" property="receUsername"/>
+  </resultMap>
+  
+  
+	<select id="GET_BY_ID" parameterClass="Long" resultMap="marketResult">
+		SELECT * FROM TB_MARKET WHERE ID = #value#
+	</select>   
+    <select id="GET_LIST_BY_STATUS" parameterClass="int" resultClass="marketAlias">
+        select * from TB_MARKET where status=#value#
+    </select>
+	<select id="GET_LIST_BY_TENDER" parameterClass="Long" resultMap="marketResult">
+		SELECT * FROM TB_MARKET WHERE TENDER_ID = #value# AND STATUS =0
+	</select>  
+  
+  <select id="GET_LIST_BY_SEARCH" parameterClass="map" resultMap="marketSearchResult">
+	   SELECT A.*,b.content as content,b.repayment_style as repaymentStyle,b.time_limit as timeLimit,b.isday as isday,'' as username FROM TB_MARKET A inner join tb_borrow b on b.id=A.borrow_id   
+	  <isNotEmpty  property="xmztsql" prepend="and">
+	   	$xmztsql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="xmqxsql" prepend="and">
+	   	$xmqxsql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="tzsysql" prepend="and">
+	   	$tzsysql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="bzfssql" prepend="and">
+	   	$bzfssql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="xmlxsql" prepend="and">
+	   	$xmlxsql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="userId" prepend="and">
+	   	A.TENDER_USER_ID = #userId#
+	  </isNotEmpty>	
+	  
+	  
+	  ORDER BY A.`STATUS`,A.CREATED_AT DESC
+  </select>
+  
+  <select id="GET_COUNT_BY_SEARCH" parameterClass="map" resultClass="int">
+	   SELECT COUNT(0) FROM TB_MARKET A inner join tb_borrow b on b.id=A.borrow_id 	  
+	   
+	  <isNotEmpty  property="xmztsql" prepend="and">
+	   	$xmztsql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="xmqxsql" prepend="and">
+	   	$xmqxsql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="tzsysql" prepend="and">
+	   	$tzsysql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="bzfssql" prepend="and">
+	   	$bzfssql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="xmlxsql" prepend="and">
+	   	$xmlxsql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="userId" prepend="and">
+	   	A.TENDER_USER_ID = #userId#
+	  </isNotEmpty>	
+	  
+	 
+	  ORDER BY A.`STATUS`,A.CREATED_AT DESC
+  </select>
+  
+  <select id="GET_LIST_BY_SEARCH2" parameterClass="map" resultMap="marketSearchResult">
+	   SELECT A.*,b.content as content,b.repayment_style as repaymentStyle,b.time_limit as timeLimit,b.isday as isday,u.username FROM TB_MARKET A inner join tb_borrow b on b.id=A.borrow_id   
+	  inner join tb_debt_transfer d on a.id=d.marketId inner join tb_user u on d.receive_user_id=u.id
+	  <isNotEmpty  property="xmztsql" prepend="and">
+	   	$xmztsql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="xmqxsql" prepend="and">
+	   	$xmqxsql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="tzsysql" prepend="and">
+	   	$tzsysql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="bzfssql" prepend="and">
+	   	$bzfssql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="xmlxsql" prepend="and">
+	   	$xmlxsql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="userId" prepend="and">
+	   	A.TENDER_USER_ID = #userId#
+	  </isNotEmpty>	
+	  
+	  
+	  ORDER BY A.`STATUS`,A.CREATED_AT DESC
+  </select>
+  
+  <select id="GET_COUNT_BY_SEARCH2" parameterClass="map" resultClass="int">
+	   SELECT COUNT(0) FROM TB_MARKET A inner join tb_borrow b on b.id=A.borrow_id 	  
+	   
+	  <isNotEmpty  property="xmztsql" prepend="and">
+	   	$xmztsql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="xmqxsql" prepend="and">
+	   	$xmqxsql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="tzsysql" prepend="and">
+	   	$tzsysql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="bzfssql" prepend="and">
+	   	$bzfssql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="xmlxsql" prepend="and">
+	   	$xmlxsql$
+	  </isNotEmpty>
+	  <isNotEmpty  property="userId" prepend="and">
+	   	A.TENDER_USER_ID = #userId#
+	  </isNotEmpty>	
+	  
+	 
+	  ORDER BY A.`STATUS`,A.CREATED_AT DESC
+  </select>
+  
+  <insert id="SAVE_MARKET" parameterClass="marketAlias">
+  		INSERT INTO TB_MARKET(BORROW_ID, TENDER_ID, TENDER_USER_ID, TENDER_PRICE, TRANSFER_PRICE, COLLECTION_MONEY,REPAY_ORDER,
+  			REPAY_TOTAL_ORDER, BORROW_APR, BORROW_NAME, REMAINING_DAYS, `STATUS`, CREATED_AT, CREATED_BY, UPDATE_AT, UPDATE_BY)
+		VALUES(#borrowId#, #tenderId#, #tenderUserId#, #tenderPrice#, #transferPrice#, #collectionMoney#, #repayOrder#,
+			#repayTotalOrder#, #borrowApr#, #borrowName#, #remainingDays#, #status#, #createdAt#, #createdBy#, #updateAt#, #updateBy#)
+ 		 <selectKey resultClass="long" >
+ 			SELECT LAST_INSERT_ID()
+  	     </selectKey> 	
+  </insert>
+  <update id="UPDATE_UPDATESTATUSBYID" parameterClass="long">
+      UPDATE TB_MARKET set status=1 where id=#value#
+  </update>
+  <update id="UPDATE_UPDATESTATUSBYID2" parameterClass="long">
+      UPDATE TB_MARKET set status=2 where id=#value#
+  </update>
+  
+  <delete id="DELETE_TENDERID" parameterClass="long">
+		delete from TB_MARKET where tender_id=#value#
+  </delete>
+  
+   <select id="GET_LIST_BY_BORROWIDANDSTATUS" parameterClass="map" resultMap="marketResult">
+	   SELECT * FROM TB_MARKET WHERE `STATUS` = #status# AND borrow_id=#borrowId# ORDER BY ID DESC
+  </select>
+</sqlMap>

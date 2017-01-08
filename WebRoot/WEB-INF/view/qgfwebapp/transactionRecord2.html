@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+		<title>钱功夫</title>
+	</head>
+	<body class="mi">
+		<div class="title-top text-align-center">
+	          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+	          <span class="titleTitle">交易记录</span>
+	          <span class="spanWhite"></span>
+	     #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+	    #foreach($tl in $tenderList)
+	    <div class="cell4 mibgc" style="margin-top: 5%;">投资人</div><div class="cell5 mibgc">投资金额(元)</div><div class="cell6 mibgc">投资时间</div>
+	    <div class="cell4 smallfont">#if($!tl.username) $textTool.hideUsernameChar($!tl.username) #else -- #end</div><div class="cell5 smallfont">$tl.account</div><div class="cell6 smallfont">#limit($dateTool.getStr2($!tl.addtime) 10)</div>
+		#end
+	</body>
+</html>

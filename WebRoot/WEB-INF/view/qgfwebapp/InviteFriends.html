@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+		<title>钱功夫</title>
+	</head>
+	<body class="mi">
+		<div class="title-top text-align-center">
+	          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+	          <span class="titleTitle">邀请好友</span>
+	          <span class="spanWhite"></span>
+	     #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+		<div style="width: 100%;margin-top: 20%;height: 10%;">
+			<div style="margin: 0 auto;width: 90%;height: 100%;text-align: center;background-color: white;border-radius: 30px;border: 1px solid #267dff;">
+				<input type="text" name="" id="" value="${weburl}/signup.html?ref=$!session.getAttribute('userInSession').id"  class="InviteUrl"/>				
+			</div>
+		</div>
+		<div class="btn">
+    		<div>
+    			复制以上链接发送给好友
+    		</div>
+    	</div>
+	</body>
+</html>

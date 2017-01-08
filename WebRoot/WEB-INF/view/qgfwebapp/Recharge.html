@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<title>钱功夫</title>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body class="mi">
+	<div class="title-top text-align-center">
+          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+          <span class="titleTitle">充值</span>
+          <span class="spanWhite"></span>
+     #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+    	<!-- <div class="more-cell" style="margin-top: 3%;">
+    		<span style="padding-left: 5%;">银行卡</span>
+    		<span style="float: right;padding-right: 5%;">工商银行 尾号0356</span>
+        </div> -->
+        
+        <form method="post" action="${weburl}/webapp/qddApi/toLoanRecharge.html">
+        	<input type="hidden" name="moneymoremoreId" value="$!user2.moneymoremoreId">
+	        <div class="more-cell">
+	    		<span style="padding-left: 5%;">账户余额</span>
+	    		<span style="float: right;padding-right: 5%;">$!ua.moneyUsable元</span>
+	        </div>
+        
+	        <div class="form" style="margin-top: 3%;">
+	    		<label for="num" class="labelHeight">充值金额</label><div class="glass"><input type="text" name="chargeMoney" id="num" placeholder="请输入充值金额" class="inputText" onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" required="required"/></div>
+	    		<div class="tip"></div>
+	    	</div>
+	    	<div class="btn">
+	    		<input type="submit" value="提交" />
+	    	</div>
+	    	<div style='font-size: 12px;text-align: center;font-weight: bold;'>企业用户不支持快捷支付，请登录电脑端进行充值</div>
+	    </form>
+    	<script type="text/javascript">
+    		$(function(){
+    			    $("#num").blur(function(){
+    				reg=/^\d+(\.\d{1,2})?$/;
+    				var text=$(this).val();
+    				if(!text.match(reg)){
+    					$(this).parent().next(".tip").text("请输入正确的金额");
+    					$("form").submit(false);
+    				}else{
+    					$(this).parent().next(".tip").text("");
+    					$("form").off();
+    				}
+    			});
+    		});
+    	</script>
+	</body>
+</html>

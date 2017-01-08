@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="UserCaptcha" >
+  <typeAlias alias="userCaptchaAlias" type="com.dept.web.dao.model.UserCaptcha"/>
+  <resultMap id="userCaptchaResult" class="userCaptchaAlias" >
+    <result column="id" property="id"  />
+    <result column="user_id" property="userId"  />
+    <result column="phone" property="phone"  />
+    <result column="captcha" property="captcha"  />
+    <result column="type" property="type"  />
+    <result column="generate_time" property="generateTime"  />
+    <result column="expire_time" property="expireTime"  />
+  </resultMap>
+  <insert id="SAVE_USERCAPTCHA" parameterClass="userCaptchaAlias" >
+    insert into tb_user_captcha(user_id,phone,captcha,type,generate_time,expire_time)
+    values
+    (#userId#,#phone#,#captcha#,#type#,#generateTime#,#expireTime#)
+  		<selectKey resultClass="long" >
+	  		SELECT LAST_INSERT_ID()
+	   </selectKey>
+  </insert>
+ </sqlMap>

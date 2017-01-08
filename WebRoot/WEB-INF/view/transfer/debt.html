@@ -1,0 +1,243 @@
+#head()
+<body>
+	#topbar("D")
+	<style>
+	div#confirmForm{
+		position: absolute;
+		display: none;
+		width: 100%;
+		height: 100%;
+		z-index: 997;
+		top: 0;
+		left: 0;
+	}
+	#confirmForm>form{
+		display: block;
+		width: 500px;
+		height: 200px;
+		margin-top: 200px;
+		margin-left: auto;
+		margin-right: auto;
+		background-color: white;
+		border-radius: 3px;
+		border: 1px solid #d9d9d9;
+	}
+	#confirmFormTiele{
+		text-align: center;
+		height: 30px;
+		line-height: 30px;
+	}
+	#closeBtn{
+		width: 30px;
+		height: 30px;
+		line-height: 30px;
+		float: right;
+		cursor: pointer;
+	}
+	#closeBtn:hover, #closeBtn:active{
+		background-color: #d9d9d9;
+		color: white;
+	}
+	</style>
+<script type="text/javascript" >
+	function toparams(val, type){
+		if(type==1){//转让金额
+			$("#zrje").val(val);
+		}else if(type==2){
+			$("#dsbj").val(val);//待收本金
+		}else if(type==3){
+			$("#syqx").val(val);//借款利率
+		}
+		
+		$("#page").val(1);
+		
+		$("#deptForm").submit();
+	}
+
+	$(function(){
+		var filters = $(".int-tab");
+		var lines = [$("#zrje").val(),$("#dsbj").val(),$("#syqx").val()];
+		filters.each(function(index){
+			var items = $(this).children("li");
+			if(!lines[index]){
+				items.eq(1).addClass("cur");
+				return ;
+			}
+			items.eq(parseInt(lines[index]) + 1).addClass("cur");
+		});
+		
+	});
+</script>
+<script type="text/javascript">
+#if($!msg)
+		$(function(){
+			
+				alert("$!msg");
+			
+		});
+#end
+</script>	
+	<div class="wrap">
+		<form id="deptForm" name="deptForm" action="$weburl/market/search.html">
+		<div class="min-width">
+			<input type="hidden" id="syqx" name="syqx" value="$!syqx">
+			<input type="hidden" id="zrje" name="zrje" value="$!zrje">
+			<input type="hidden" id="dsbj" name="dsbj" value="$!dsbj">
+			<input type="hidden" id="page" name="page" value="$!page">
+
+			<div class="path"><a href="$weburl/index.html">首页</a> > 转让市场</div>
+			<div class="bgwhite mb20">
+
+				<div class="int-content">
+					<ul class="int-tab">
+						<li>转让金额：</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(0,1)">全部</a></span>
+						</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(1,1)">1000以下</a></span>
+						</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(2,1)">1000-5000</a></span>
+						</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(3,1)">5000-10000</a></span>
+						</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(4,1)">10000以上</a></span>
+						</li>						
+					</ul>
+					<ul class="int-tab">
+						<li>待收金额：</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(0,2)">全部</a></span>
+						</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(1,2)">1000元以下</a></span>
+						</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(2,2)">1000-3000元</a></span>
+						</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(3,2)">3000-10000元</a></span>
+						</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(4,2)">10000元以上</a></span>
+						</li>
+					</ul>
+					<ul class="int-tab">
+						<li>借款利率：</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(0,3)">全部</a></span>
+						</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(1,3)">5-7%</a></span>
+						</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(2,3)">7-10%</a></span>
+						</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(3,3)">10-15%</a></span>
+						</li>
+						<li class="seach-menu-list">
+							<span><a href="javascript:toparams(4,3)">15%以上</a></span>
+						</li>
+					</ul>
+
+				</div>
+
+			</div>
+			<div class="bgwhite mb20">
+				<div class="debt-title">
+					 <i class="icon icon-lb"></i>
+						债权转让列表
+					
+				</div>
+				<div class="debt-table">
+					<table width="100%" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+							<td class="pure-table-title">理财产品</td>
+							<td class="pure-table-title">收益率</td>
+							<td class="pure-table-title">当前还款期/总还款期</td>
+							<td class="pure-table-title">转让价格</td>
+							<td class="pure-table-title">待收金额</td>
+							<td class="pure-table-title">剩余天数</td>
+							<td class="pure-table-title" width="150"></td>
+						</tr>
+						#if($!marketPage.getResult().size()>0)
+						  #foreach($market in $!marketPage.getResult())						
+							<tr>
+								<td>$!market.borrowName</td>
+								<td>$!market.borrowApr</td>
+								<td>$!market.repayOrder/$!market.repayTotalOrder</td>
+								<td>$!market.transferPrice</td>
+								<td class="yellow">$!market.collectionMoney</td>
+								<td>$!market.remainingDays</td>
+								<td>
+									<span class="search-botton">
+										<a href="${weburl}/ybApi/assignment.html?marketId=$!market.id" class="confirm" data-id="$!market.id">接受</a>
+									</span>
+								</td>
+							</tr>
+							#end
+						#end
+					</table>
+				</div>
+				
+			</div>
+		</div>
+		</form>
+	</div>
+	<div id="confirmForm">
+		<form action="" name="">
+			<div id="confirmFormTiele">xxxx title
+				<div id="closeBtn" title="点我关闭">X</div>
+			</div>
+			<input type="text" name="mid" id="mid" value="">
+			<button type="button" id="confirmFormSubmit">提交</button>
+		</form>
+	</div>
+	<script>
+	$(".int-content").hide().eq(0).show();
+	$(".apt-tab li").removeClass("cur").eq(0).addClass("cur");
+	$(".apt-tab li").each(function(index, element) {
+		$(element).on("click",function(){
+		$(".apt-tab li").removeClass("cur").eq(index).addClass("cur");
+		$(".int-content").hide().eq(index).show();
+		}) 
+	});
+	/* $('a.confirm').on('click', function(){
+		var id = $(this).data('id');
+		//console.log(id, typeof id);
+		$('#mid').val(id);
+		if(confirm('确定接受？')){
+			jQuery.ajax({
+				'url': '$weburl/dept/acpmarket.html',
+				'type': 'post',
+				'dataType': 'html',
+				'data': {
+					'marketId': id, 
+				},
+				success: function(res){
+					console.log(res);
+					if(res == '1'){
+						alert('接受成功');
+						window.location.reload();
+					}else if(res=='5'){
+						alert('请先登录');
+						window.location.href  = '$weburl/tologin.html';
+					}else{
+						alert('接受失败');
+					}
+					
+				},
+				error: function(err){
+					alert('网络问题，请稍后重试！');
+				}
+			})
+		}
+	}); */
+</script>	
+	#foot()
+</body>
+</html>

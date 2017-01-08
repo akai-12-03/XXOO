@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta charset="utf-8" />
+    <meta content="yes" name="apple-mobile-web-app-capable" />
+    <meta content="yes" name="apple-touch-fullscreen" />
+    <meta content="telephone=no" name="format-detection" />
+    <meta content="black" name="apple-mobile-web-app-status-bar-style">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="MobileOptimized" content="320" />
+    <link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css" />
+    <title>钱功夫</title>
+    <script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+    <script src="${weburl}/src/js/v-form.js" type="text/javascript" charset="utf-8"></script>
+    <style>
+    .list-item {
+        padding: 5px 0;
+        border-bottom: 1px solid #e1e1e1;
+    }
+    
+    .btn {
+        color: white;
+        background-color: #267dff;
+        padding: 8px 20px;
+        font-size: 12px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+        width: 33%;
+        text-align: center;
+        margin-top: 0 !important;
+        position: relative;
+        right: 7px;
+    }
+    .giveup{
+        color: white;
+        background-color: #267dff;
+        padding: 8px 20px;
+        font-size: 12px;
+        text-decoration: none;
+        border-radius: 5px;
+        display: inline-block;
+        width: 33%;
+        text-align: center;
+        margin-top: 0 !important;
+        position: relative;
+        right: 7px;
+    }
+    
+    .tab-header > li {
+        float: left;
+        width: 33.33%;
+        text-align: center;
+        list-style: none;
+        background-color: #6B9CC6;
+        border-radius: 10px;
+    }
+    
+    .active {
+        background-color: orange !important;
+    }
+    
+    .tab-header > li > a {
+        color: white;
+        text-decoration: none;
+    }
+    
+    .box {
+        position: absolute;
+        width: 70%;
+        left: 15%;
+        height: 300px;
+        background-color: white;
+        box-shadow: 0 0 1px 1px #dcdcdc;
+        z-index: 999;
+        display: none;
+    }
+    
+    .mask {
+        position: absolute;
+        left: 0;
+        top: 0;
+        background-color: #000000;
+        opacity: .6;
+        width: 100%;
+        z-index: 998;
+        display: none;
+    }
+    
+    .showTip {
+        display: inline-block;
+        width: 45%;
+        text-align: right;
+    }
+    
+    .showTipGlass {
+        padding: 10px 0;
+    }
+    
+    .btn2 {
+        display: inline-block;
+        width: 40%;
+        background-color: #3B83C0;
+        color: white;
+        border-radius: 3px;
+        text-decoration: none;
+    }
+    </style>
+    <script>
+    $(function() {
+        new vForm({});
+        $(".mask").css("height", $(document).height() + "px");
+        $(".box").css("top", ($(window).height() - 300) / 2 + "px");
+        $(".btn").on("click", function() {
+            var slist = $(this).parent().prev().children();
+            $("#assName").text(slist[0].innerHTML);
+            $("#assPas").text(slist[1].innerHTML);
+            $("#waitM").text(slist[2].innerHTML);
+            $("#waitSm").text(slist[3].innerHTML);
+            $("#tenderId").val(slist[4].innerHTML);
+            $(".mask").show();
+            $(".box").show();
+        });
+        $(".mask").on("click", function() {
+            $(".mask").hide();
+            $(".box").hide();
+        });
+        $(".list-onclick").on("click", function() {
+            var a = $(this).siblings().filter(".list-onclick");
+            a.css("backgroundColor", "#e1e1e1");
+            a.next().css("display", "none");
+            $(this).css("backgroundColor", "white");
+            $(this).next().fadeIn();
+        });
+        $(".giveup").on("click",function(){
+            var flag=confirm("确定取消转让吗?");
+            if(flag===true){
+                $(this).attr("href",$(this).attr("data-href"));
+            }else{
+                $(this).attr("href","javascript:void(0);");
+            }
+        });
+    });
+    </script>
+</head>
+
+<body class="mi">
+    <div class="mask"></div>
+    <div class="box">
+        <form action="${weburl}/webapp/myhome/addmarket.html" id="form">
+            <input type="hidden" id="tenderId" name="id" value="" />
+            <div class="showTipGlass">
+                <span class="showTip">名称：</span>
+                <span id="assName"></span>
+            </div>
+            <div class="showTipGlass">
+                <span class="showTip">预期收益率：</span>
+                <span id="assPas"></span>
+            </div>
+            <div class="showTipGlass">
+                <span class="showTip">待收金额：</span>
+                <span id="waitM"></span>
+            </div>
+            <div class="showTipGlass">
+                <span class="showTip">待收利息：</span>
+                <span id="waitSm"></span>
+            </div>
+            <div class="showTipGlass" style="position: relative;">
+                <span class="showTip">转让价格：</span>
+                <input type="text" id="money" name="newprice" required="required" style="width:30%;border-bottom: 1px solid #666;">
+                <div class="tip" style="position: absolute;left: 48%;font-size: 12px;color: red;"></div>
+            </div>
+            <div style="text-align: center;padding-top: 50px;">
+                <button type="submit" class="btn2">确定</button>
+            </div>
+        </form>
+    </div>
+    <div class="title-top text-align-center">
+        <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'" /> <span class="titleTitle">债权转让</span> <span class="spanWhite"></span> #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+    <div style="width: 100%;margin-top: 3%;height: 5%;">
+        <div style="margin: 0 auto;width: 100%;height: 100%;">
+            <ul class="user-nav-tabs-top tab-header clearfix">
+                <li #if($mt==31) class="item active" #else class="item active" #end data-tab="1"><a href="${weburl}/webapp/myhome/tenderSearch.html">可转让债权</a>
+                </li>
+                <li #if($mt==32) class="item active" #else class="item" #end data-tab="2"><a href="${weburl}/webapp/myhome/marketsearch.html">已转让债权</a>
+                </li>
+                <li #if($mt==33) class="item active" #else class="item" #end data-tab="3"><a href="${weburl}/webapp/myhome/debtTransferSearch.html">已承接债权</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div style='font-size: 12px;text-align: center;font-weight: bold;color:#999;'>1.逾期标不可转让<br>2.部分或全部本金已经还款的标不支持债权转让<br>3.部分标不属于可转让类型则不支持放入转让市场<br>
+        4.已承接的转让不得进行二次转让</div>
+    <div class="list-item" style="margin-top: 3%; font-size: 0;">
+        <div>名称</div>
+        <div>预期收益率</div>
+        <div>待收金额</div>
+        <div>待收利息</div>
+    </div>
+    #foreach($borrow in ${borrowPage.result})
+    <div class="list-item list-onclick" style="font-size: 0;">
+        <div>#if ($!borrow.borrow_name.length()>=10) #limit($!borrow.borrow_name 8).. #else $!borrow.borrow_name #end
+        </div>
+        <div>$!borrow.apr%</div>
+        <div>$numberTool.format($borrow.waitAccount)</div>
+        <div>$numberTool.format($borrow.waitInterest)</div>
+        <div style="display: none">$!borrow.id</div>
+    </div>
+    <div class="list-item" style="font-size: 0; text-align: right; display: none; background-color: white;">
+        #if($!borrow.transfer==0)
+        <a class="btn">放入转让市场</a> #elseif($!borrow.transfer==1)
+        <a class="giveup" data-href="$weburl/webapp/myhome/delMarket.html?tenderId=$!borrow.id">取消转让</a> #end
+    </div>
+    #end
+    <!-- <div class="list-item list-onclick" style="font-size: 0;">
+<div>
+    钱功夫01
+</div>
+<div>
+    6.5%
+</div>
+<div>
+    35.00
+</div>
+<div>
+    2015-6-30
+</div>
+</div>
+<div class="list-item" style="font-size: 0;text-align: right;display: none;background-color: white;">
+<a href="" class="btn">转让</a>
+</div> -->
+    <!--<div class="list-item list-onclick" style="font-size: 0;">-->
+    <!--<div>11</div>-->
+    <!--<div>22</div>-->
+    <!--<div>33</div>-->
+    <!--<div>44</div>-->
+    <!--</div>-->
+    <!--<div class="list-item"-->
+    <!--style="font-size: 0; text-align: right; display: none; background-color: white;">-->
+    <!--<a class="btn">放入转让市场</a>-->
+    <!--</div>-->
+    <!--<div class="list-item list-onclick" style="font-size: 0;">-->
+    <!--<div>11</div>-->
+    <!--<div>22</div>-->
+    <!--<div>33</div>-->
+    <!--<div>44</div>-->
+    <!--</div>-->
+    <!--<div class="list-item"-->
+    <!--style="font-size: 0; text-align: right; display: none; background-color: white;">-->
+    <!--<a class="btn">放入转让市场</a>-->
+    <!--</div>-->
+    <form id="borrowForm" name="borrowForm" action="${weburl}/webapp/myhome/tenderSearch.html">
+        <input type="hidden" id="page" name="page" />#pagination($borrowPage 'borrowForm')
+    </form>
+</body>
+
+</html>

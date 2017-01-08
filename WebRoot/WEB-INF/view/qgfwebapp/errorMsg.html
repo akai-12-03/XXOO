@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+		<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<title>钱功夫</title>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+<body>
+	<script>
+		;"use strict";
+		$(function(){
+			var D=5,a=$("#second"),s=D;
+			a.text(D);
+			window.setInterval(function(){
+			--s;a.text(s);if(0>=s){window.location.href= $("#jump-center").attr("href");s=D;}
+			},1000);
+		});
+	</script>
+		<div class="wrap">
+			<div class="mid-width text-center" style="margin:50px 0px; text-align:center">
+				<h2>
+					<i class="iconify icon-okay"></i>
+					<span class="red" style="font-size:24px; padding:15px 0px;">$!errorMsg </span><span id="second">5</span>秒后跳转到<a id="jump-center" href="${weburl}/webapp/myhome/user-index.html">个人中心</a>
+				</h2>
+				<div>
+					<span>如果没有跳转，请<a style="color:blue" href="${weburl}/webapp/myhome/user-index.html">点击这里</a></span>
+					<span>或者<a style="color:blue" href="${weburl}/webapp/index.html">跳转到首页</a>
+				</div>
+			</div>
+		</div>
+</body>
+</html>

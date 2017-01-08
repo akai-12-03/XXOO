@@ -1,0 +1,30 @@
+#topbar("G");
+#user_sidebar("22")
+			<div class="user-page">
+				<div class="user-profile">
+					<nav class="user-nav-tabs">
+						<a class="active">开启授权</a>
+					</nav>
+					<form class="pure-form form  recharge" method="post" action="$weburl/qddApi/loanAuthorize.html" id="tmoney-form">
+						 <input type="hidden" name="MoneymoremoreId" value="$user.moneymoremoreId">
+						
+						<span class="field mt15" style="margin-left:-110px;">
+                          <button class="pure-button button-primary" id="tmoney-sub">授权</button>
+                        </span>
+					</form>
+				#if($!errormsg)
+				<div id="tipBox" style="display:block;">
+					<header class="clearfix"><a href="javascript:closewin()" class="close_btn">X</a></header>
+					<div class="tip-content">
+						<p>#if($!errormsg.indexOf("成功")>0) <i class="icon icon-success"></i> #else <i class="icon icon-fail"></i> #end &nbsp;$!errormsg</p>
+					</div>
+				</div>
+				<div class="mask" style="display:block"></div>
+				#end
+				</div>
+			</div>
+		</div>
+#foot()
+		<script>
+			seajs.use('myhome');
+		</script>

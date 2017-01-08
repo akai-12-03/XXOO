@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="City" >
+  <typeAlias alias="cityAlias" type="com.dept.web.dao.model.City"/>
+  <resultMap id="cityResult" class="cityAlias" >
+    <result column="id" property="id"  />
+    <result column="city_id" property="cityId"  />
+    <result column="city" property="city"  />
+    <result column="parent_id" property="parentId"  />
+  </resultMap>
+  
+  <select id="GET_LIST_BY_SEARCH" parameterClass="map" resultMap="cityResult">
+	select * from tb_city 
+		WHERE 1=1
+	   <isNotEmpty  property="parentId" prepend="and">
+	   	parent_id = #parentId#
+	  </isNotEmpty>
+	  order by city desc
+  </select>
+</sqlMap>

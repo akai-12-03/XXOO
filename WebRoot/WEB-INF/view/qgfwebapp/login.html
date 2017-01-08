@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta charset="utf-8" />
+		<meta content="yes" name="apple-mobile-web-app-capable"/>
+		<meta content="yes" name="apple-touch-fullscreen"/>
+		<meta content="telephone=no" name="format-detection"/>
+		<meta content="black" name="apple-mobile-web-app-status-bar-style">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<meta name="MobileOptimized" content="320"/>
+		<script src="${weburl}/dist/libs/jquery.js"></script>
+		<link rel="stylesheet" type="text/css" href="${weburl}/dist/css/style.min.css"/>
+		<title>钱功夫</title>
+		<script>
+			var ROOT_URL = '${weburl}';
+			var seajsEnv = {
+				'mode': 'development',
+				'debug': true
+			};
+		</script>
+		<script src="${weburl}/dist/libs/jquery.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="${weburl}/dist/libs/sea.js" ></script>
+		<script type="text/javascript" src="${weburl}/dist/src/js/config.js" ></script>
+		<script src="${weburl}/dist/js/index.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body class="mi">
+	<div class="title-top text-align-center">
+          <img src="${weburl}/dist/images/back.png" height="90%" class="title-top-i1" onclick="window.location.href='javascript:history.back(-1)'"/>
+          <span class="titleTitle">登录</span>
+          <span class="spanWhite"></span>
+    #rightmenu()
+    </div>
+    <div class="glassMode" onclick="closeRight()"></div>
+    <form id="signup-form" action="${weburl}/webapp/login.html" method="post">
+	    	<div class="form" style="margin-top: 10%;">
+	    		<label for="telphone" class="labelHeight">帐号</label><div class="glass"><input type="text" name="telphone" id="telphone" data-validator="telphone" placeholder="手机号" class="inputText"/></div>
+	    		<div class="tip"></div>
+	    	</div>
+	    	<div class="form">
+	    		<label for="password" class="labelHeight">密码</label><div class="glass"><input type="password" name="password" id="password" data-validator="password" placeholder="请输入密码" class="inputText"/></div>
+	    		<div class="tip"></div>
+	    	</div>
+	    	<div style="color: red;text-align: center;margin-top: 3%;">#if($!msg) $!msg #end</div>
+	    	<div class="btn">
+                 <input type="submit" name="" id="" value="登录" />
+	    	</div>
+	    	<div style="margin-top: 1%;width: 100%;">
+	    		<div style="text-align: right;margin: 0 auto;width: 90%;color: #666666;font-size: 14px;"><span onclick="window.location.href='${weburl}/webapp/forgetpassword.html'">忘记密码？</span></div>
+	    	</div>
+	    	<div class="lineDiv"><i class="line" style="background-image: url(${weburl}/dist/images/line.png);"></i><span>加入我们赚钱喽!</span><i class="line" style="background-image: url(${weburl}/dist/images/line.png);"></i></div>
+	    	<div class="btn">
+	    		<div class="orange" onclick="window.location.href='${weburl}/webapp/signup.html'">
+	    			新用户注册
+	    		</div>
+	    	</div>
+    </form>
+    <script>
+        	seajs.use('signup');
+    </script>
+    <script type="text/javascript">
+    	//打开侧边栏同时打开中部透明模版
+		function openRight(){
+		//侧边栏margin-top顶部菜单栏 暂时不启用
+		//	var height=$(".title-top").height()+2;
+		//	$(".fixTitle").css("margin-top",height);
+		    $(".glassMode").css("display","inline-block");
+			var width=$(document).width();
+			var endWidth=(width*0.3-40)/2;
+			$(".fixTitle").css("display","inline-block");
+			$(".fixTitle i").css("margin-left",endWidth);
+			$(".fixTitle").animate({width:"30%"})
+		}
+		function closeRight(){
+			$(".glassMode").css("display","none");
+			$(".fixTitle").animate({width:"0%"})
+		}
+	    </script>
+	</body>
+</html>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="Bank" >
+  <typeAlias alias="bankAlias" type="com.dept.web.dao.model.Bank"/>
+  <resultMap id="bankResult" class="bankAlias" >
+    <result column="id" property="id"  />
+    <result column="bank_img" property="bankImg"  />
+    <result column="abbreviation" property="abbreviation"  />
+    <result column="bank_name" property="bankName"  />
+    <result column="status" property="status"  />
+    <result column="created_at" property="createdAt"  />
+    <result column="updated_at" property="updatedAt"  />
+  </resultMap>
+	
+	<select id="GET_LIST_BY_QUERYALLBAK" resultMap="bankResult">
+		select * from tb_bank where status=1;
+	</select>
+	
+	<select id="GET_BY_QUERYALLBAKBANKNAME" parameterClass="Long" resultMap="bankResult">
+		select * from tb_bank WHERE id=#id# and status=1;
+	</select>
+	
+</sqlMap>

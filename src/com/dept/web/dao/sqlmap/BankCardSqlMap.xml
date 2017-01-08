@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE sqlMap PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN" "http://ibatis.apache.org/dtd/sql-map-2.dtd" >
+<sqlMap namespace="BankCard">
+	<typeAlias alias="bankCardAlias" type="com.dept.web.dao.model.BankCard" />
+	<resultMap id="bankCardResult" class="bankCardAlias">
+		<result column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="province" property="province" />
+		<result column="city" property="city" />
+		<result column="bank_id" property="bankId" />
+		<result column="bank_name" property="bankName" />
+		<result column="bank_detail" property="bankDetail" />
+		<result column="card_id" property="cardId" />
+		<result column="card_no" property="cardNo" />
+		<result column="status" property="status" />
+		<result column="created_at" property="createdAt" />
+		<result column="updated_at" property="updatedAt" />
+	</resultMap>
+	<resultMap class="bankCardAlias" id="bankUserResult" extends="bankCardResult">
+		<result column="username" property="username"  />
+	   	<result column="id_card" property="idcard"  />
+	  </resultMap>
+
+	<select id="GET_LIST_BY_QUERYALL" parameterClass="map" resultMap="bankUserResult">
+		select b.*,u.username as username,u.id_card as idcard from tb_user u,tb_bank_card b where b.user_id=u.id
+	</select>
+	<insert id="SAVE_BANKCARD" parameterClass="bankCardAlias">
+		insert into tb_bank_card
+		(user_id,province,city,bank_id,bank_name,bank_detail,
+		card_id,card_no,status,created_at,updated_at)
+		values
+		(#userId#,#province#,#city#,#bankId#,#bankName#,#bankDetail#,
+		#cardId#,#cardNo#,#status#,#createdAt#,#updatedAt#)
+		<selectKey resultClass="long">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+	</insert>
+	<update id="UPDATE_BANKCARD" parameterClass="bankCardAlias">
+		update tb_bank_card
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="userId">
+				user_id = #userId#
+			</isNotNull>
+			<isNotNull prepend="," property="province">
+				province =
+				#province#
+			</isNotNull>
+			<isNotNull prepend="," property="city">
+				city =
+				#city#
+			</isNotNull>
+			<isNotNull prepend="," property="bankId">
+				bank_id =
+				#bankId#
+			</isNotNull>
+			<isNotNull prepend="," property="bankName">
+				bank_name = #bankName#
+			</isNotNull>
+			<isNotNull prepend="," property="bankDetail">
+				bank_detail = #bankDetail#
+			</isNotNull>
+			<isNotNull prepend="," property="cardId">
+				card_id = #cardId#
+			</isNotNull>
+			<isNotNull prepend="," property="cardNo">
+				card_no = #cardNo#
+			</isNotNull>
+			<isNotNull prepend="," property="status">
+				status = #status#
+			</isNotNull>
+			<isNotNull prepend="," property="createdAt">
+				created_at = #createdAt#
+			</isNotNull>
+			<isNotNull prepend="," property="updatedAt">
+				updated_at = #updatedAt#
+			</isNotNull>
+		</dynamic>
+		where id = #id#
+	</update>
+	
+	<update id="UPDATE_BANKCARD_BY_USER" parameterClass="bankCardAlias">
+		update tb_bank_card
+		<dynamic prepend="set">
+			<isNotNull prepend="," property="userId">
+				user_id = #userId#
+			</isNotNull>
+			<isNotNull prepend="," property="province">
+				province =
+				#province#
+			</isNotNull>
+			<isNotNull prepend="," property="city">
+				city =
+				#city#
+			</isNotNull>
+			<isNotNull prepend="," property="bankId">
+				bank_id =
+				#bankId#
+			</isNotNull>
+			<isNotNull prepend="," property="bankName">
+				bank_name = #bankName#
+			</isNotNull>
+			<isNotNull prepend="," property="bankDetail">
+				bank_detail = #bankDetail#
+			</isNotNull>
+			<isNotNull prepend="," property="cardId">
+				card_id = #cardId#
+			</isNotNull>
+			<isNotNull prepend="," property="cardNo">
+				card_no = #cardNo#
+			</isNotNull>
+			<isNotNull prepend="," property="status">
+				status = #status#
+			</isNotNull>
+			<isNotNull prepend="," property="createdAt">
+				created_at = #createdAt#
+			</isNotNull>
+			<isNotNull prepend="," property="updatedAt">
+				updated_at = #updatedAt#
+			</isNotNull>
+		</dynamic>
+		where user_id = #userId#
+	</update>
+	
+	<select id="GET_LIST_BY_USERID" parameterClass="Long" resultMap="bankCardResult">
+		select * from tb_bank_card where user_id = #value#
+	</select>
+	<select id="GET_BY_CARDNO" parameterClass="String" resultMap="bankCardResult">
+		select * from tb_bank_card where card_no = #value#
+	</select>
+	<delete id="DELETE_BY_ID" parameterClass="int">
+		delete from tb_bank_card where id=#bankcardid#
+	</delete>
+	
+	<delete id="DELETE_BY_USER_ID" parameterClass="long">
+		delete from tb_bank_card where user_id=#userId#
+	</delete>
+	<select id="GET_BY_BANKCARDID" parameterClass="int" resultMap="bankCardResult">
+		select * from tb_bank_card where id = #value#
+	</select>
+	 <select id="GET_LIST_BY_USER1" parameterClass="long" resultMap="bankCardResult">
+     SELECT B.*,C.bank_name AS bankName2 FROM TB_USER A, TB_BANK_CARD B,TB_BANK C  WHERE A.ID = B.USER_ID AND b.bank_id = C.id AND A.ID = #value# 
+ 	 </select>
+</sqlMap>

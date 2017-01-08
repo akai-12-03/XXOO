@@ -1,0 +1,4 @@
+/*! Tomcat360.com (c) 2015 
+	Author: Renzhao
+*/
+"use strict";define("aboutus",["jQuery"],function(i){var s=i("jQuery");s(function(){s(".about-tab > a").click(function(){s(this).addClass("active").siblings().removeClass("active");var i=s(".about-tab > a").index(this);s(".aboutus-content > .content-item").eq(i).show().siblings().hide()}),s(".question-list").each(function(i){s(".question-list").eq(i).click(function(){s(".question-list .answer").eq(i).is(":visible")?(s(".question-list").eq(i).find("img").attr("src","../public/images/arrow-right.png").css({width:"15px",height:"24px"}),s(".answer").eq(i).css("display","none")):(s(".question-list").eq(i).find("img").attr("src","../public/images/arrow-slide.png").css({width:"24px",height:"16px"}),s(".answer").eq(i).css("display","block"))})})})});

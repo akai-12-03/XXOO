@@ -1,0 +1,147 @@
+#topbar("G")
+#user_sidebar("13")
+			<div class="user-page">
+				<div class="user-profile bankCard">
+					<nav class="user-nav-tabs">
+						<a class="active">银行卡</a>
+					</nav>
+					<div class="card-width">
+					#if($!user.cardBindingStatus==1)
+						<div class="bank1 add1">
+							<p>$!bankCard.bankName</p>
+							<p>$!textTool.hideUsernameChar($!bankCard.cardNo)</p>
+							<p class="card-action">
+								<a href="${weburl}/bankBind.html?flag=toUpd">修改</a>
+								<a href="${weburl}/bankBind.html?flag=del">删除</a>
+							</p>
+						</div>
+					#else
+						<div class="bank1 add1 add-bg" id="addCard">
+							<a class="addCard">+</a>
+							<p class="card-add">
+								<a>添加银行卡</a>
+							</p>
+						</div>
+					#end
+						<div class="card-form" #if($!flag=="toUpd") style="display:block" #else style="display:none" #end>
+							<h3>添加银行卡</h3>
+							<form class="pure-form form" method="post" action="${weburl}/bankBind.html" id="common-form">
+								<input type="hidden" name="id" value="$!bankCard.id">
+								#if($!flag=="toUpd")
+								<input type="hidden" name="flag" value="upd"></input>
+								#else
+								<input type="hidden" name="flag" value="add"></input>
+								#end
+								<div class="field">
+									<label><span class="red">*</span>选择银行</label>
+									<select name="bankName">
+										#foreach($bank in $!bankList)
+										 	<option #if($!bankCard.bankId == $!bank.id) selected = 'selected' #end value="$!bank.id">$!bank.bankName</option>
+										#end
+									</select>
+								</div>
+								<div class="field">
+									<label><span class="red">*</span>开户行省份</label>
+									<select name="province" id="province">
+										#foreach($Province in $!provinceList)
+										 	<option #if($!bankCard.province == $!Province.cityId) selected = 'selected' #end value="$!Province.cityId">$!Province.city</option>
+										#end
+									</select>
+								</div>
+								<div class="field">
+									<label><span class="red">*</span>开户行城市</label>
+									<select name="city" id="city">
+										#foreach($city in $!cityList)
+										 	<option value="$!city.cityId">$!city.city</option>
+										#end
+									</select>
+								</div>
+								<div class="field">
+									<label><span class="red">*</span>开户行支行名称</label>
+									<input name="bankDetail" value="$!bankCard.bankDetail" type="text" required>
+								</div>
+								<div class="field">
+									<label><span class="red">*</span>银行卡号</label>
+									<input name="cardNo" value="$!bankCard.cardNo" type="text" required>
+								</div>
+								<div class="field">
+									<label><span class="red">*</span>确认卡号</label>
+									<input name="recardNo" value="$!bankCard.cardNo" type="text" required>
+								</div>
+								<div class="field">
+									<label><span class="red">*</span>银行卡类型</label>
+									<select>
+										<option>借记卡</option>
+									</select>
+								</div>
+								<div class="field">
+									<button class="pure-button button-primary">确定</button>
+									<button type="button" class="pure-button button-primary-gray" style="margin-left:8px;" onclick="javascript:window.location.href='${weburl}/bankBind.html'">取消</button>
+								</div>
+							</form>
+						</div>
+					</div>
+					<div class="text">
+						<h3>温馨提示</h3>
+						<p>1、如果您填写的开户行支行不正确，可能将无法成功提现，由此产生的提现费用将不予返还。
+							<br> 2、如果您不确定开户行支行名称，可打电话到所在地银行的营业网点询问或上网查询。
+							<br> 3、不支持提现至信用卡账户。
+							<br> 4、通过微信端快捷支付充值的金额只能提现至与充值银行卡号相同的银行卡
+						</p>
+					</div>
+				#if($!msg)
+				<div id="tipBox" style="display:block;">
+					<header class="clearfix"><a href="javascript:closewin()" class="close_btn">X</a></header>
+					<div class="tip-content">
+						<p>#if($!msg.indexOf("成功")>0) <i class="icon icon-success"></i> #else <i class="icon icon-fail"></i> #end &nbsp;$!msg</p>
+					</div>
+				</div>
+				<div class="mask" style="display:block"></div>
+				#end
+				</div>
+			</div>
+		</div>
+#foot()
+		<script>
+			seajs.use('myhome');
+			$(function(){
+				$("#addCard").click(function(){
+					$(".card-form").show();
+				})
+				/*
+				  ajax二级联动省市by gwx 20160225
+				*/
+				$("#province").change(function(){
+					jQuery.ajax({   
+				    url:'${weburl}/getCityByParent.html',   
+				    type:'post',   
+				    data:{parentId:$("#province").val()},
+				    dataType:'json',   
+				    success:function(data){
+				    	$("#city").empty();//清空select
+				    	jQuery.each(data,function(n,value){
+				    		$("#city").append("<option value='"+value.cityId+"'"+">"+value.city+"</option>");
+						});
+				    }});
+				})
+			})
+		</script>
+		
+		<script  defer="defer">
+			if($("#province").val()!=null&&$("#province").val()!=""){
+			jQuery.ajax({   
+		    url:'${weburl}/getCityByParent.html',   
+		    type:'post',   
+		    data:{parentId:$("#province").val()},
+		    dataType:'json',   
+		    success:function(data){
+		    	jQuery.each(data,function(n,value){
+		    		if($!bankCard.city==value.cityId){
+		    			$("#city").append("<option value='"+value.cityId+"'"+"selected = 'selected'>"+value.city+"</option>");
+		    		}else{
+		    			$("#city").append("<option value='"+value.cityId+"'"+">"+value.city+"</option>");
+		    		}
+				});
+		    }});
+			}
+		</script>

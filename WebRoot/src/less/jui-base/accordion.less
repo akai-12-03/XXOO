@@ -1,0 +1,55 @@
+@charset: "utf-8";
+
+ul.accordion{
+	list-style: none;
+	padding-left: 0;
+	font-size: 15px;
+	>li{
+		list-style: none;
+		display: block;
+		height: auto;
+		line-height: 1;
+		.accordion-title{
+        border-bottom: 1px solid #434343;
+		height: 60px;
+		line-height: 60px;
+		color: #888;
+		position: relative;
+		cursor: pointer;
+		&:after{
+				position: absolute;
+				right: 20px;
+				content: "+";
+				font-size: 20px;
+			}
+		}
+		&.active{
+			>.accordion-title{
+				color: #a98300;
+
+				&:after{
+					content: "-";
+				}
+			}
+		}
+		>ul{
+			position: relative;
+			display: none;
+			height: auto;
+			background: #232529;
+			padding: 10px 0 20px 0;
+			border-bottom: 1px solid #434343;
+			>li{
+				color: #888;
+			line-height: 30px;
+			padding-left: 50px;
+			a{
+				color: #888;
+				&:hover{
+					color: #a98300;
+				}
+			}
+			}
+		}
+	}
+}
